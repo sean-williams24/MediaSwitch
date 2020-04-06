@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3428F760640D75BFECECFC6 /* Pods_CDSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */; };
 		CEB98F4B243B95630028FED3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F4A243B95630028FED3 /* AppDelegate.swift */; };
 		CEB98F4D243B95630028FED3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F4C243B95630028FED3 /* SceneDelegate.swift */; };
 		CEB98F4F243B95630028FED3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F4E243B95630028FED3 /* ViewController.swift */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		15D9F9DF64BF008A1BC2680D /* Pods-CDSaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.release.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.release.xcconfig"; sourceTree = "<group>"; };
+		8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CDSaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB98F47243B95630028FED3 /* CDSaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CDSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB98F4A243B95630028FED3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEB98F4C243B95630028FED3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		CEB98F53243B95650028FED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEB98F56243B95650028FED3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEB98F58243B95650028FED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3A04432AB4F8BF8F02068C9 /* Pods-CDSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.debug.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3428F760640D75BFECECFC6 /* Pods_CDSaver.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4052E3B5702B54D42F955EA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E3A04432AB4F8BF8F02068C9 /* Pods-CDSaver.debug.xcconfig */,
+				15D9F9DF64BF008A1BC2680D /* Pods-CDSaver.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		CEB98F3E243B95630028FED3 = {
 			isa = PBXGroup;
 			children = (
 				CEB98F49243B95630028FED3 /* CDSaver */,
 				CEB98F48243B95630028FED3 /* Products */,
+				C4052E3B5702B54D42F955EA /* Pods */,
+				DDD1451BF362803F69ECD789 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +84,14 @@
 			path = CDSaver;
 			sourceTree = "<group>";
 		};
+		DDD1451BF362803F69ECD789 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +99,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CEB98F5B243B95650028FED3 /* Build configuration list for PBXNativeTarget "CDSaver" */;
 			buildPhases = (
+				783AD6A59F2D3A4074B4BAD8 /* [CP] Check Pods Manifest.lock */,
 				CEB98F43243B95630028FED3 /* Sources */,
 				CEB98F44243B95630028FED3 /* Frameworks */,
 				CEB98F45243B95630028FED3 /* Resources */,
+				3463A650C6E1BC984EB6C643 /* [CP] Embed Pods Frameworks */,
+				3CA5E0103D5EB0907A0E5A8D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -132,6 +160,65 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3463A650C6E1BC984EB6C643 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CDSaver/Pods-CDSaver-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CDSaver/Pods-CDSaver-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CDSaver/Pods-CDSaver-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3CA5E0103D5EB0907A0E5A8D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CDSaver/Pods-CDSaver-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CDSaver/Pods-CDSaver-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CDSaver/Pods-CDSaver-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		783AD6A59F2D3A4074B4BAD8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CDSaver-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CEB98F43243B95630028FED3 /* Sources */ = {
@@ -282,6 +369,7 @@
 		};
 		CEB98F5C243B95650028FED3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E3A04432AB4F8BF8F02068C9 /* Pods-CDSaver.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +388,7 @@
 		};
 		CEB98F5D243B95650028FED3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15D9F9DF64BF008A1BC2680D /* Pods-CDSaver.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
