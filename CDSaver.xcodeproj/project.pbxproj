@@ -10,11 +10,13 @@
 		B3428F760640D75BFECECFC6 /* Pods_CDSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */; };
 		CEB98F4B243B95630028FED3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F4A243B95630028FED3 /* AppDelegate.swift */; };
 		CEB98F4D243B95630028FED3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F4C243B95630028FED3 /* SceneDelegate.swift */; };
-		CEB98F4F243B95630028FED3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F4E243B95630028FED3 /* ViewController.swift */; };
+		CEB98F4F243B95630028FED3 /* SpotifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F4E243B95630028FED3 /* SpotifyVC.swift */; };
 		CEB98F52243B95630028FED3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB98F50243B95630028FED3 /* Main.storyboard */; };
 		CEB98F54243B95650028FED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB98F53243B95650028FED3 /* Assets.xcassets */; };
 		CEB98F57243B95650028FED3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB98F55243B95650028FED3 /* LaunchScreen.storyboard */; };
 		CEB98F5F243C5FDF0028FED3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEB98F5E243C5FDF0028FED3 /* GoogleService-Info.plist */; };
+		CEB98F61243C63AB0028FED3 /* ScaledElementProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */; };
+		CEB98F63243C64530028FED3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F62243C64530028FED3 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,12 +25,14 @@
 		CEB98F47243B95630028FED3 /* CDSaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CDSaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB98F4A243B95630028FED3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEB98F4C243B95630028FED3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CEB98F4E243B95630028FED3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CEB98F4E243B95630028FED3 /* SpotifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyVC.swift; sourceTree = "<group>"; };
 		CEB98F51243B95630028FED3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CEB98F53243B95650028FED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEB98F56243B95650028FED3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEB98F58243B95650028FED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEB98F5E243C5FDF0028FED3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledElementProcessor.swift; sourceTree = "<group>"; };
+		CEB98F62243C64530028FED3 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E3A04432AB4F8BF8F02068C9 /* Pods-CDSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.debug.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,7 +80,9 @@
 			children = (
 				CEB98F4A243B95630028FED3 /* AppDelegate.swift */,
 				CEB98F4C243B95630028FED3 /* SceneDelegate.swift */,
-				CEB98F4E243B95630028FED3 /* ViewController.swift */,
+				CEB98F4E243B95630028FED3 /* SpotifyVC.swift */,
+				CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */,
+				CEB98F62243C64530028FED3 /* ViewController.swift */,
 				CEB98F50243B95630028FED3 /* Main.storyboard */,
 				CEB98F53243B95650028FED3 /* Assets.xcassets */,
 				CEB98F55243B95650028FED3 /* LaunchScreen.storyboard */,
@@ -228,7 +234,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEB98F4F243B95630028FED3 /* ViewController.swift in Sources */,
+				CEB98F63243C64530028FED3 /* ViewController.swift in Sources */,
+				CEB98F4F243B95630028FED3 /* SpotifyVC.swift in Sources */,
+				CEB98F61243C63AB0028FED3 /* ScaledElementProcessor.swift in Sources */,
 				CEB98F4B243B95630028FED3 /* AppDelegate.swift in Sources */,
 				CEB98F4D243B95630028FED3 /* SceneDelegate.swift in Sources */,
 			);
