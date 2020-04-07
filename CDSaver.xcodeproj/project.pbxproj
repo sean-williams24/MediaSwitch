@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		CEB98F52243B95630028FED3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB98F50243B95630028FED3 /* Main.storyboard */; };
 		CEB98F54243B95650028FED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB98F53243B95650028FED3 /* Assets.xcassets */; };
 		CEB98F57243B95650028FED3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB98F55243B95650028FED3 /* LaunchScreen.storyboard */; };
+		CEB98F5F243C5FDF0028FED3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEB98F5E243C5FDF0028FED3 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		CEB98F53243B95650028FED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEB98F56243B95650028FED3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEB98F58243B95650028FED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEB98F5E243C5FDF0028FED3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E3A04432AB4F8BF8F02068C9 /* Pods-CDSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.debug.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -48,7 +50,6 @@
 				E3A04432AB4F8BF8F02068C9 /* Pods-CDSaver.debug.xcconfig */,
 				15D9F9DF64BF008A1BC2680D /* Pods-CDSaver.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -80,6 +81,7 @@
 				CEB98F53243B95650028FED3 /* Assets.xcassets */,
 				CEB98F55243B95650028FED3 /* LaunchScreen.storyboard */,
 				CEB98F58243B95650028FED3 /* Info.plist */,
+				CEB98F5E243C5FDF0028FED3 /* GoogleService-Info.plist */,
 			);
 			path = CDSaver;
 			sourceTree = "<group>";
@@ -154,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB98F57243B95650028FED3 /* LaunchScreen.storyboard in Resources */,
+				CEB98F5F243C5FDF0028FED3 /* GoogleService-Info.plist in Resources */,
 				CEB98F54243B95650028FED3 /* Assets.xcassets in Resources */,
 				CEB98F52243B95630028FED3 /* Main.storyboard in Resources */,
 			);
