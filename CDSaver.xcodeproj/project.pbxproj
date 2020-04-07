@@ -17,6 +17,8 @@
 		CEB98F5F243C5FDF0028FED3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEB98F5E243C5FDF0028FED3 /* GoogleService-Info.plist */; };
 		CEB98F61243C63AB0028FED3 /* ScaledElementProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */; };
 		CEB98F63243C64530028FED3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F62243C64530028FED3 /* ViewController.swift */; };
+		CEB98F65243C6B5D0028FED3 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB98F64243C6B5D0028FED3 /* SpotifyiOS.framework */; };
+		CEC567C1243C80CA009C8CB2 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC567C0243C80CA009C8CB2 /* Auth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,9 @@
 		CEB98F5E243C5FDF0028FED3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaledElementProcessor.swift; sourceTree = "<group>"; };
 		CEB98F62243C64530028FED3 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CEB98F64243C6B5D0028FED3 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
+		CEB98F66243C6C3A0028FED3 /* CDSaver-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CDSaver-Bridging-Header.h"; sourceTree = "<group>"; };
+		CEC567C0243C80CA009C8CB2 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		E3A04432AB4F8BF8F02068C9 /* Pods-CDSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.debug.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,6 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3428F760640D75BFECECFC6 /* Pods_CDSaver.framework in Frameworks */,
+				CEB98F65243C6B5D0028FED3 /* SpotifyiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,21 +86,40 @@
 			children = (
 				CEB98F4A243B95630028FED3 /* AppDelegate.swift */,
 				CEB98F4C243B95630028FED3 /* SceneDelegate.swift */,
-				CEB98F4E243B95630028FED3 /* SpotifyVC.swift */,
-				CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */,
-				CEB98F62243C64530028FED3 /* ViewController.swift */,
+				CEC567C2243C80D3009C8CB2 /* Model */,
+				CEC567C3243C811B009C8CB2 /* Controller */,
 				CEB98F50243B95630028FED3 /* Main.storyboard */,
 				CEB98F53243B95650028FED3 /* Assets.xcassets */,
 				CEB98F55243B95650028FED3 /* LaunchScreen.storyboard */,
 				CEB98F58243B95650028FED3 /* Info.plist */,
 				CEB98F5E243C5FDF0028FED3 /* GoogleService-Info.plist */,
+				CEB98F66243C6C3A0028FED3 /* CDSaver-Bridging-Header.h */,
 			);
 			path = CDSaver;
+			sourceTree = "<group>";
+		};
+		CEC567C2243C80D3009C8CB2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEC567C0243C80CA009C8CB2 /* Auth.swift */,
+				CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CEC567C3243C811B009C8CB2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CEB98F4E243B95630028FED3 /* SpotifyVC.swift */,
+				CEB98F62243C64530028FED3 /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		DDD1451BF362803F69ECD789 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEB98F64243C6B5D0028FED3 /* SpotifyiOS.framework */,
 				8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */,
 			);
 			name = Frameworks;
@@ -239,6 +264,7 @@
 				CEB98F61243C63AB0028FED3 /* ScaledElementProcessor.swift in Sources */,
 				CEB98F4B243B95630028FED3 /* AppDelegate.swift in Sources */,
 				CEB98F4D243B95630028FED3 /* SceneDelegate.swift in Sources */,
+				CEC567C1243C80CA009C8CB2 /* Auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +411,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DN4729AK8V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CDSaver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -392,6 +422,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.seanwilliams.CDSaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CDSaver/CDSaver-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -404,6 +435,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DN4729AK8V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CDSaver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -411,6 +446,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.seanwilliams.CDSaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CDSaver/CDSaver-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

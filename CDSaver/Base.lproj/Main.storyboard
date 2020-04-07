@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GWR-e4-ZQk">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -16,24 +16,56 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O82-8Q-EEe">
-                                <rect key="frame" x="80" y="433" width="158" height="40"/>
+                                <rect key="frame" x="78" y="433" width="258" height="30"/>
                                 <state key="normal" title="Connect to Spotify"/>
                                 <connections>
                                     <action selector="connectToSpotifyTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PTy-yw-XPH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRy-KL-xro">
+                                <rect key="frame" x="0.0" y="192" width="414" height="30"/>
+                                <state key="normal" title="CONNECT"/>
+                                <connections>
+                                    <action selector="connectTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NB6-xM-nGz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="O82-8Q-EEe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="389" id="1rw-Hd-tIu"/>
-                            <constraint firstItem="O82-8Q-EEe" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" constant="-48" id="Mnc-w2-Nrs"/>
-                            <constraint firstItem="O82-8Q-EEe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="80" id="l1K-oN-QGH"/>
-                            <constraint firstItem="O82-8Q-EEe" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="uNg-t9-dEo"/>
+                            <constraint firstItem="O82-8Q-EEe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="384" id="0cf-VI-Z47"/>
+                            <constraint firstItem="O82-8Q-EEe" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1J4-RF-x71"/>
+                            <constraint firstItem="SRy-KL-xro" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="7hL-4q-qnK"/>
+                            <constraint firstItem="O82-8Q-EEe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="78" id="AjC-IX-nQj"/>
+                            <constraint firstItem="SRy-KL-xro" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="104" id="L9j-2Q-A9l"/>
+                            <constraint firstItem="SRy-KL-xro" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Wuc-Vq-WYe"/>
+                            <constraint firstItem="O82-8Q-EEe" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rNd-ib-GlS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="jYD-bK-h3w"/>
+                    <connections>
+                        <outlet property="connectButton" destination="O82-8Q-EEe" id="N1s-Ax-WKk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="EDY-Ji-BOI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GWR-e4-ZQk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Oj5-Fk-F6Y">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="OOc-Ri-wYd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bOX-40-a0y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
