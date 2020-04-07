@@ -47,8 +47,8 @@ class SpotifyVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let playPause = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(albumSearch))
-        navigationItem.rightBarButtonItem = playPause
+        let performSearch = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(albumSearch))
+        navigationItem.rightBarButtonItem = performSearch
         
         let addAlbums = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAlbumsTapped))
         navigationItem.leftBarButtonItem = addAlbums
@@ -74,26 +74,13 @@ class SpotifyVC: UIViewController {
     @objc func albumSearch(_ button: UIButton) {
         
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
-        let baseURL = "https://api.spotify.com/v1/search?"
-        let albumQuery = "q=jamiroquai%20Automaton&type=album"
-        let url = baseURL + albumQuery
+        let searchURL = "https://api.spotify.com/v1/search?"
+//        let albumQuery = "q=jamiroquai%20Automaton&type=album"
         
-        AF.request(baseURL, method: .get, parameters: ["q":"jamiroquai+automaton", "type":"album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { response in
-            
-//            do {
-//                
-//                 var readableJSON = try JSONSerialization.jsonObject(with: response.data!, options: .mutableContainers) as! [String: AnyObject]
-//                 print(readableJSON)
-//             } catch {
-//                 print(error)
-//             }
+        AF.request(searchURL, method: .get, parameters: ["q":"jamiroquai+automaton", "type":"album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { response in
             
             switch response.result {
-            case .success(let value):
-//                let json = JSON(value)
-//                let albumResults = json["albums"]
-//                let items = albumResults["items"]
-                
+            case .success:
                 let decoder = JSONDecoder()
                 let spotify = try? decoder.decode(Spotify.self, from: response.data!)
                 if let albumResults = spotify?.albums.items {
@@ -105,26 +92,10 @@ class SpotifyVC: UIViewController {
                     }
                 }
 
-                
-//                for (key, subJson):(String, JSON) in items {
-//                    if let dictObject = subJson.dictionaryObject {
-//
-//                        let album = SpotifyAlbum(dictObject)
-//
-//                        print("Album \(key)")
-//                        print(album?.name)
-//                        print(album?.images)
-//                    }
-//
-//                }
-
             case .failure(let error):
                 print(error)
             }
         }
-        
- 
-        
     }
     
     // MARK: - Action Methods
