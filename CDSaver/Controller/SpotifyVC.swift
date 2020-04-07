@@ -40,6 +40,7 @@ class SpotifyVC: UIViewController {
         return appRemote
     }()
     
+    var albumResults = [Album]()
     
     // MARK: - Life Cycle
 
@@ -76,7 +77,6 @@ class SpotifyVC: UIViewController {
         let baseURL = "https://api.spotify.com/v1/search?"
         let albumQuery = "q=jamiroquai%20Automaton&type=album"
         let url = baseURL + albumQuery
-        print(url)
         
         AF.request(baseURL, method: .get, parameters: ["q":"jamiroquai+automaton", "type":"album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { response in
             
@@ -90,17 +90,33 @@ class SpotifyVC: UIViewController {
             
             switch response.result {
             case .success(let value):
-                let json = JSON(value)
-                let albumResults = json["albums"]
-                let items = albumResults["items"]
-            
-                for (key, subJson):(String, JSON) in items {
-                    if let dictObject = subJson.dictionaryObject {
-                        
-                        print(dictObject)
+//                let json = JSON(value)
+//                let albumResults = json["albums"]
+//                let items = albumResults["items"]
+                
+                let decoder = JSONDecoder()
+                let spotify = try? decoder.decode(Spotify.self, from: response.data!)
+                if let albumResults = spotify?.albums.items {
+                    for album in albumResults {
+                        self.albumResults.append(album)
+                        for artist in album.artists {
+                            print(artist.name)
+                        }
                     }
-                    
                 }
+
+                
+//                for (key, subJson):(String, JSON) in items {
+//                    if let dictObject = subJson.dictionaryObject {
+//
+//                        let album = SpotifyAlbum(dictObject)
+//
+//                        print("Album \(key)")
+//                        print(album?.name)
+//                        print(album?.images)
+//                    }
+//
+//                }
 
             case .failure(let error):
                 print(error)
