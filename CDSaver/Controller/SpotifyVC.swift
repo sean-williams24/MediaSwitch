@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import SwiftyJSON
 import UIKit
 
 class SpotifyVC: UIViewController {
@@ -79,29 +80,41 @@ class SpotifyVC: UIViewController {
         
         AF.request(baseURL, method: .get, parameters: ["q":"jamiroquai+automaton", "type":"album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { response in
             
+//            do {
+//                
+//                 var readableJSON = try JSONSerialization.jsonObject(with: response.data!, options: .mutableContainers) as! [String: AnyObject]
+//                 print(readableJSON)
+//             } catch {
+//                 print(error)
+//             }
+            
             switch response.result {
             case .success(let value):
-                print(value)
-                
-                
+                let json = JSON(value)
+                let albumResults = json["albums"]
+                let items = albumResults["items"]
+            
+                for (key, subJson):(String, JSON) in items {
+                    if let dictObject = subJson.dictionaryObject {
+                        
+                        print(dictObject)
+                    }
+                    
+                }
+
             case .failure(let error):
                 print(error)
             }
         }
         
-        //            do {
-        //                var readableJSON = try JSONSerialization.jsonObject(with: response.data!, options: .mutableContainers) as! [String: AnyObject]
-        //                print(readableJSON)
-        //            } catch {
-        //                print(error)
-        //            }
+ 
         
     }
     
     // MARK: - Action Methods
     
     @IBAction func connectTapped(_ sender: Any) {
-        print("Connect Tapped")
+        
         let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify]
         if #available(iOS 11, *) {
             // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
