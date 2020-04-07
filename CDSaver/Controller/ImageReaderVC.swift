@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ImageReaderVC.swift
 //  CDSaver
 //
 //  Created by Sean Williams on 12/02/2020.
@@ -9,7 +9,7 @@
 import Firebase
 import UIKit
 
-class ViewController: UIViewController {
+class ImageReaderVC: UIViewController {
     
     // MARK: - Outlets
 
