@@ -14,7 +14,6 @@ class SpotifyVC: UIViewController {
     
     // MARK: - Outlets
 
-    @IBOutlet weak var connectButton: UIButton!
     
     
     
@@ -111,9 +110,6 @@ class SpotifyVC: UIViewController {
             // Use this on iOS versions < 11 to use SFSafariViewController
             sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
         }
-
-    }
-    @IBAction func connectToSpotifyTapped(_ sender: Any) {
 
     }
 }
