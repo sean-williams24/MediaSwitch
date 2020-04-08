@@ -19,7 +19,7 @@ class ImageReaderVC: UIViewController {
     // MARK: - Properties
     
     let processor = ScaledElementProcessor()
-    
+    var albumTitles = [String]()
     
     
     
@@ -29,18 +29,10 @@ class ImageReaderVC: UIViewController {
         super.viewDidLoad()
         
         processor.process(in: imageView) { (text) in
-            print(text)
+            self.albumTitles = text.components(separatedBy: "\n")
+            print(self.albumTitles.count)
         }
     }
-    
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-
-    }
-    
     
     // MARK: - Location Methods
     
@@ -54,14 +46,14 @@ class ImageReaderVC: UIViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        let vc = segue.destination as! AlbumTitlesVC
+        vc.albumTitles = self.albumTitles
     }
     
     
     // MARK: - Action Methods
     
     @IBAction func searchSpotifyTapped(_ sender: Any) {
-        
         
     }
     
