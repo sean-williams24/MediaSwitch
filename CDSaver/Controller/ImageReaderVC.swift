@@ -60,7 +60,11 @@ class ImageReaderVC: UIViewController {
     
     // MARK: - Action Methods
     
-
+    @IBAction func searchSpotifyTapped(_ sender: Any) {
+        
+        
+    }
+    
 }
 
 

@@ -16,8 +16,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRy-KL-xro">
-                                <rect key="frame" x="0.0" y="192" width="414" height="30"/>
-                                <state key="normal" title="CONNECT"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <state key="normal" title="CONNECT">
+                                    <color key="titleColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="connectTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NB6-xM-nGz"/>
                                 </connections>
@@ -26,12 +29,19 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="SRy-KL-xro" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="7hL-4q-qnK"/>
-                            <constraint firstItem="SRy-KL-xro" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="104" id="L9j-2Q-A9l"/>
+                            <constraint firstItem="SRy-KL-xro" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="L9j-2Q-A9l"/>
                             <constraint firstItem="SRy-KL-xro" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Wuc-Vq-WYe"/>
+                            <constraint firstItem="SRy-KL-xro" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="e7G-IE-h8Z"/>
+                            <constraint firstItem="SRy-KL-xro" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hBg-Xf-DTZ"/>
+                            <constraint firstItem="SRy-KL-xro" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="i3W-Ge-kws"/>
+                            <constraint firstAttribute="bottom" secondItem="SRy-KL-xro" secondAttribute="bottom" id="mKM-xq-qod"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="jYD-bK-h3w"/>
+                    <connections>
+                        <segue destination="TLL-Tk-L24" kind="show" identifier="showImageReader" id="xQP-69-y3r"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -46,25 +56,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMG_3738" translatesAutoresizingMaskIntoConstraints="NO" id="XPo-my-Yio">
-                                <rect key="frame" x="0.0" y="247" width="414" height="347"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="506"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfx-UZ-T2E">
+                                <rect key="frame" x="0.0" y="616" width="414" height="30"/>
+                                <state key="normal" title="Search Spotify for Albums">
+                                    <color key="titleColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="searchSpotifyTapped:" destination="TLL-Tk-L24" eventType="touchUpInside" id="x0T-A0-rGm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="XPo-my-Yio" firstAttribute="leading" secondItem="QHe-uj-oa6" secondAttribute="leading" id="6G9-V1-dM3"/>
-                            <constraint firstItem="XPo-my-Yio" firstAttribute="top" secondItem="QHe-uj-oa6" secondAttribute="top" constant="203" id="7Tw-wf-Hxi"/>
+                            <constraint firstItem="lfx-UZ-T2E" firstAttribute="leading" secondItem="QHe-uj-oa6" secondAttribute="leading" id="6xJ-0f-Jxu"/>
+                            <constraint firstItem="XPo-my-Yio" firstAttribute="top" secondItem="QHe-uj-oa6" secondAttribute="top" id="7Tw-wf-Hxi"/>
+                            <constraint firstItem="lfx-UZ-T2E" firstAttribute="top" secondItem="XPo-my-Yio" secondAttribute="bottom" constant="22" id="Mhe-8E-LQn"/>
                             <constraint firstItem="XPo-my-Yio" firstAttribute="trailing" secondItem="QHe-uj-oa6" secondAttribute="trailing" id="Wai-Pz-wFe"/>
                             <constraint firstItem="QHe-uj-oa6" firstAttribute="bottom" secondItem="XPo-my-Yio" secondAttribute="bottom" constant="268" id="Xbj-VC-I15"/>
+                            <constraint firstItem="lfx-UZ-T2E" firstAttribute="trailing" secondItem="QHe-uj-oa6" secondAttribute="trailing" id="fAy-qi-4mY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QHe-uj-oa6"/>
                     </view>
+                    <navigationItem key="navigationItem" id="LPS-Hh-5e8"/>
                     <connections>
                         <outlet property="imageView" destination="XPo-my-Yio" id="3aR-LZ-hhv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6tg-WZ-Esp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1786.9565217391305" y="137.94642857142856"/>
+            <point key="canvasLocation" x="1860.8695652173915" y="137.94642857142856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EDY-Ji-BOI">
