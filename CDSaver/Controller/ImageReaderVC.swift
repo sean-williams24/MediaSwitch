@@ -30,7 +30,6 @@ class ImageReaderVC: UIViewController {
         
         processor.process(in: imageView) { (text) in
             self.albumTitles = text.components(separatedBy: "\n")
-            print(self.albumTitles.count)
         }
     }
     

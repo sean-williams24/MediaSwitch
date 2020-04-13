@@ -23,7 +23,7 @@ class AlbumTitlesVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search Spotify", style: .done, target: nil, action: #selector(albumSearch(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search Spotify", style: .done, target: self, action: #selector(albumSearch(_:)))
        
     }
 
@@ -36,9 +36,9 @@ class AlbumTitlesVC: UITableViewController {
         let searchURL = "https://api.spotify.com/v1/search?"
         //        let albumQuery = "q=jamiroquai%20Automaton&type=album"
 //        let cdCollection = ["bakkos+the killing", "slipknot+iowa", "system of a down+toxicity", "Dr Dre+2001"]
-        
+        var i = 0
         for CD in albumTitles {
-            print(CD)
+            
             AF.request(searchURL, method: .get, parameters: ["q": CD, "type":"album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { response in
                 
                 switch response.result {
@@ -47,11 +47,21 @@ class AlbumTitlesVC: UITableViewController {
                     let spotify = try? decoder.decode(Spotify.self, from: response.data!)
                     
                     if let albumResults = spotify?.albums.items {
-                        self.albumResults.append(albumResults)
+                        print(albumResults)
+                        if !albumResults.isEmpty {
+                            self.albumResults.append(albumResults)
+                            print("album found")
+                        }
                     }
                     
                 case .failure(let error):
                     print(error.localizedDescription)
+                }
+                
+                i += 1
+                if i == self.albumTitles.count {
+                    print("Search complete")
+                    self.performSegue(withIdentifier: "showSpotifyAlbums", sender: self)
                 }
             }
         }

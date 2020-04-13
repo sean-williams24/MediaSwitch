@@ -53,7 +53,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     print(accessToken)
                     self.accessToken = accessToken
                     
-                    self.SpotifyConnectVC.connectionEstablished()
+                    self.SpotifyConnectVC?.connectionEstablished()
                     
                 } catch {
                     print(error)
@@ -91,10 +91,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
 
     
-    var SpotifyConnectVC: SpotifyVC {
+    var SpotifyConnectVC: SpotifyVC? {
         get {
             let spotifyViewController = self.window?.rootViewController?.children[0]
-            return spotifyViewController as! SpotifyVC
+            return spotifyViewController as? SpotifyVC
         }
     }
 }

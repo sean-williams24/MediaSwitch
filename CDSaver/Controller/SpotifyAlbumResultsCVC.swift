@@ -8,49 +8,88 @@
 
 import UIKit
 
-private let reuseIdentifier = "albumCell"
 
-class SpotifyAlbumResultsCVC: UICollectionViewController {
+class SpotifyAlbumResultsCVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var albumResults = [[Album]]()
-
+    private let sectionInsets = UIEdgeInsets(top: 15.0, left: 10.0, bottom: 15.0, right: 10.0)
+    var itemsPerRow: CGFloat = 2
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        print(albumResults.count)
+//        automaticallyAdjustsScrollViewInsets = false
+        collectionView.contentInsetAdjustmentBehavior = .never
+//        print(albumResults[0])
+        
+//        if albumResults[0].isEmpty {
+//            print("No album")
+//        }
     }
+    
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//        collectionView.collectionViewLayout.invalidateLayout()
+//    }
 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        collectionView.collectionViewLayout.invalidateLayout()
+
+    }
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+
     }
     
 
     // MARK: - UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return albumResults.count
+        return 20
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        let albumGroup = albumResults[indexPath.item]
-        let firstAlbum = albumGroup[0]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! AlbumCVCell
+//        let albumGroup = albumResults[indexPath.item]
+//        
+//        if !albumGroup.isEmpty {
+//            let firstAlbum = albumGroup[0]
+//
+//            cell.albumTitleTextLabel.text = firstAlbum.name
+//            cell.artistTextLabel.text = firstAlbum.artists[0].name
+//        }
         
     
         return cell
     }
+    
+    // MARK: UICollectionViewFlowDelegate
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        print("Size for layout called")
+//        print(view.frame.width)
+        
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        
+        return CGSize(width: widthPerItem, height: widthPerItem + 80)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        sectionInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        sectionInsets.left
+    }
+    
+    
+    
 
     // MARK: UICollectionViewDelegate
 
@@ -84,3 +123,5 @@ class SpotifyAlbumResultsCVC: UICollectionViewController {
     */
 
 }
+
+
