@@ -7,8 +7,8 @@
 //
 
 import FSPagerView
+import Kingfisher
 import UIKit
-
 
 class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -45,7 +45,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         let width = view.frame.width / 2
         pagerView.itemSize = CGSize(width: width, height: width)
         pagerView.isUserInteractionEnabled = true
-        pagerView.backgroundColor = UIColor.black.withAlphaComponent(0.945)
+        pagerView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         pagerView.interitemSpacing = 30
         
         
@@ -87,17 +87,43 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! AlbumCVCell
-//        let albumGroup = albumResults[indexPath.item]
-//        
-//        if !albumGroup.isEmpty {
-//            let firstAlbum = albumGroup[0]
-//
-//            cell.albumTitleTextLabel.text = firstAlbum.name
-//            cell.artistTextLabel.text = firstAlbum.artists[0].name
-//        }
+        cell.imageView.backgroundColor = .white
+        let albumGroup = albumResults[indexPath.item]
         
+        if !albumGroup.isEmpty {
+            let firstAlbum = albumGroup[0]
+            let albumCoverString = firstAlbum.images[0].url
+            
+            cell.albumTitleTextLabel.text = firstAlbum.name
+            cell.artistTextLabel.text = firstAlbum.artists[0].name
+            
+            let imageURL = URL(string: albumCoverString)
+            cell.imageView.kf.setImage(with: imageURL)
+            
+            let processor = DownsamplingImageProcessor(size: cell.imageView.bounds.size)
+            cell.imageView.kf.indicatorType = .activity
+            cell.imageView.kf.setImage(
+                with: imageURL,
+                placeholder: UIImage(named: "placeholderImage"),
+                options: [
+                    .processor(processor),
+                    .scaleFactor(UIScreen.main.scale),
+                    .transition(.flipFromLeft(1)),
+                    .cacheOriginalImage
+                ])
+            {
+                result in
+                switch result {
+                case .success(let value):
+                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                case .failure(let error):
+                    print("Job failed: \(error.localizedDescription)")
+                }
+            }
+        }
+        
+
         cell.layer.cornerRadius = 10
-//        cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         
         return cell
     }
