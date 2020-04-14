@@ -11,10 +11,20 @@ import UIKit
 
 class SpotifyAlbumResultsCVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    // MARK: - Outlets
+    
+
+    
+    
+    // MARK: - Properties
+    
     var albumResults = [[Album]]()
     private let sectionInsets = UIEdgeInsets(top: 15.0, left: 10.0, bottom: 15.0, right: 10.0)
     var itemsPerRow: CGFloat = 2
     
+    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,16 +36,10 @@ class SpotifyAlbumResultsCVC: UICollectionViewController, UICollectionViewDelega
 //            print("No album")
 //        }
     }
-    
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        collectionView.collectionViewLayout.invalidateLayout()
-//    }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         collectionView.collectionViewLayout.invalidateLayout()
-
     }
     
     // MARK: - Navigation
@@ -43,6 +47,11 @@ class SpotifyAlbumResultsCVC: UICollectionViewController, UICollectionViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
     }
+    
+    
+    // MARK: - Action Methods
+
+
     
 
     // MARK: - UICollectionViewDataSource
@@ -63,21 +72,21 @@ class SpotifyAlbumResultsCVC: UICollectionViewController, UICollectionViewDelega
 //            cell.artistTextLabel.text = firstAlbum.artists[0].name
 //        }
         
-    
+        cell.layer.cornerRadius = 10
+//        cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        
         return cell
     }
     
     // MARK: UICollectionViewFlowDelegate
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print("Size for layout called")
-//        print(view.frame.width)
         
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
         
-        return CGSize(width: widthPerItem, height: widthPerItem + 80)
+        return CGSize(width: widthPerItem, height: widthPerItem + 57)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
