@@ -9,11 +9,14 @@
 import UIKit
 
 
-class SpotifyAlbumResultsCVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: - Outlets
     
-
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var alternativeAlbumsView: UIView!
+    @IBOutlet weak var alternativeAlbumsViewHeightConstraint: NSLayoutConstraint!
+    
     
     
     // MARK: - Properties
@@ -51,17 +54,20 @@ class SpotifyAlbumResultsCVC: UICollectionViewController, UICollectionViewDelega
     
     // MARK: - Action Methods
 
-
+    @IBAction func alternativeAlbumsButtonTapped(_ sender: Any) {
+        collectionView(collectionView, didSelectItemAt: IndexPath(item: 1, section: 1))
+    }
+    
     
 
-    // MARK: - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource + Delegate
 
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! AlbumCVCell
 //        let albumGroup = albumResults[indexPath.item]
 //        
@@ -77,6 +83,33 @@ class SpotifyAlbumResultsCVC: UICollectionViewController, UICollectionViewDelega
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        alternativeAlbumsViewHeightConstraint.constant = alternativeAlbumsViewHeightConstraint.constant == 200 ? 0 : 200
+
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        }) { _ in
+            
+        }
+    }
+
+    /*
+    // Uncomment this method to specify if the specified item should be highlighted during tracking
+    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    */
+
+    /*
+    // Uncomment this method to specify if the specified item should be selected
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    */
+
+    
+
     
     // MARK: UICollectionViewFlowDelegate
 
@@ -96,40 +129,6 @@ class SpotifyAlbumResultsCVC: UICollectionViewController, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         sectionInsets.left
     }
-    
-    
-    
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
 
 }
 
