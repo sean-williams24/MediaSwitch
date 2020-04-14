@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B3428F760640D75BFECECFC6 /* Pods_CDSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */; };
+		CE5794AC2445D2F900793C15 /* PagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5794AB2445D2F900793C15 /* PagerViewCell.swift */; };
 		CE6896E0243E042500B37A90 /* AlbumTitlesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6896DF243E042500B37A90 /* AlbumTitlesVC.swift */; };
 		CE6896E2243E276D00B37A90 /* SpotifyAlbumResultsCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6896E1243E276D00B37A90 /* SpotifyAlbumResultsCVC.swift */; };
 		CE6896E4243E2BE000B37A90 /* AlbumCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6896E3243E2BE000B37A90 /* AlbumCVCell.swift */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		15D9F9DF64BF008A1BC2680D /* Pods-CDSaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.release.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.release.xcconfig"; sourceTree = "<group>"; };
 		8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CDSaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE5794AB2445D2F900793C15 /* PagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewCell.swift; sourceTree = "<group>"; };
 		CE6896DF243E042500B37A90 /* AlbumTitlesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTitlesVC.swift; sourceTree = "<group>"; };
 		CE6896E1243E276D00B37A90 /* SpotifyAlbumResultsCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAlbumResultsCVC.swift; sourceTree = "<group>"; };
 		CE6896E3243E2BE000B37A90 /* AlbumCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCVCell.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				CEC567C3243C811B009C8CB2 /* Controller */,
 				CEB98F50243B95630028FED3 /* Main.storyboard */,
 				CE6896E3243E2BE000B37A90 /* AlbumCVCell.swift */,
+				CE5794AB2445D2F900793C15 /* PagerViewCell.swift */,
 				CEB98F53243B95650028FED3 /* Assets.xcassets */,
 				CEB98F55243B95650028FED3 /* LaunchScreen.storyboard */,
 				CEB98F58243B95650028FED3 /* Info.plist */,
@@ -272,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB98F63243C64530028FED3 /* ImageReaderVC.swift in Sources */,
+				CE5794AC2445D2F900793C15 /* PagerViewCell.swift in Sources */,
 				CEB98F4F243B95630028FED3 /* SpotifyVC.swift in Sources */,
 				CE6896E4243E2BE000B37A90 /* AlbumCVCell.swift in Sources */,
 				CE6896E2243E276D00B37A90 /* SpotifyAlbumResultsCVC.swift in Sources */,

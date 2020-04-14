@@ -228,10 +228,10 @@
             </objects>
             <point key="canvasLocation" x="5119" y="140"/>
         </scene>
-        <!--Spotify Album ResultsCVC-->
+        <!--Spotify Album Results VC-->
         <scene sceneID="eox-e7-jYz">
             <objects>
-                <viewController id="hui-SB-PUx" customClass="SpotifyAlbumResultsCVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="hui-SB-PUx" userLabel="Spotify Album Results VC" customClass="SpotifyAlbumResultsCVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nCP-WZ-OLf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -329,10 +329,30 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="luZ-EC-Fxb">
-                                <rect key="frame" x="0.0" y="862" width="414" height="0.0"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="662" width="414" height="200"/>
+                                <subviews>
+                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="nL4-oQ-5sC" customClass="FSPagerView" customModule="FSPagerView">
+                                        <rect key="frame" x="0.0" y="5" width="414" height="190"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isScrollEnabled" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="bounces" value="NO"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="alwaysBounceHorizontal" value="NO"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="alwaysBounceVertical" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="hui-SB-PUx" id="pAV-Ri-AGy"/>
+                                            <outlet property="delegate" destination="hui-SB-PUx" id="i52-hV-oPu"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" id="sC2-mV-rCb"/>
+                                    <constraint firstItem="nL4-oQ-5sC" firstAttribute="leading" secondItem="luZ-EC-Fxb" secondAttribute="leading" id="4Cs-fz-j5R"/>
+                                    <constraint firstItem="nL4-oQ-5sC" firstAttribute="top" secondItem="luZ-EC-Fxb" secondAttribute="top" constant="5" id="DiY-SV-oB7"/>
+                                    <constraint firstAttribute="bottom" secondItem="nL4-oQ-5sC" secondAttribute="bottom" constant="5" id="UHa-bR-Yuy"/>
+                                    <constraint firstAttribute="trailing" secondItem="nL4-oQ-5sC" secondAttribute="trailing" id="kQk-Q3-ETW"/>
+                                    <constraint firstAttribute="height" constant="200" id="sC2-mV-rCb"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -352,6 +372,7 @@
                         <outlet property="alternativeAlbumsView" destination="luZ-EC-Fxb" id="6Fi-To-QOp"/>
                         <outlet property="alternativeAlbumsViewHeightConstraint" destination="sC2-mV-rCb" id="hwv-QG-f4y"/>
                         <outlet property="collectionView" destination="rND-My-Bio" id="Adf-2t-nzn"/>
+                        <outlet property="pagerView" destination="nL4-oQ-5sC" id="Usx-OV-ddQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xkV-1l-K6Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

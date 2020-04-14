@@ -6,6 +6,7 @@
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
 
+import FSPagerView
 import UIKit
 
 
@@ -16,7 +17,11 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var alternativeAlbumsView: UIView!
     @IBOutlet weak var alternativeAlbumsViewHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var pagerView: FSPagerView! {
+        didSet {
+            self.pagerView.register(PagerViewCell.self, forCellWithReuseIdentifier: "cell")
+        }
+    }
     
     
     // MARK: - Properties
@@ -24,6 +29,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     var albumResults = [[Album]]()
     private let sectionInsets = UIEdgeInsets(top: 15.0, left: 10.0, bottom: 15.0, right: 10.0)
     var itemsPerRow: CGFloat = 2
+    let albumsViewHeight: CGFloat = 290
     
     
     // MARK: - Lifecycle
@@ -31,8 +37,20 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        automaticallyAdjustsScrollViewInsets = false
         collectionView.contentInsetAdjustmentBehavior = .never
+        alternativeAlbumsView.backgroundColor = .clear
+        
+        alternativeAlbumsViewHeightConstraint.constant = albumsViewHeight
+//        pagerView.transformer = FSPagerViewTransformer(type: .linear)
+        let width = view.frame.width / 2
+        pagerView.itemSize = CGSize(width: width, height: width)
+        pagerView.isUserInteractionEnabled = true
+        pagerView.backgroundColor = UIColor.black.withAlphaComponent(0.945)
+        pagerView.interitemSpacing = 30
+        
+        
+        
+        
 //        print(albumResults[0])
         
 //        if albumResults[0].isEmpty {
@@ -85,7 +103,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        alternativeAlbumsViewHeightConstraint.constant = alternativeAlbumsViewHeightConstraint.constant == 200 ? 0 : 200
+        alternativeAlbumsViewHeightConstraint.constant = alternativeAlbumsViewHeightConstraint.constant == albumsViewHeight ? 0 : albumsViewHeight
 
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
@@ -109,8 +127,6 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     */
 
     
-
-    
     // MARK: UICollectionViewFlowDelegate
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -132,4 +148,31 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
 
 }
 
-
+extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
+    
+    func numberOfItems(in pagerView: FSPagerView) -> Int {
+        return 10
+    }
+    
+    
+    func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
+        let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index) as! PagerViewCell
+        let image = UIImage(named: "bakkos")
+        cell.imageView?.image = image
+        cell.imageView?.contentMode = .scaleAspectFit
+        cell.imageView?.layer.borderColor = UIColor.gray.cgColor
+        cell.imageView?.layer.borderWidth = 0.5
+        
+//        cell.imageView?.clipsToBounds = true
+        
+        cell.albumTitleLabel?.text = "The Killing"
+        
+        return cell
+    }
+    
+    func pagerView(_ pagerView: FSPagerView, shouldHighlightItemAt index: Int) -> Bool {
+        return false
+    }
+    
+    
+}
