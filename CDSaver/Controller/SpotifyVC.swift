@@ -68,7 +68,7 @@ class SpotifyVC: UIViewController {
         }
     }
     
-
+    
     
     func connectionEstablished() {
         print("Perform segue")
@@ -83,20 +83,48 @@ class SpotifyVC: UIViewController {
         let searchURL = "https://api.spotify.com/v1/search?"
         
         AF.request(searchURL, method: .get, parameters: ["q": "a", "type": "album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { (response) in
-//            print(response)
-            if response.response?.statusCode == 200 {
-                self.performSegue(withIdentifier: "showImageReader", sender: self)
-            } else {
-//                print(response)
-            let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
-                    if #available(iOS 11, *) {
-                        // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
-                        self.sessionManager.initiateSession(with: scope, options: .clientOnly)
+            
+            switch response.result {
+            case .success(let value):
+                
+                if let dict = value as? NSDictionary {
+                    if let errorCode = dict["error"] as? NSDictionary {
+                        if errorCode["status"] as! Int == 401 {
+                            print("Token Has Expired")
+                            
+                            let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
+                            if #available(iOS 11, *) {
+                                // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
+                                self.sessionManager.initiateSession(with: scope, options: .clientOnly)
+                            } else {
+                                // Use this on iOS versions < 11 to use SFSafariViewController
+                                self.sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
+                            }
+                        }
                     } else {
-                        // Use this on iOS versions < 11 to use SFSafariViewController
-                        self.sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
+                        self.performSegue(withIdentifier: "showImageReader", sender: self)
                     }
+                }
+                
+            case .failure(let error):
+                print("Fail")
+                print(error)
+                
             }
+            
+            //            if response.response?.statusCode == 200 {
+            //                self.performSegue(withIdentifier: "showImageReader", sender: self)
+            //            } else {
+            ////                print(response)
+            //            let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
+            //                    if #available(iOS 11, *) {
+            //                        // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
+            //                        self.sessionManager.initiateSession(with: scope, options: .clientOnly)
+            //                    } else {
+            //                        // Use this on iOS versions < 11 to use SFSafariViewController
+            //                        self.sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
+            //                    }
+            //            }
         }
     }
 }

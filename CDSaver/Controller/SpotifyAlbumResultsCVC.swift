@@ -37,6 +37,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     let newInfoViewMinHeight: CGFloat = 0.0
     var newInfoViewMaxHeight: CGFloat = 90.0
     var albumResultsIndex: Int!
+    var selectedAlbums: [IndexPath] = []
     
     // MARK: - Lifecycle
 
@@ -46,6 +47,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         collectionView.contentInsetAdjustmentBehavior = .never
         alternativeAlbumsView.backgroundColor = .clear
         alternativeAlbumsViewHeightConstraint.constant = 0
+        
+        collectionView.allowsMultipleSelection = true
         
         pagerView.transformer = FSPagerViewTransformer(type: .linear)
         let width = view.frame.width / 2
@@ -59,12 +62,9 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         let dismissSwipe = UIPanGestureRecognizer(target: self, action: #selector(dismissAlternativeAlbumsView))
         alternativeAlbumsView.addGestureRecognizer(dismissSwipe)
         
-//        print(albumResults[0])
-        
-//        if albumResults[0].isEmpty {
-//            print("No album")
-//        }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAlbums))
     }
+    
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -97,6 +97,13 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     
     // MARK: - Private Methods
     
+    @objc func deleteAlbums() {
+        for indexPath in selectedAlbums {
+            albumResults.remove(at: indexPath.item)
+            collectionView.reloadData()
+        }
+    }
+    
     @objc func dismissAlternativeAlbumsView(_ gesture: UIPanGestureRecognizer) {
         
         let swipeDistancePoint = gesture.translation(in: view)
@@ -109,28 +116,22 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             print("")
 
         case .changed:
-            
             if newYPointToSet <= originalPoint.y {
                 return
             } else {
                 albumsView.center = CGPoint(x: albumsView.center.x, y: newYPointToSet)
                 gesture.setTranslation(.zero, in: view)
             }
-            
-            
+
         case .ended:
-            
             let midPoint = originalPoint.y + (albumsViewHeight / 2)
-            
             if newYPointToSet > midPoint {
-                
                 alternativeAlbumsViewHeightConstraint.constant = 0
                 UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
                     self.view.layoutIfNeeded()
                 })
                 
             } else {
-                
                 UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
                     albumsView.center = CGPoint(x: albumsView.center.x, y: self.originalPoint.y)
                 })
@@ -202,30 +203,16 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
                 }
             }
         }
-        
-
-//        cell.layer.cornerRadius = 10
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        selectedAlbums.append(indexPath)
     }
 
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        selectedAlbums.removeAll(where: {$0 == indexPath})
     }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
 
     
     // MARK: - UICollectionViewFlowDelegate
@@ -246,7 +233,6 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         sectionInsets.left
     }
-
 }
 
 
@@ -285,6 +271,11 @@ extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
         let chosenAlbum = albumGroup[index]
         
+        alternativeAlbumsViewHeightConstraint.constant = 0
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        })
+        
         for (i, album) in albumGroup.enumerated().reversed() {
             if album.id == chosenAlbum.id {
                 albumGroup.remove(at: i)
@@ -295,9 +286,11 @@ extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
                 collectionView.reloadData()
             }
         }
-        
     }
 }
+
+
+// MARK: - ScrollView Delegates
 
 extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
     
@@ -315,22 +308,43 @@ extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
         }
     }
     
+     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+
+     if(velocity.y>0) {
+        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
+             self.navigationController?.setNavigationBarHidden(true, animated: true)
+         }, completion: nil)
+
+     } else {
+        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
+             self.navigationController?.setNavigationBarHidden(false, animated: true)
+         }, completion: nil)
+       }
+    }
+    
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if infoViewHeightConstraint.constant < newInfoViewMaxHeight {
+        if infoViewHeightConstraint.constant < (newInfoViewMaxHeight / 2) {
             self.infoViewHeightConstraint.constant = self.newInfoViewMinHeight
-            UIView.animate(withDuration: 0.4) {
-                self.view.layoutIfNeeded()
-            }
+        } else {
+            self.infoViewHeightConstraint.constant = self.newInfoViewMaxHeight
         }
+
+        UIView.animate(withDuration: 0.2) {
+              self.view.layoutIfNeeded()
+          }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if infoViewHeightConstraint.constant < newInfoViewMaxHeight {
+        if infoViewHeightConstraint.constant < (newInfoViewMaxHeight / 2) {
             self.infoViewHeightConstraint.constant = self.newInfoViewMinHeight
-            UIView.animate(withDuration: 0.4) {
-                self.view.layoutIfNeeded()
-            }
+        } else {
+            self.infoViewHeightConstraint.constant = self.newInfoViewMaxHeight
         }
+
+        UIView.animate(withDuration: 0.2) {
+              self.view.layoutIfNeeded()
+          }
     }
 
 }

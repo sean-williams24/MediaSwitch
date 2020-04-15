@@ -42,7 +42,7 @@ class AlbumTitlesVC: UITableViewController {
         for CD in albumTitles {
             
             AF.request(searchURL, method: .get, parameters: ["q": CD, "type":"album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { response in
-                
+
                 switch response.result {
                 case .success:
                     let decoder = JSONDecoder()
@@ -63,7 +63,7 @@ class AlbumTitlesVC: UITableViewController {
                 
                 i += 1
                 if i == self.albumTitles.count {
-//                    print("Search complete")
+                    print("Search complete")
                     self.performSegue(withIdentifier: "showSpotifyAlbums", sender: self)
                 }
             }
