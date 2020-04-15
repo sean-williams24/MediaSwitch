@@ -19,14 +19,14 @@ class PagerViewCell: FSPagerViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let font = UIFont(name: "JosefinSans-Light", size: 16)
+        let font = UIFont(name: "HelveticaNeue-Light", size: 13)
 //        albumTitleLabel = insetLabel(frame: CGRect(x: 4, y: 180, width: self.bounds.width - 25, height: 30))
         albumTitleLabel = UILabel(frame: CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: 30))
         albumTitleLabel?.textColor = .white
         albumTitleLabel?.font = font
         albumTitleLabel?.textAlignment = .left
         albumTitleLabel?.lineBreakMode = .byWordWrapping
-        albumTitleLabel?.numberOfLines = 1
+        albumTitleLabel?.numberOfLines = 2
         albumTitleLabel?.backgroundColor = .clear
         albumTitleLabel?.preferredMaxLayoutWidth = self.bounds.width
         self.addSubview(albumTitleLabel!)

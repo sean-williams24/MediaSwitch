@@ -22,6 +22,8 @@ class AlbumTitlesVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        albumTitles = ["STEVELUKATHER", "BILLY JOEL RIVER OF DREAMS", "JAMIROQUAI AUTOMATON"]
+//        albumTitles = ["bakkos+the+killing", "slipknot+iowa", "system+of+a+down+toxicity", "Dr+Dre+2001", "jamiroquai%20Automaton"]
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search Spotify", style: .done, target: self, action: #selector(albumSearch(_:)))
        
@@ -35,7 +37,7 @@ class AlbumTitlesVC: UITableViewController {
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         let searchURL = "https://api.spotify.com/v1/search?"
         //        let albumQuery = "q=jamiroquai%20Automaton&type=album"
-//        let cdCollection = ["bakkos+the killing", "slipknot+iowa", "system of a down+toxicity", "Dr Dre+2001"]
+
         var i = 0
         for CD in albumTitles {
             
@@ -45,9 +47,10 @@ class AlbumTitlesVC: UITableViewController {
                 case .success:
                     let decoder = JSONDecoder()
                     let spotify = try? decoder.decode(Spotify.self, from: response.data!)
-                    
+//                    print(spotify?.albums.items)
                     if let albumResults = spotify?.albums.items {
-                        print(albumResults)
+//                        print(albumResults)
+                        print("should have results")
                         if !albumResults.isEmpty {
                             self.albumResults.append(albumResults)
                             print("album found")

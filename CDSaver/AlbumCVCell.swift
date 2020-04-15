@@ -20,6 +20,7 @@ class AlbumCVCell: UICollectionViewCell {
       super.awakeFromNib()
       
     alternativesButtonView.layer.borderWidth = 1
+    alternativesButtonView.layer.cornerRadius = 3
     alternativesButtonView.layer.borderColor = UIColor.init(white: 0.7, alpha: 0.5).cgColor
     alternativesButtonView.backgroundColor = UIColor.init(white: 0.3, alpha: 0.5)
     alternativesButton.tintColor = .white
