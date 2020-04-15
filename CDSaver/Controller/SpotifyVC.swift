@@ -83,11 +83,11 @@ class SpotifyVC: UIViewController {
         let searchURL = "https://api.spotify.com/v1/search?"
         
         AF.request(searchURL, method: .get, parameters: ["q": "a", "type": "album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { (response) in
-            print(response)
+//            print(response)
             if response.response?.statusCode == 200 {
                 self.performSegue(withIdentifier: "showImageReader", sender: self)
             } else {
-                print(response)
+//                print(response)
             let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
                     if #available(iOS 11, *) {
                         // Use this on iOS 11 and above to take advantage of SFAuthenticationSession

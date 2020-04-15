@@ -36,6 +36,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     var originalPoint: CGPoint!
     let newInfoViewMinHeight: CGFloat = 0.0
     var newInfoViewMaxHeight: CGFloat = 90.0
+    var albumResultsIndex: Int!
     
     // MARK: - Lifecycle
 
@@ -82,6 +83,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     @IBAction func alternativeAlbumsButtonTapped(_ sender: UIButton) {
         
         albumGroup = albumResults[sender.tag]
+        albumResultsIndex = sender.tag
         pagerView.reloadData()
         
         alternativeAlbumsViewHeightConstraint.constant = alternativeAlbumsViewHeightConstraint.constant == albumsViewHeight ? 0 : albumsViewHeight
@@ -159,11 +161,13 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             let firstAlbum = albumGroup[0]
             let albumCoverString = firstAlbum.images[0].url
             
-            print("ALBUM NAME: \(firstAlbum.name)")
-            print("AMOUNT OF OPTIONS: \(albumGroup.count)")
+//            print("ALBUM NAME: \(firstAlbum.name)")
+//            print("AMOUNT OF OPTIONS: \(albumGroup.count)")
             
             if albumGroup.count == 1 {
                 cell.alternativesButtonView.isHidden = true
+            } else {
+                cell.alternativesButtonView.isHidden = false
             }
             
             cell.albumTitleTextLabel.text = firstAlbum.name
@@ -191,7 +195,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
                 result in
                 switch result {
                 case .success(let value):
-                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
+//                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                    print("")
                 case .failure(let error):
                     print("Job failed: \(error.localizedDescription)")
                 }
@@ -258,50 +263,39 @@ extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index) as! PagerViewCell
         let album = albumGroup[index]
         let albumCoverString = album.images[0].url
-//        print(albumGroup.count)
-//        print(index)
-//        print(album.name)
-        
-
-        
         cell.albumTitleLabel?.text = album.name
         
         // Download and cache album cover image
         let imageURL = URL(string: albumCoverString)
         cell.imageView?.kf.setImage(with: imageURL)
         cell.imageView?.contentMode = .scaleAspectFit
-//        cell.imageView?.layer.borderColor = UIColor.gray.cgColor
-//        cell.imageView?.layer.borderWidth = 0.5
         cell.imageView?.layer.cornerRadius = 3
-        
-//        let processor = DownsamplingImageProcessor(size: (cell.imageView?.bounds.size)!)
-//        |> RoundCornerImageProcessor(cornerRadius: 3)
-//
-//        cell.imageView?.kf.indicatorType = .activity
-//        cell.imageView?.kf.setImage(
-//            with: imageURL,
-//            placeholder: UIImage(named: "placeholderImage"),
-//            options: [
-//                .processor(processor),
-//                .scaleFactor(UIScreen.main.scale),
-//                .transition(.fade(1)),
-//                .cacheOriginalImage
-//            ])
-//        {
-//            result in
-//            switch result {
-//            case .success(let value):
-//                print("Task done for: \(value.source.url?.absoluteString ?? "")")
-//            case .failure(let error):
-//                print("Job failed: \(error.localizedDescription)")
-//            }
-//        }
 
         return cell
     }
     
     func pagerView(_ pagerView: FSPagerView, shouldHighlightItemAt index: Int) -> Bool {
-        return false
+        return true
+    }
+    
+    func pagerView(_ pagerView: FSPagerView, shouldSelectItemAt index: Int) -> Bool {
+        return true
+    }
+    
+    func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
+        let chosenAlbum = albumGroup[index]
+        
+        for (i, album) in albumGroup.enumerated().reversed() {
+            if album.id == chosenAlbum.id {
+                albumGroup.remove(at: i)
+                albumGroup.insert(chosenAlbum, at: 0)
+                
+                albumResults.remove(at: albumResultsIndex)
+                albumResults.insert(albumGroup, at: albumResultsIndex)
+                collectionView.reloadData()
+            }
+        }
+        
     }
 }
 
@@ -321,7 +315,7 @@ extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
         }
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {       
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if infoViewHeightConstraint.constant < newInfoViewMaxHeight {
             self.infoViewHeightConstraint.constant = self.newInfoViewMinHeight
             UIView.animate(withDuration: 0.4) {
@@ -329,4 +323,14 @@ extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
             }
         }
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if infoViewHeightConstraint.constant < newInfoViewMaxHeight {
+            self.infoViewHeightConstraint.constant = self.newInfoViewMinHeight
+            UIView.animate(withDuration: 0.4) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+
 }

@@ -50,10 +50,10 @@ class AlbumTitlesVC: UITableViewController {
 //                    print(spotify?.albums.items)
                     if let albumResults = spotify?.albums.items {
 //                        print(albumResults)
-                        print("should have results")
+//                        print("should have results")
                         if !albumResults.isEmpty {
                             self.albumResults.append(albumResults)
-                            print("album found")
+//                            print("album found")
                         }
                     }
                     
@@ -63,7 +63,7 @@ class AlbumTitlesVC: UITableViewController {
                 
                 i += 1
                 if i == self.albumTitles.count {
-                    print("Search complete")
+//                    print("Search complete")
                     self.performSegue(withIdentifier: "showSpotifyAlbums", sender: self)
                 }
             }
