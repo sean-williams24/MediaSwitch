@@ -17,6 +17,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var alternativeAlbumsView: UIView!
     @IBOutlet weak var alternativeAlbumsViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var infoViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pagerView: FSPagerView! {
         didSet {
             self.pagerView.register(PagerViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -33,7 +34,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     let albumsViewHeight: CGFloat = 290
     var altAlbumsViewStartLocation: CGPoint!
     var originalPoint: CGPoint!
-    
+    let newInfoViewMinHeight: CGFloat = 0.0
+    var newInfoViewMaxHeight: CGFloat = 90.0
     
     // MARK: - Lifecycle
 
@@ -301,6 +303,30 @@ extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
     func pagerView(_ pagerView: FSPagerView, shouldHighlightItemAt index: Int) -> Bool {
         return false
     }
+}
+
+extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        let newInfoViewHeight = infoViewHeightConstraint.constant - offset
+        
+        if newInfoViewHeight < newInfoViewMinHeight {
+            infoViewHeightConstraint.constant = newInfoViewMinHeight
+        } else if newInfoViewHeight > newInfoViewMaxHeight {
+            infoViewHeightConstraint.constant = newInfoViewMaxHeight
+        } else {
+            infoViewHeightConstraint.constant = newInfoViewHeight
+            scrollView.contentOffset.y = 0.0
+        }
+    }
     
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {       
+        if infoViewHeightConstraint.constant < newInfoViewMaxHeight {
+            self.infoViewHeightConstraint.constant = self.newInfoViewMinHeight
+            UIView.animate(withDuration: 0.4) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
 }
