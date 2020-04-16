@@ -245,8 +245,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9Q-Kj-teB">
+                                <rect key="frame" x="0.0" y="88" width="414" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="ALz-Ag-bTk"/>
+                                </constraints>
+                            </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSJ-ml-j1v">
-                                <rect key="frame" x="0.0" y="88" width="414" height="90"/>
+                                <rect key="frame" x="0.0" y="148" width="414" height="90"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="inZ-jM-M68"/>
@@ -259,7 +265,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rND-My-Bio">
-                                <rect key="frame" x="0.0" y="186" width="414" height="676"/>
+                                <rect key="frame" x="0.0" y="246" width="414" height="616"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5zX-ZL-lT8">
                                     <size key="itemSize" width="50" height="50"/>
@@ -412,10 +418,13 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                             <constraint firstItem="rND-My-Bio" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" id="A3Z-Ww-lQu"/>
                             <constraint firstItem="rND-My-Bio" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" id="IbI-aR-ts2"/>
                             <constraint firstItem="rND-My-Bio" firstAttribute="bottom" secondItem="ZI6-xM-kMe" secondAttribute="bottom" id="IbR-Vk-4cx"/>
+                            <constraint firstItem="m9Q-Kj-teB" firstAttribute="top" secondItem="ZI6-xM-kMe" secondAttribute="top" id="MFt-2L-hNw"/>
                             <constraint firstItem="rND-My-Bio" firstAttribute="top" secondItem="fSJ-ml-j1v" secondAttribute="bottom" constant="8" symbolic="YES" id="NJk-1l-TpR"/>
-                            <constraint firstItem="fSJ-ml-j1v" firstAttribute="top" secondItem="ZI6-xM-kMe" secondAttribute="top" id="Nob-VC-Hwk"/>
+                            <constraint firstItem="fSJ-ml-j1v" firstAttribute="top" secondItem="m9Q-Kj-teB" secondAttribute="bottom" id="Nob-VC-Hwk"/>
                             <constraint firstItem="luZ-EC-Fxb" firstAttribute="bottom" secondItem="ZI6-xM-kMe" secondAttribute="bottom" id="Oak-2q-3zy"/>
+                            <constraint firstItem="m9Q-Kj-teB" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" id="XxA-kr-Ibf"/>
                             <constraint firstItem="luZ-EC-Fxb" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" id="uG4-rF-XgN"/>
+                            <constraint firstItem="m9Q-Kj-teB" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" id="v1Q-3k-Tme"/>
                             <constraint firstItem="fSJ-ml-j1v" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" id="zWw-tJ-RTh"/>
                             <constraint firstItem="luZ-EC-Fxb" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" id="zh9-4v-vIq"/>
                         </constraints>

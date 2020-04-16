@@ -18,20 +18,36 @@ class AlbumCVCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            imageView.layer.borderWidth = isSelected ? 4 : 0
+            imageView.layer.borderWidth = isSelected ? 1 : 0
+            blurredEffectView.frame = imageView.bounds
+            
+            UIView.animate(withDuration: 1) {
+                let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
+                self.blurredEffectView.effect = self.isSelected ? blurEffect : nil
+            }
+
         }
     }
+    var blurredEffectView = UIVisualEffectView()
+
     
   override func awakeFromNib() {
       super.awakeFromNib()
-      
+    
+    imageView.layer.cornerRadius = 3
     alternativesButtonView.layer.borderWidth = 1
     alternativesButtonView.layer.cornerRadius = 3
     alternativesButtonView.layer.borderColor = UIColor.init(white: 0.7, alpha: 0.5).cgColor
     alternativesButtonView.backgroundColor = UIColor.init(white: 0.3, alpha: 0.5)
     alternativesButton.tintColor = .white
     
-    imageView.layer.borderColor = UIColor.red.cgColor
+    imageView.layer.borderColor = UIColor.magenta.cgColor
     isSelected = false
+    
+    blurredEffectView.effect = nil
+    blurredEffectView.frame = imageView.bounds
+    imageView.addSubview(blurredEffectView)
+    blurredEffectView.alpha = 0.8
+    
   }
 }

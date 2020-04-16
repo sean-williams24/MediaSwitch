@@ -38,6 +38,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     var newInfoViewMaxHeight: CGFloat = 90.0
     var albumResultsIndex: Int!
     var selectedAlbums: [IndexPath] = []
+    var blurredEffect = UIVisualEffectView()
     
     // MARK: - Lifecycle
 
@@ -64,6 +65,13 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAlbums))
         
+
+        blurredEffect.frame = view.bounds
+        blurredEffect.effect = nil
+        blurredEffect.alpha = 0.8
+        view.addSubview(blurredEffect)
+        blurredEffect.isHidden = true
+        
         
     }
     
@@ -83,6 +91,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: - Action Methods
 
     @IBAction func alternativeAlbumsButtonTapped(_ sender: UIButton) {
+        
+        showBlurredFXView(true)
         
         albumGroup = albumResults[sender.tag]
         albumResultsIndex = sender.tag
@@ -113,6 +123,27 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
+    
+    fileprivate func showBlurredFXView(_ showBlur: Bool) {
+        
+        if showBlur {
+            blurredEffect.isHidden = false
+            view.bringSubviewToFront(alternativeAlbumsView)
+            
+            UIView.animate(withDuration: 0.7) {
+                let blurFX = UIBlurEffect(style: .systemChromeMaterialDark)
+                self.blurredEffect.effect = blurFX
+            }
+        } else {
+            UIView.animate(withDuration: 0.4, animations: {
+                self.blurredEffect.effect = nil
+            }) { _ in
+                self.blurredEffect.isHidden = true
+            }
+        }
+    }
+    
+    
     @objc func dismissAlternativeAlbumsView(_ gesture: UIPanGestureRecognizer) {
         
         let swipeDistancePoint = gesture.translation(in: view)
@@ -139,6 +170,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
                 UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
                     self.view.layoutIfNeeded()
                 })
+
+                showBlurredFXView(false)
                 
             } else {
                 UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
@@ -284,6 +317,8 @@ extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         })
+        
+        showBlurredFXView(false)
         
         for (i, album) in albumGroup.enumerated().reversed() {
             if album.id == chosenAlbum.id {
