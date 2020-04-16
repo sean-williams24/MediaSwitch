@@ -94,10 +94,10 @@ class SpotifyVC: UIViewController {
                             
                             let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
                             if #available(iOS 11, *) {
-                                // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
+                                // Use to take advantage of SFAuthenticationSession
                                 self.sessionManager.initiateSession(with: scope, options: .clientOnly)
                             } else {
-                                // Use this on iOS versions < 11 to use SFSafariViewController
+                                // Use on iOS versions < 11 to use SFSafariViewController
                                 self.sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
                             }
                         }

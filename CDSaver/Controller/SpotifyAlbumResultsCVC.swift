@@ -63,6 +63,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         alternativeAlbumsView.addGestureRecognizer(dismissSwipe)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAlbums))
+        
+        
     }
     
 
@@ -98,9 +100,16 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: - Private Methods
     
     @objc func deleteAlbums() {
-        for indexPath in selectedAlbums {
-            albumResults.remove(at: indexPath.item)
-            collectionView.reloadData()
+        
+        for indexPath in selectedAlbums.sorted().reversed() {
+             albumResults.remove(at: indexPath.item)
+         }
+    
+        self.collectionView.performBatchUpdates({
+            self.collectionView.deleteItems(at: selectedAlbums)
+        }) { _ in
+            self.selectedAlbums.removeAll()
+            self.collectionView.reloadData()
         }
     }
     
@@ -283,7 +292,9 @@ extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
                 
                 albumResults.remove(at: albumResultsIndex)
                 albumResults.insert(albumGroup, at: albumResultsIndex)
-                collectionView.reloadData()
+                collectionView.reloadItems(at: [IndexPath(item: albumResultsIndex, section: 0)])
+                
+                
             }
         }
     }

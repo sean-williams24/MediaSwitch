@@ -16,6 +16,12 @@ class AlbumCVCell: UICollectionViewCell {
     @IBOutlet weak var alternativesButtonView: UIView!
     @IBOutlet weak var alternativesButton: UIButton!
     
+    override var isSelected: Bool {
+        didSet {
+            imageView.layer.borderWidth = isSelected ? 4 : 0
+        }
+    }
+    
   override func awakeFromNib() {
       super.awakeFromNib()
       
@@ -24,5 +30,8 @@ class AlbumCVCell: UICollectionViewCell {
     alternativesButtonView.layer.borderColor = UIColor.init(white: 0.7, alpha: 0.5).cgColor
     alternativesButtonView.backgroundColor = UIColor.init(white: 0.3, alpha: 0.5)
     alternativesButton.tintColor = .white
+    
+    imageView.layer.borderColor = UIColor.red.cgColor
+    isSelected = false
   }
 }
