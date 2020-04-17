@@ -18,10 +18,10 @@ class AlbumCVCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            imageView.layer.borderWidth = isSelected ? 1 : 0
+            imageView.layer.borderWidth = isSelected ? 2 : 0
             blurredEffectView.frame = imageView.bounds
             
-            UIView.animate(withDuration: 1) {
+            UIView.animate(withDuration: 0.7) {
                 let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
                 self.blurredEffectView.effect = self.isSelected ? blurEffect : nil
             }
@@ -41,7 +41,7 @@ class AlbumCVCell: UICollectionViewCell {
     alternativesButtonView.backgroundColor = UIColor.init(white: 0.3, alpha: 0.5)
     alternativesButton.tintColor = .white
     
-    imageView.layer.borderColor = UIColor.magenta.cgColor
+    imageView.layer.borderColor = UIColor.gray.cgColor
     isSelected = false
     
     blurredEffectView.effect = nil

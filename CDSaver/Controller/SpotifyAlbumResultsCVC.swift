@@ -17,7 +17,11 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var alternativeAlbumsView: UIView!
     @IBOutlet weak var alternativeAlbumsViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var infoView: UITextView!
     @IBOutlet weak var infoViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var infoButton: RoundButton!
+    @IBOutlet weak var goButton: RoundButton!
+    @IBOutlet weak var deleteButton: RoundButton!
     @IBOutlet weak var pagerView: FSPagerView! {
         didSet {
             self.pagerView.register(PagerViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -29,7 +33,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     
     var albumResults = [[Album]]()
     var albumGroup = [Album]()
-    private let sectionInsets = UIEdgeInsets(top: 15.0, left: 10.0, bottom: 15.0, right: 10.0)
+    private let sectionInsets = UIEdgeInsets(top: 0, left: 10.0, bottom: 15.0, right: 10.0)
     var itemsPerRow: CGFloat = 2
     let albumsViewHeight: CGFloat = 290
     var altAlbumsViewStartLocation: CGPoint!
@@ -39,6 +43,12 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     var albumResultsIndex: Int!
     var selectedAlbums: [IndexPath] = []
     var blurredEffect = UIVisualEffectView()
+    var deleting: Bool! {
+        didSet {
+            deleteButton.isEnabled = deleting
+            deleteButton.tintColor = deleting ? .red : .white
+        }
+    }
     
     // MARK: - Lifecycle
 
@@ -48,8 +58,10 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         collectionView.contentInsetAdjustmentBehavior = .never
         alternativeAlbumsView.backgroundColor = .clear
         alternativeAlbumsViewHeightConstraint.constant = 0
-        
+        infoViewHeightConstraint.constant = 0
         collectionView.allowsMultipleSelection = true
+        infoView.layer.borderWidth = 0.8
+
         
         pagerView.transformer = FSPagerViewTransformer(type: .linear)
         let width = view.frame.width / 2
@@ -62,15 +74,15 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         
         let dismissSwipe = UIPanGestureRecognizer(target: self, action: #selector(dismissAlternativeAlbumsView))
         alternativeAlbumsView.addGestureRecognizer(dismissSwipe)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAlbums))
-        
+                
 
         blurredEffect.frame = view.bounds
         blurredEffect.effect = nil
         blurredEffect.alpha = 0.8
         view.addSubview(blurredEffect)
         blurredEffect.isHidden = true
+        
+        deleting = false
         
         
     }
@@ -107,22 +119,40 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     
-    // MARK: - Private Methods
+    @IBAction func infoButtonTapped(_ sender: Any) {
+        if infoViewHeightConstraint.constant == newInfoViewMinHeight {
+            self.infoViewHeightConstraint.constant = newInfoViewMaxHeight
+        } else {
+            self.infoViewHeightConstraint.constant = newInfoViewMinHeight
+        }
+
+        UIView.animate(withDuration: 0.4) {
+              self.view.layoutIfNeeded()
+          }
+    }
     
-    @objc func deleteAlbums() {
-        
+    
+    @IBAction func goButtonTapped(_ sender: Any) {
+    }
+    
+    
+    @IBAction func deleteButtonTapped(_ sender: Any) {
         for indexPath in selectedAlbums.sorted().reversed() {
-             albumResults.remove(at: indexPath.item)
-         }
-    
+            albumResults.remove(at: indexPath.item)
+        }
+        
         self.collectionView.performBatchUpdates({
             self.collectionView.deleteItems(at: selectedAlbums)
         }) { _ in
             self.selectedAlbums.removeAll()
             self.collectionView.reloadData()
+            self.deleting = !self.selectedAlbums.isEmpty
+
         }
     }
     
+    
+    // MARK: - Private Methods
     
     fileprivate func showBlurredFXView(_ showBlur: Bool) {
         
@@ -237,7 +267,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             {
                 result in
                 switch result {
-                case .success(let value):
+                case .success:
 //                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
                     print("")
                 case .failure(let error):
@@ -249,11 +279,14 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        deleting = true
         selectedAlbums.append(indexPath)
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectedAlbums.removeAll(where: {$0 == indexPath})
+        deleting = !selectedAlbums.isEmpty
+        
     }
 
     
@@ -344,14 +377,14 @@ extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
         let offset = scrollView.contentOffset.y
         let newInfoViewHeight = infoViewHeightConstraint.constant - offset
         
-        if newInfoViewHeight < newInfoViewMinHeight {
-            infoViewHeightConstraint.constant = newInfoViewMinHeight
-        } else if newInfoViewHeight > newInfoViewMaxHeight {
-            infoViewHeightConstraint.constant = newInfoViewMaxHeight
-        } else {
-            infoViewHeightConstraint.constant = newInfoViewHeight
-            scrollView.contentOffset.y = 0.0
-        }
+//        if newInfoViewHeight < newInfoViewMinHeight {
+//            infoViewHeightConstraint.constant = newInfoViewMinHeight
+//        } else if newInfoViewHeight > newInfoViewMaxHeight {
+//            infoViewHeightConstraint.constant = newInfoViewMaxHeight
+//        } else {
+//            infoViewHeightConstraint.constant = newInfoViewHeight
+//            scrollView.contentOffset.y = 0.0
+//        }
     }
     
      func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -363,34 +396,35 @@ extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
 
      } else {
         UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
-             self.navigationController?.setNavigationBarHidden(false, animated: true)
-         }, completion: nil)
-       }
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }, completion: nil)
+        }
     }
     
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if infoViewHeightConstraint.constant < (newInfoViewMaxHeight / 2) {
-            self.infoViewHeightConstraint.constant = self.newInfoViewMinHeight
-        } else {
-            self.infoViewHeightConstraint.constant = self.newInfoViewMaxHeight
+        //        if infoViewHeightConstraint.constant < (newInfoViewMaxHeight / 2) {
+        //            self.infoViewHeightConstraint.constant = self.newInfoViewMinHeight
+        //        } else {
+        //            self.infoViewHeightConstraint.constant = self.newInfoViewMaxHeight
+        //        }
+        if infoViewHeightConstraint.constant != newInfoViewMinHeight {
+            infoViewHeightConstraint.constant = newInfoViewMinHeight
         }
-
-        UIView.animate(withDuration: 0.2) {
-              self.view.layoutIfNeeded()
-          }
+        
+        UIView.animate(withDuration: 0.4) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if infoViewHeightConstraint.constant < (newInfoViewMaxHeight / 2) {
-            self.infoViewHeightConstraint.constant = self.newInfoViewMinHeight
-        } else {
-            self.infoViewHeightConstraint.constant = self.newInfoViewMaxHeight
+        if infoViewHeightConstraint.constant != newInfoViewMinHeight {
+            infoViewHeightConstraint.constant = newInfoViewMinHeight
         }
-
-        UIView.animate(withDuration: 0.2) {
-              self.view.layoutIfNeeded()
-          }
+        
+        UIView.animate(withDuration: 0.4) {
+            self.view.layoutIfNeeded()
+        }
     }
-
+    
 }

@@ -81,12 +81,12 @@ class SpotifyVC: UIViewController {
         
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         let searchURL = "https://api.spotify.com/v1/search?"
-        
+
         AF.request(searchURL, method: .get, parameters: ["q": "a", "type": "album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { (response) in
             
             switch response.result {
             case .success(let value):
-                
+//                print(response.result)
                 if let dict = value as? NSDictionary {
                     if let errorCode = dict["error"] as? NSDictionary {
                         if errorCode["status"] as! Int == 401 {
