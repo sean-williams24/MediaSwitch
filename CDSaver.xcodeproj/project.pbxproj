@@ -25,6 +25,8 @@
 		CEB98F65243C6B5D0028FED3 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB98F64243C6B5D0028FED3 /* SpotifyiOS.framework */; };
 		CEC567C1243C80CA009C8CB2 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC567C0243C80CA009C8CB2 /* Auth.swift */; };
 		CEC567C5243C90F1009C8CB2 /* SpotifyAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */; };
+		CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */; };
+		CEDA2F00244A061D0013CCB8 /* AddToSpotifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2EFF244A061D0013CCB8 /* AddToSpotifyVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		CEB98F66243C6C3A0028FED3 /* CDSaver-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CDSaver-Bridging-Header.h"; sourceTree = "<group>"; };
 		CEC567C0243C80CA009C8CB2 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAlbum.swift; sourceTree = "<group>"; };
+		CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerExtension.swift; sourceTree = "<group>"; };
+		CEDA2EFF244A061D0013CCB8 /* AddToSpotifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToSpotifyVC.swift; sourceTree = "<group>"; };
 		E3A04432AB4F8BF8F02068C9 /* Pods-CDSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.debug.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +123,7 @@
 				CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */,
 				CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */,
 				CE5794AD2448846700793C15 /* RoundButton.swift */,
+				CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -130,6 +135,7 @@
 				CEB98F62243C64530028FED3 /* ImageReaderVC.swift */,
 				CE6896DF243E042500B37A90 /* AlbumTitlesVC.swift */,
 				CE6896E1243E276D00B37A90 /* SpotifyAlbumResultsCVC.swift */,
+				CEDA2EFF244A061D0013CCB8 /* AddToSpotifyVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -283,11 +289,13 @@
 				CE6896E4243E2BE000B37A90 /* AlbumCVCell.swift in Sources */,
 				CE6896E2243E276D00B37A90 /* SpotifyAlbumResultsCVC.swift in Sources */,
 				CEB98F61243C63AB0028FED3 /* ScaledElementProcessor.swift in Sources */,
+				CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */,
 				CEB98F4B243B95630028FED3 /* AppDelegate.swift in Sources */,
 				CEC567C5243C90F1009C8CB2 /* SpotifyAlbum.swift in Sources */,
 				CE5794AE2448846800793C15 /* RoundButton.swift in Sources */,
 				CE6896E0243E042500B37A90 /* AlbumTitlesVC.swift in Sources */,
 				CEB98F4D243B95630028FED3 /* SceneDelegate.swift in Sources */,
+				CEDA2F00244A061D0013CCB8 /* AddToSpotifyVC.swift in Sources */,
 				CEC567C1243C80CA009C8CB2 /* Auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
 
+import Alamofire
 import FSPagerView
 import Kingfisher
 import UIKit
@@ -17,10 +18,13 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var alternativeAlbumsView: UIView!
     @IBOutlet weak var alternativeAlbumsViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var infoView: UITextView!
+    @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var infoViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var infoButton: RoundButton!
+    @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var goButton: RoundButton!
+    @IBOutlet weak var addAlbumsButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var addAlbumsButton: RoundButton!
     @IBOutlet weak var deleteButton: RoundButton!
     @IBOutlet weak var pagerView: FSPagerView! {
         didSet {
@@ -69,86 +73,30 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         pagerView.isUserInteractionEnabled = true
         pagerView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         pagerView.interitemSpacing = 60
-        pagerView.layer.cornerRadius = 10
-        pagerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//        pagerView.layer.cornerRadius = 10
+//        pagerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        let dismissSwipe = UIPanGestureRecognizer(target: self, action: #selector(dismissAlternativeAlbumsView))
+        let dismissSwipe = UIPanGestureRecognizer(target: self, action: #selector(handleAltAlbumsViewSwipe))
         alternativeAlbumsView.addGestureRecognizer(dismissSwipe)
                 
-
+        let dismissTap = UITapGestureRecognizer(target: self, action: #selector(dismissAltAlbumsView))
+        blurredEffect.addGestureRecognizer(dismissTap)
+        
         blurredEffect.frame = view.bounds
         blurredEffect.effect = nil
-        blurredEffect.alpha = 0.8
+        blurredEffect.alpha = 0.9
         view.addSubview(blurredEffect)
         blurredEffect.isHidden = true
         
         deleting = false
-        
-        
+        addAlbumsButton.alpha = 0
+
     }
     
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         collectionView.collectionViewLayout.invalidateLayout()
-    }
-    
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-    }
-    
-    
-    // MARK: - Action Methods
-
-    @IBAction func alternativeAlbumsButtonTapped(_ sender: UIButton) {
-        
-        showBlurredFXView(true)
-        
-        albumGroup = albumResults[sender.tag]
-        albumResultsIndex = sender.tag
-        pagerView.reloadData()
-        
-        alternativeAlbumsViewHeightConstraint.constant = alternativeAlbumsViewHeightConstraint.constant == albumsViewHeight ? 0 : albumsViewHeight
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
-            self.view.layoutIfNeeded()
-        }) { _ in
-            self.originalPoint = self.alternativeAlbumsView.center
-        }
-    }
-    
-    
-    @IBAction func infoButtonTapped(_ sender: Any) {
-        if infoViewHeightConstraint.constant == newInfoViewMinHeight {
-            self.infoViewHeightConstraint.constant = newInfoViewMaxHeight
-        } else {
-            self.infoViewHeightConstraint.constant = newInfoViewMinHeight
-        }
-
-        UIView.animate(withDuration: 0.4) {
-              self.view.layoutIfNeeded()
-          }
-    }
-    
-    
-    @IBAction func goButtonTapped(_ sender: Any) {
-    }
-    
-    
-    @IBAction func deleteButtonTapped(_ sender: Any) {
-        for indexPath in selectedAlbums.sorted().reversed() {
-            albumResults.remove(at: indexPath.item)
-        }
-        
-        self.collectionView.performBatchUpdates({
-            self.collectionView.deleteItems(at: selectedAlbums)
-        }) { _ in
-            self.selectedAlbums.removeAll()
-            self.collectionView.reloadData()
-            self.deleting = !self.selectedAlbums.isEmpty
-
-        }
     }
     
     
@@ -160,8 +108,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             blurredEffect.isHidden = false
             view.bringSubviewToFront(alternativeAlbumsView)
             
-            UIView.animate(withDuration: 0.7) {
-                let blurFX = UIBlurEffect(style: .systemChromeMaterialDark)
+            UIView.animate(withDuration: 0.4) {
+                let blurFX = UIBlurEffect(style: .systemThickMaterialDark)
                 self.blurredEffect.effect = blurFX
             }
         } else {
@@ -173,8 +121,16 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
+    @objc func dismissAltAlbumsView() {
+        alternativeAlbumsViewHeightConstraint.constant = 0
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        })
+        showBlurredFXView(false)
+    }
     
-    @objc func dismissAlternativeAlbumsView(_ gesture: UIPanGestureRecognizer) {
+    
+    @objc func handleAltAlbumsViewSwipe(_ gesture: UIPanGestureRecognizer) {
         
         let swipeDistancePoint = gesture.translation(in: view)
         
@@ -214,8 +170,141 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
 
+    fileprivate func animateDropDownView() {
+        if infoViewHeightConstraint.constant == newInfoViewMinHeight {
+            self.infoViewHeightConstraint.constant = newInfoViewMaxHeight
+        } else {
+            self.infoViewHeightConstraint.constant = newInfoViewMinHeight
+        }
+        
+        UIView.animate(withDuration: 0.4) {
+            self.view.layoutIfNeeded()
+        }
+    }
     
+    
+    // MARK: - Action Methods
 
+    @IBAction func alternativeAlbumsButtonTapped(_ sender: UIButton) {
+        
+        showBlurredFXView(true)
+        
+        albumGroup = albumResults[sender.tag]
+        albumResultsIndex = sender.tag
+        pagerView.reloadData()
+        
+        alternativeAlbumsViewHeightConstraint.constant = alternativeAlbumsViewHeightConstraint.constant == albumsViewHeight ? 0 : albumsViewHeight
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        }) { _ in
+            self.originalPoint = self.alternativeAlbumsView.center
+        }
+    }
+    
+    
+    @IBAction func infoButtonTapped(_ sender: Any) {
+        if infoViewHeightConstraint.constant == newInfoViewMinHeight {
+            addAlbumsButton.alpha = 0
+            infoLabel.isHidden = false
+            animateDropDownView()
+        } else if infoViewHeightConstraint.constant != newInfoViewMinHeight && infoLabel.isHidden == true {
+            self.infoViewHeightConstraint.constant = newInfoViewMinHeight
+            UIView.animate(withDuration: 0.4, animations: {
+                self.view.layoutIfNeeded()
+            }) { _ in
+                UIView.animate(withDuration: 0.2) {
+                    self.addAlbumsButton.alpha = 0
+                }
+                self.infoLabel.isHidden = false
+                self.animateDropDownView()
+            }
+        } else {
+            animateDropDownView()
+        }
+    }
+        
+    
+    
+    @IBAction func goButtonTapped(_ sender: Any) {
+        if infoViewHeightConstraint.constant == newInfoViewMinHeight {
+            infoLabel.isHidden = true
+            UIView.animate(withDuration: 0.4) {
+                self.addAlbumsButtonWidthConstraint.constant = 300
+                self.addAlbumsButton.alpha = 1
+            }
+            animateDropDownView()
+        } else if infoViewHeightConstraint.constant != newInfoViewMinHeight && infoLabel.isHidden == false {
+            self.infoViewHeightConstraint.constant = newInfoViewMinHeight
+            UIView.animate(withDuration: 0.4, animations: {
+                self.view.layoutIfNeeded()
+            }) { _ in
+                self.infoLabel.isHidden = true
+                UIView.animate(withDuration: 0.4) {
+                    self.addAlbumsButtonWidthConstraint.constant = 300
+                    self.addAlbumsButton.alpha = 1
+                }
+                self.animateDropDownView()
+            }
+        } else {
+            UIView.animate(withDuration: 0.4) {
+                self.addAlbumsButton.alpha = 0
+                self.addAlbumsButtonWidthConstraint.constant = 5
+                
+            }
+            animateDropDownView()
+        }
+    }
+    
+    
+    @IBAction func addAlbumsButtonTapped(_ sender: Any) {
+        showBlurredFXView(true)
+        blurredEffect.isUserInteractionEnabled = false
+        
+        let label = UILabel()
+        label.text = "Adding albums to spotify..."
+        label.center = view.center
+        label.sizeToFit()
+        label.font = .systemFont(ofSize: 30, weight: .light)
+        
+        blurredEffect.contentView.addSubview(label)
+        
+        let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
+         
+         for albumCollection in self.albumResults {
+             if let album = albumCollection.first {
+                 let addAlbumsURL = "https://api.spotify.com/v1/me/albums?ids=\(album.id)"
+                 
+                 AF.request(addAlbumsURL, method: .put, parameters: ["ids": album.id], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).response { (response) in
+                     
+                     if let statusCode = response.response?.statusCode {
+                         if statusCode == 200 {
+                             print("Albums Added")
+                            label.text = "20 albums added!"
+                            self.blurredEffect.isUserInteractionEnabled = true
+//                             self.showBlurredFXView(false)
+                             
+                         }
+                     }
+                 }
+             }
+         }
+    }
+    
+    
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        for indexPath in selectedAlbums.sorted().reversed() {
+            albumResults.remove(at: indexPath.item)
+        }
+        
+        self.collectionView.performBatchUpdates({
+            self.collectionView.deleteItems(at: selectedAlbums)
+        }) { _ in
+            self.selectedAlbums.removeAll()
+            self.collectionView.reloadData()
+            self.deleting = !self.selectedAlbums.isEmpty
+
+        }
+    }
 
     
     // MARK: - UICollectionViewDataSource + Delegate

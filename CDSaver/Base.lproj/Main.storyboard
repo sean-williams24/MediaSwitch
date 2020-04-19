@@ -137,106 +137,6 @@
             </objects>
             <point key="canvasLocation" x="2754" y="138"/>
         </scene>
-        <!--Collection View Controller-->
-        <scene sceneID="ZE4-TT-Si2">
-            <objects>
-                <collectionViewController id="SoM-Ob-7ST" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WZD-eZ-gWd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="L8W-96-mpQ">
-                            <size key="itemSize" width="190" height="246"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="albumCell" id="8eD-Wx-Q1e" customClass="AlbumCVCell" customModule="CDSaver" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="190" height="246"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="190" height="246"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="257" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="bakkos" translatesAutoresizingMaskIntoConstraints="NO" id="njo-DK-RzZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="190" height="190"/>
-                                            <color key="backgroundColor" red="0.39669162029999999" green="0.2331447005" blue="0.60787641999999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="njo-DK-RzZ" secondAttribute="height" multiplier="1:1" id="c8m-XH-4dI"/>
-                                            </constraints>
-                                        </imageView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="TDV-Mz-za8">
-                                            <rect key="frame" x="8" y="195" width="174" height="43"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SU5-Gx-LlP">
-                                                    <rect key="frame" x="0.0" y="0.0" width="174" height="20"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cul-N1-rwB">
-                                                    <rect key="frame" x="0.0" y="24" width="174" height="19"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                                    <color key="textColor" white="0.72999999999999998" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </stackView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dG7-Th-X76">
-                                            <rect key="frame" x="1" y="154" width="35" height="35"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cWI-Ug-uDE">
-                                                    <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <state key="normal" image="plus" catalog="system">
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="light"/>
-                                                    </state>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="dG7-Th-X76" secondAttribute="height" multiplier="1:1" id="Icx-xN-FTE"/>
-                                            </constraints>
-                                        </view>
-                                    </subviews>
-                                </view>
-                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="njo-DK-RzZ" secondAttribute="trailing" id="3Ha-O4-F0w"/>
-                                    <constraint firstItem="njo-DK-RzZ" firstAttribute="top" secondItem="8eD-Wx-Q1e" secondAttribute="top" id="5Fe-17-3RM"/>
-                                    <constraint firstItem="dG7-Th-X76" firstAttribute="top" secondItem="njo-DK-RzZ" secondAttribute="bottom" constant="-36" id="LhQ-m3-anC"/>
-                                    <constraint firstItem="dG7-Th-X76" firstAttribute="bottom" secondItem="njo-DK-RzZ" secondAttribute="bottom" constant="-0.80000000000000004" id="UaI-lb-XZ1"/>
-                                    <constraint firstItem="TDV-Mz-za8" firstAttribute="leading" secondItem="8eD-Wx-Q1e" secondAttribute="leading" constant="8" id="Vwv-xe-w6Z"/>
-                                    <constraint firstAttribute="trailing" secondItem="TDV-Mz-za8" secondAttribute="trailing" constant="8" id="bOx-X6-Nco"/>
-                                    <constraint firstAttribute="bottom" secondItem="TDV-Mz-za8" secondAttribute="bottom" constant="8" id="ePC-V1-N4E"/>
-                                    <constraint firstItem="dG7-Th-X76" firstAttribute="leading" secondItem="8eD-Wx-Q1e" secondAttribute="leading" constant="1" id="o5Y-rg-o3c"/>
-                                    <constraint firstItem="njo-DK-RzZ" firstAttribute="leading" secondItem="8eD-Wx-Q1e" secondAttribute="leading" id="oub-SO-Vcz"/>
-                                </constraints>
-                                <size key="customSize" width="190" height="246"/>
-                                <connections>
-                                    <outlet property="albumTitleTextLabel" destination="SU5-Gx-LlP" id="bl3-kx-7gj"/>
-                                    <outlet property="alternativesButton" destination="cWI-Ug-uDE" id="mlU-yb-VxK"/>
-                                    <outlet property="alternativesButtonView" destination="dG7-Th-X76" id="8zy-TN-B1J"/>
-                                    <outlet property="artistTextLabel" destination="Cul-N1-rwB" id="eFA-eQ-Xnf"/>
-                                    <outlet property="imageView" destination="njo-DK-RzZ" id="ZdK-Jt-spJ"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="SoM-Ob-7ST" id="soM-cc-MsW"/>
-                            <outlet property="delegate" destination="SoM-Ob-7ST" id="Xsh-KK-bPt"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="4as-yo-75J"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zWQ-oE-D7G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5119" y="140"/>
-        </scene>
         <!--Spotify Album Results VC-->
         <scene sceneID="eox-e7-jYz">
             <objects>
@@ -245,6 +145,78 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1bT-6t-4fA" userLabel="Separator View">
+                                <rect key="frame" x="0.0" y="176" width="414" height="1"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="FtD-cK-vw2"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bQN-yZ-iEt">
+                                <rect key="frame" x="0.0" y="177" width="414" height="110"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1m-bS-YSB">
+                                        <rect key="frame" x="10" y="10" width="394" height="90"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="ZZv-rA-hYp"/>
+                                        </constraints>
+                                        <string key="text">Tap + button to choose from alternative options
+Tap albums to delete
+Once you’re happy with the options - add albums to your Spotify account by tapping GO</string>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZT-RX-U19" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
+                                        <rect key="frame" x="57" y="25" width="300" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="TcP-iV-vfZ"/>
+                                            <constraint firstAttribute="height" constant="60" id="upj-eM-fIf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="tintColor" white="0.030074014239999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Add albums to Spotify">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="addAlbumsButtonTapped:" destination="hui-SB-PUx" eventType="touchUpInside" id="g3K-Ph-ErO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="W1m-bS-YSB" firstAttribute="top" secondItem="bQN-yZ-iEt" secondAttribute="top" constant="10" id="1tx-BV-dgR"/>
+                                    <constraint firstItem="AZT-RX-U19" firstAttribute="top" secondItem="bQN-yZ-iEt" secondAttribute="top" constant="25" id="49X-hm-vRr"/>
+                                    <constraint firstItem="W1m-bS-YSB" firstAttribute="leading" secondItem="bQN-yZ-iEt" secondAttribute="leading" constant="10" id="B0o-sg-KDo"/>
+                                    <constraint firstAttribute="bottom" secondItem="AZT-RX-U19" secondAttribute="bottom" constant="25" id="Bpj-9I-0jh"/>
+                                    <constraint firstItem="AZT-RX-U19" firstAttribute="centerY" secondItem="bQN-yZ-iEt" secondAttribute="centerY" id="FwZ-yc-VOR"/>
+                                    <constraint firstAttribute="bottom" secondItem="W1m-bS-YSB" secondAttribute="bottom" constant="10" id="RnW-Vv-phh"/>
+                                    <constraint firstItem="AZT-RX-U19" firstAttribute="centerX" secondItem="bQN-yZ-iEt" secondAttribute="centerX" id="YwU-5V-DFi"/>
+                                    <constraint firstItem="AZT-RX-U19" firstAttribute="centerX" secondItem="bQN-yZ-iEt" secondAttribute="centerX" id="asU-rd-RtL"/>
+                                    <constraint firstItem="AZT-RX-U19" firstAttribute="centerY" secondItem="bQN-yZ-iEt" secondAttribute="centerY" id="dur-3E-3OL"/>
+                                    <constraint firstAttribute="trailing" secondItem="W1m-bS-YSB" secondAttribute="trailing" constant="10" id="nvZ-55-2b7"/>
+                                    <constraint firstAttribute="height" constant="110" id="zgz-8a-5P3"/>
+                                </constraints>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="m9Q-Kj-teB">
                                 <rect key="frame" x="30" y="98" width="354" height="70"/>
                                 <subviews>
@@ -265,10 +237,25 @@
                                                 <real key="value" value="30"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
+                                                <real key="value" value="0.0"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                                <real key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -291,10 +278,25 @@
                                                 <real key="value" value="30"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
+                                                <real key="value" value="0.0"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                                <real key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -318,10 +320,25 @@
                                                 <real key="value" value="30"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
+                                                <real key="value" value="0.0"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
+                                                <real key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -333,28 +350,8 @@
                                     <constraint firstAttribute="height" constant="70" id="ALz-Ag-bTk"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1bT-6t-4fA">
-                                <rect key="frame" x="0.0" y="176" width="414" height="1"/>
-                                <color key="backgroundColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="FtD-cK-vw2"/>
-                                </constraints>
-                            </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSJ-ml-j1v">
-                                <rect key="frame" x="0.0" y="177" width="414" height="90"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="90" id="inZ-jM-M68"/>
-                                </constraints>
-                                <string key="text">Tap + button to choose from alternative options
-Tap albums to delete
-Once you’re happy with the options - add albums to your Spotify account by tapping GO</string>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rND-My-Bio">
-                                <rect key="frame" x="0.0" y="275" width="414" height="587"/>
+                                <rect key="frame" x="0.0" y="295" width="414" height="567"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="5zX-ZL-lT8">
                                     <size key="itemSize" width="50" height="50"/>
@@ -482,12 +479,13 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
+                                        <color key="backgroundColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="07B-Af-n6G"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="nL4-oQ-5sC" firstAttribute="leading" secondItem="luZ-EC-Fxb" secondAttribute="leading" id="4Cs-fz-j5R"/>
                                     <constraint firstItem="nL4-oQ-5sC" firstAttribute="top" secondItem="H5d-tC-sTd" secondAttribute="bottom" constant="-25" id="DiY-SV-oB7"/>
@@ -503,21 +501,21 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <color key="tintColor" white="0.030074014239999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fSJ-ml-j1v" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" id="6RG-Jm-utb"/>
+                            <constraint firstItem="rND-My-Bio" firstAttribute="top" secondItem="bQN-yZ-iEt" secondAttribute="bottom" constant="8" symbolic="YES" id="0u1-nL-Dmz"/>
                             <constraint firstItem="rND-My-Bio" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" id="A3Z-Ww-lQu"/>
+                            <constraint firstItem="bQN-yZ-iEt" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" id="CNt-iM-zkW"/>
                             <constraint firstItem="rND-My-Bio" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" id="IbI-aR-ts2"/>
                             <constraint firstItem="rND-My-Bio" firstAttribute="bottom" secondItem="ZI6-xM-kMe" secondAttribute="bottom" id="IbR-Vk-4cx"/>
+                            <constraint firstItem="bQN-yZ-iEt" firstAttribute="top" secondItem="1bT-6t-4fA" secondAttribute="bottom" id="JzE-Kr-Hsk"/>
                             <constraint firstItem="m9Q-Kj-teB" firstAttribute="top" secondItem="ZI6-xM-kMe" secondAttribute="top" constant="10" id="MFt-2L-hNw"/>
-                            <constraint firstItem="rND-My-Bio" firstAttribute="top" secondItem="fSJ-ml-j1v" secondAttribute="bottom" constant="8" symbolic="YES" id="NJk-1l-TpR"/>
-                            <constraint firstItem="fSJ-ml-j1v" firstAttribute="top" secondItem="1bT-6t-4fA" secondAttribute="bottom" id="Nob-VC-Hwk"/>
                             <constraint firstItem="luZ-EC-Fxb" firstAttribute="bottom" secondItem="ZI6-xM-kMe" secondAttribute="bottom" id="Oak-2q-3zy"/>
                             <constraint firstItem="1bT-6t-4fA" firstAttribute="top" secondItem="m9Q-Kj-teB" secondAttribute="bottom" constant="8" id="PCj-RU-Ycu"/>
                             <constraint firstItem="m9Q-Kj-teB" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" constant="30" id="XxA-kr-Ibf"/>
+                            <constraint firstItem="bQN-yZ-iEt" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" id="bjw-S4-wtf"/>
                             <constraint firstItem="1bT-6t-4fA" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" id="g5n-fk-l95"/>
                             <constraint firstItem="1bT-6t-4fA" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" id="rdE-uc-7bU"/>
                             <constraint firstItem="luZ-EC-Fxb" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" id="uG4-rF-XgN"/>
                             <constraint firstItem="m9Q-Kj-teB" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" constant="-30" id="v1Q-3k-Tme"/>
-                            <constraint firstItem="fSJ-ml-j1v" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" id="zWw-tJ-RTh"/>
                             <constraint firstItem="luZ-EC-Fxb" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" id="zh9-4v-vIq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZI6-xM-kMe"/>
@@ -526,20 +524,78 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                         <barButtonItem key="backBarButtonItem" title="-" id="fmK-cr-IOj"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="addAlbumsButton" destination="AZT-RX-U19" id="1gz-Xo-SHR"/>
+                        <outlet property="addAlbumsButtonWidthConstraint" destination="TcP-iV-vfZ" id="RkJ-ny-UGS"/>
                         <outlet property="alternativeAlbumsView" destination="luZ-EC-Fxb" id="6Fi-To-QOp"/>
                         <outlet property="alternativeAlbumsViewHeightConstraint" destination="sC2-mV-rCb" id="hwv-QG-f4y"/>
                         <outlet property="collectionView" destination="rND-My-Bio" id="Adf-2t-nzn"/>
                         <outlet property="deleteButton" destination="Ons-zL-uX8" id="KQo-jN-SLQ"/>
                         <outlet property="goButton" destination="Dz9-9f-lov" id="doT-OG-Pko"/>
                         <outlet property="infoButton" destination="1tz-VU-v2n" id="5Gz-9B-23q"/>
-                        <outlet property="infoView" destination="fSJ-ml-j1v" id="bIS-5V-Phi"/>
-                        <outlet property="infoViewHeightConstraint" destination="inZ-jM-M68" id="nGf-fP-OEL"/>
+                        <outlet property="infoLabel" destination="W1m-bS-YSB" id="n1G-s2-UWB"/>
+                        <outlet property="infoView" destination="bQN-yZ-iEt" id="2pW-Xd-kKb"/>
+                        <outlet property="infoViewHeightConstraint" destination="zgz-8a-5P3" id="MoK-de-Eqa"/>
                         <outlet property="pagerView" destination="nL4-oQ-5sC" id="Usx-OV-ddQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xkV-1l-K6Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3728.985507246377" y="137.94642857142856"/>
+        </scene>
+        <!--Add To SpotifyVC-->
+        <scene sceneID="aO9-RG-sBe">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" id="39a-Zh-fK7" customClass="AddToSpotifyVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4ny-cL-4e6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eZy-Wh-jhm">
+                                <rect key="frame" x="0.0" y="523" width="414" height="353"/>
+                                <subviews>
+                                    <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdW-4Q-0AG">
+                                        <rect key="frame" x="20" y="20" width="374" height="313"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ecf-33-z2u">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="313"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Add albums to your Spotify account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FgL-K0-Z7P">
+                                                    <rect key="frame" x="8" y="199" width="358" height="20"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="FgL-K0-Z7P" firstAttribute="leading" secondItem="ecf-33-z2u" secondAttribute="leading" constant="8" id="dVf-NY-H0f"/>
+                                                <constraint firstAttribute="trailing" secondItem="FgL-K0-Z7P" secondAttribute="trailing" constant="8" id="rI6-qx-k9G"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="systemUltraThinMaterial"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ZdW-4Q-0AG" secondAttribute="bottom" constant="20" symbolic="YES" id="Oqc-Jx-Az5"/>
+                                    <constraint firstItem="ZdW-4Q-0AG" firstAttribute="top" secondItem="eZy-Wh-jhm" secondAttribute="top" constant="20" symbolic="YES" id="PnE-IN-0Sm"/>
+                                    <constraint firstItem="ZdW-4Q-0AG" firstAttribute="leading" secondItem="eZy-Wh-jhm" secondAttribute="leading" constant="20" symbolic="YES" id="htE-AA-FcE"/>
+                                    <constraint firstAttribute="height" constant="353" id="l81-jb-dwS"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZdW-4Q-0AG" secondAttribute="trailing" constant="20" symbolic="YES" id="x1o-ZC-ZFl"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="eZy-Wh-jhm" firstAttribute="leading" secondItem="Iua-pg-olB" secondAttribute="leading" id="lB0-lO-sMw"/>
+                            <constraint firstItem="eZy-Wh-jhm" firstAttribute="trailing" secondItem="Iua-pg-olB" secondAttribute="trailing" id="ttr-ud-Hcz"/>
+                            <constraint firstAttribute="bottom" secondItem="eZy-Wh-jhm" secondAttribute="bottom" constant="20" symbolic="YES" id="u6H-sb-GMX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Iua-pg-olB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tnf-8T-koX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4552.1739130434789" y="141.96428571428569"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="EDY-Ji-BOI">

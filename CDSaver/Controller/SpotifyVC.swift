@@ -47,27 +47,26 @@ class SpotifyVC: UIViewController {
         super.viewDidLoad()
         
         
-        let addAlbums = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAlbumsTapped))
-        navigationItem.leftBarButtonItem = addAlbums
+
     }
     
     
     // MARK: - Private Methods
     
-    @objc func addAlbumsTapped(_ button: UIButton) {
-        let addAlbumsURL = "https://api.spotify.com/v1/me/albums?ids=\(albumURI)"
-        let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
-        
-        AF.request(addAlbumsURL, method: .put, parameters: ["ids": albumURI], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).response { (response) in
-            
-            if let statusCode = response.response?.statusCode {
-                if statusCode == 200 {
-                    print("Album Added")
-                }
-            }
-        }
-    }
-    
+//    @objc func addAlbumsTapped(_ button: UIButton) {
+//        let addAlbumsURL = "https://api.spotify.com/v1/me/albums?ids=\(albumURI)"
+//        let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
+//
+//        AF.request(addAlbumsURL, method: .put, parameters: ["ids": albumURI], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).response { (response) in
+//
+//            if let statusCode = response.response?.statusCode {
+//                if statusCode == 200 {
+//                    print("Album Added")
+//                }
+//            }
+//        }
+//    }
+
     
     
     func connectionEstablished() {
@@ -102,6 +101,14 @@ class SpotifyVC: UIViewController {
                             }
                         }
                     } else {
+//                        let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
+//                                if #available(iOS 11, *) {
+//                                    // Use to take advantage of SFAuthenticationSession
+//                                    self.sessionManager.initiateSession(with: scope, options: .clientOnly)
+//                                } else {
+//                                    // Use on iOS versions < 11 to use SFSafariViewController
+//                                    self.sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
+//                                }
                         self.performSegue(withIdentifier: "showImageReader", sender: self)
                     }
                 }
