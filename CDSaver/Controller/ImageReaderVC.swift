@@ -56,6 +56,11 @@ class ImageReaderVC: UIViewController {
         
     }
     
+    @IBAction func unwindAction(unwindSegue: UIStoryboardSegue) {
+        
+    }
+
+    
 }
 
 

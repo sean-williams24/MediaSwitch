@@ -10,21 +10,32 @@ import UIKit
 
 class AddToSpotifyVC: UIViewController {
 
+    @IBOutlet weak var resultsTextLabel: UILabel!
+    
+    var failedAlbums: [String] = []
+    var numberOfAlbumsAdded: Int!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+//        failedAlbums = ["The Killing", "Slipknot"]
+        
+        resultsTextLabel.text = """
+        All Done
+        
+        \(numberOfAlbumsAdded!) albums added to your Spotify library
+        
+        
+        """
+        
+        if failedAlbums.count != 0 {
+            resultsTextLabel.text?.append("\n\(failedAlbums.count) failed to add:")
+            
+            for album in failedAlbums {
+                resultsTextLabel.text?.append("\n\(album)")
+            }
+        }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -33,7 +33,7 @@ class AlbumTitlesVC: UITableViewController {
     // MARK: - Private Methods
 
     @objc func albumSearch(_ button: UIButton) {
-        
+        albumResults.removeAll()
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         let searchURL = "https://api.spotify.com/v1/search?"
         //        let albumQuery = "q=jamiroquai%20Automaton&type=album"

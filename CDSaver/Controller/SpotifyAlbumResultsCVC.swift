@@ -37,6 +37,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     
     var albumResults = [[Album]]()
     var albumGroup = [Album]()
+    var failedAlbums: [String] = []
+    var numberOfAlbumsAdded = 0
     private let sectionInsets = UIEdgeInsets(top: 0, left: 10.0, bottom: 15.0, right: 10.0)
     var itemsPerRow: CGFloat = 2
     let albumsViewHeight: CGFloat = 290
@@ -81,16 +83,30 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
                 
         let dismissTap = UITapGestureRecognizer(target: self, action: #selector(dismissAltAlbumsView))
         blurredEffect.addGestureRecognizer(dismissTap)
-        
-        blurredEffect.frame = view.bounds
         blurredEffect.effect = nil
         blurredEffect.alpha = 0.9
         view.addSubview(blurredEffect)
+        blurredEffect.translatesAutoresizingMaskIntoConstraints = false
+        blurredEffect.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        blurredEffect.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        blurredEffect.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        blurredEffect.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         blurredEffect.isHidden = true
         
         deleting = false
         addAlbumsButton.alpha = 0
-
+        
+        let attributedInfoText = NSMutableAttributedString(string: """
+            - Tap + button to choose from alternative options
+            - Tap albums to delete
+            - Add albums to your Spotify library by tapping GO
+            """)
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 8
+        paragraphStyle.alignment = .left
+        attributedInfoText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: 60))
+        infoLabel.attributedText = attributedInfoText
     }
     
 
@@ -260,31 +276,50 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         showBlurredFXView(true)
         blurredEffect.isUserInteractionEnabled = false
         
-        let label = UILabel()
-        label.text = "Adding albums to spotify..."
-        label.center = view.center
-        label.sizeToFit()
-        label.font = .systemFont(ofSize: 30, weight: .light)
-        
-        blurredEffect.contentView.addSubview(label)
-        
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
-         
-         for albumCollection in self.albumResults {
+        print(albumResults.count)
+        var index = 0
+        let totalAlbums = albumResults.count
+        for albumCollection in self.albumResults {
              if let album = albumCollection.first {
                  let addAlbumsURL = "https://api.spotify.com/v1/me/albums?ids=\(album.id)"
                  
                  AF.request(addAlbumsURL, method: .put, parameters: ["ids": album.id], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).response { (response) in
-                     
+                    
                      if let statusCode = response.response?.statusCode {
                          if statusCode == 200 {
-                             print("Albums Added")
-                            label.text = "20 albums added!"
-                            self.blurredEffect.isUserInteractionEnabled = true
+                            print("\(album.name) Added to spotify")
+                            self.numberOfAlbumsAdded += 1
+//                            self.albumResults.removeAll { (albumArray) -> Bool in
+//                                return albumArray.first?.id == albumCollection.first?.id
+//                            }
+                            
+                            for (i, albumArray) in self.albumResults.enumerated() {
+                                if albumArray.first?.id == albumCollection.first?.id {
+                                    self.albumResults.remove(at: i)
+                                    self.collectionView.deleteItems(at: [IndexPath(item: i, section: 0)])
+                                    print("\(album.name) removed from results")
+                                    index += 1
+                                }
+                            }
+//                            self.blurredEffect.isUserInteractionEnabled = true
 //                             self.showBlurredFXView(false)
                              
-                         }
+                         } else {
+                            print("\(album.name) failed to add")
+                            if let artist = album.artists.first {
+                                self.failedAlbums.append("\(artist.name) - \(album.name)")
+                            } else {
+                                self.failedAlbums.append(album.name)
+                            }
+                            index += 1
+                        }
                      }
+                    print(index)
+                    if index == totalAlbums {
+                        print("Completion")
+                        self.performSegue(withIdentifier: "addAlbumsCompletion", sender: self)
+                    }
                  }
              }
          }
@@ -304,6 +339,12 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             self.deleting = !self.selectedAlbums.isEmpty
 
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! AddToSpotifyVC
+        vc.failedAlbums = self.failedAlbums
+        vc.numberOfAlbumsAdded = self.numberOfAlbumsAdded
     }
 
     
