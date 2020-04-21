@@ -80,21 +80,59 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     @IBAction func extractAlbumsTapped(_ sender: Any) {
         albumTitles.removeAll()
         
+        var tempAlbumArray: [String] = []
+        var previousYPosition: CGFloat = 0
+        
         processor.process(in: imageView) { (text, result) in
             guard let result = result else { return }
             
             for block in result.blocks {
-                let albumName = block.text
+                let albumName = block.text.withoutSpecialCharacters
                 
                 print(albumName)
-                if let points = block.cornerPoints as? [CGPoint] {
-                    print(points)
-                }
-                print("")
+                
+                // Ensure string is not purely numeric
                 if !albumName.isNumeric {
-//                    print(albumName.withoutSpecialCharacters)
-                    self.albumTitles.append(albumName.withoutSpecialCharacters)
+                    
+                    if let topLeftPoint = block.cornerPoints?.first as? CGPoint {
+                        print(topLeftPoint.y)
+                        if previousYPosition == 0 {
+                            // First result
+                            previousYPosition = topLeftPoint.y
+                            tempAlbumArray.append(albumName)
+                            
+                        } else {
+                            // Second result and onward >>>
+                            if topLeftPoint.y - previousYPosition < 50 {
+                                // On the same disc
+                                previousYPosition = topLeftPoint.y
+                                
+                                for tempAlbum in tempAlbumArray {
+                                    let combinedStrings = tempAlbum + " " + albumName
+                                    tempAlbumArray.insert(combinedStrings, at: 0)
+                                }
+                                tempAlbumArray.append(albumName)
+                                
+                            } else {
+                                // New disc
+                                // Add temp albums to global array (previous disc)
+                                for tempAlbum in tempAlbumArray {
+                                    self.albumTitles.append(tempAlbum)
+                                }
+                                
+                                // clear temp array
+                                tempAlbumArray.removeAll()
+                                
+                                // add first result on next disc to temp array and set Y position
+                                tempAlbumArray.append(albumName)
+                                previousYPosition = topLeftPoint.y
+                            }
+                        }
+                    }
                 }
+            }
+            for tempAlbum in tempAlbumArray {
+                self.albumTitles.append(tempAlbum)
             }
             print("Extraction complete")
             self.performSegue(withIdentifier: "showAlbumTitles", sender: self)
