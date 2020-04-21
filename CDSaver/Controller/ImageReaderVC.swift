@@ -9,11 +9,13 @@
 import Firebase
 import UIKit
 
-class ImageReaderVC: UIViewController {
+class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     // MARK: - Outlets
 
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var imageLibraryButton: UIButton!
     
     
     // MARK: - Properties
@@ -27,10 +29,9 @@ class ImageReaderVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = false
         
-        processor.process(in: imageView) { (text) in
-            self.albumTitles = text.components(separatedBy: "\n")
-        }
+
     }
     
     // MARK: - Location Methods
@@ -49,21 +50,78 @@ class ImageReaderVC: UIViewController {
         vc.albumTitles = self.albumTitles
     }
     
+    // MARK: - Image Picker Delegate
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        
+        guard let image = info[.editedImage] as? UIImage else { return }
+        
+        imageView.image = image
+    }
     
     // MARK: - Action Methods
     
-    @IBAction func searchSpotifyTapped(_ sender: Any) {
+    @IBAction func imageLibraryButtonTapped(_ sender: Any) {
         
+    }
+    
+    @IBAction func cameraButtonTapped(_ sender: Any) {
+        
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+        
+        
+    }
+    
+    @IBAction func extractAlbumsTapped(_ sender: Any) {
+        albumTitles.removeAll()
+        
+        processor.process(in: imageView) { (text, result) in
+            guard let result = result else { return }
+            
+            for block in result.blocks {
+                let albumName = block.text
+                
+                print(albumName)
+                if let points = block.cornerPoints as? [CGPoint] {
+                    print(points)
+                }
+                print("")
+                if !albumName.isNumeric {
+//                    print(albumName.withoutSpecialCharacters)
+                    self.albumTitles.append(albumName.withoutSpecialCharacters)
+                }
+            }
+            print("Extraction complete")
+            self.performSegue(withIdentifier: "showAlbumTitles", sender: self)
+            
+        }
     }
     
     @IBAction func unwindAction(unwindSegue: UIStoryboardSegue) {
         
     }
-
-    
 }
 
 
     // MARK: - Extensions
+
+extension String {
+    var isNumeric: Bool {
+        guard self.count > 0 else { return false }
+        
+        let legitCharacters: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ", "-"]
+        return Set(self).isSubset(of: legitCharacters)
+
+    }
+    
+    var withoutSpecialCharacters: String {
+        return self.components(separatedBy: CharacterSet.symbols).joined(separator: "")
+    }
+}
 
 

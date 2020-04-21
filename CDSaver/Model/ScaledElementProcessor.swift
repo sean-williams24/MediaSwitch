@@ -28,25 +28,20 @@ class ScaledElementProcessor {
     
     // MARK: - Private Methods
     
-    func process(in imageView: UIImageView,
-      callback: @escaping (_ text: String) -> Void) {
-      // 1
+    func process(in imageView: UIImageView, callback: @escaping (_ text: String, _ result: VisionText?) -> Void) {
       guard let image = imageView.image else { return }
-      // 2
+      
       let visionImage = VisionImage(image: image)
       // 3
       textRecognizer.process(visionImage) { result, error in
         // 4
-        guard
-          error == nil,
-          let result = result,
-          !result.text.isEmpty
-          else {
-            callback("")
+        guard error == nil, let result = result, !result.text.isEmpty else {
+            callback("", nil)
             return
         }
         // 5
-        callback(result.text)
+        
+        callback(result.text, result)
       }
     }
 

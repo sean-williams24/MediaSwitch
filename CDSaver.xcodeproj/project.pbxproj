@@ -27,6 +27,7 @@
 		CEC567C5243C90F1009C8CB2 /* SpotifyAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */; };
 		CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */; };
 		CEDA2F02244DAA8B0013CCB8 /* AddToSpotifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2F01244DAA8B0013CCB8 /* AddToSpotifyVC.swift */; };
+		CEDA2F04244EF2930013CCB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2F03244EF2930013CCB8 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAlbum.swift; sourceTree = "<group>"; };
 		CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerExtension.swift; sourceTree = "<group>"; };
 		CEDA2F01244DAA8B0013CCB8 /* AddToSpotifyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToSpotifyVC.swift; sourceTree = "<group>"; };
+		CEDA2F03244EF2930013CCB8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E3A04432AB4F8BF8F02068C9 /* Pods-CDSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.debug.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +138,7 @@
 				CE6896DF243E042500B37A90 /* AlbumTitlesVC.swift */,
 				CE6896E1243E276D00B37A90 /* SpotifyAlbumResultsCVC.swift */,
 				CEDA2F01244DAA8B0013CCB8 /* AddToSpotifyVC.swift */,
+				CEDA2F03244EF2930013CCB8 /* ViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEDA2F04244EF2930013CCB8 /* ViewController.swift in Sources */,
 				CEB98F63243C64530028FED3 /* ImageReaderVC.swift in Sources */,
 				CE5794AC2445D2F900793C15 /* PagerViewCell.swift in Sources */,
 				CEB98F4F243B95630028FED3 /* SpotifyVC.swift in Sources */,

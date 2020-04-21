@@ -25,8 +25,28 @@ class AlbumTitlesVC: UITableViewController {
 //        albumTitles = ["STEVELUKATHER", "BILLY JOEL RIVER OF DREAMS", "JAMIROQUAI AUTOMATON"]
 //        albumTitles = ["bakkos+the+killing", "slipknot+iowa", "system+of+a+down+toxicity", "Dr+Dre+2001", "jamiroquai%20Automaton"]
 //        albumTitles = ["lady gaga"]
+        
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
+        var blurFrame = navigationController?.navigationBar.bounds
+        blurFrame?.size.height += statusBarHeight
+        blurFrame?.origin.y -= statusBarHeight
+        let blurView  = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+        blurView.alpha = 0.92
+        blurView.isUserInteractionEnabled = false
+        blurView.frame = blurFrame!
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        navigationController?.navigationBar.addSubview(blurView)
+        blurView.layer.zPosition = -1
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search Spotify", style: .done, target: self, action: #selector(albumSearch(_:)))
-       
+        
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
 
     
@@ -51,7 +71,6 @@ class AlbumTitlesVC: UITableViewController {
 //                    print(response.data)
                     if let albumResults = spotify?.albums.items {
 //                        print(albumResults)
-                        print("should have results")
                         if !albumResults.isEmpty {
                             self.albumResults.append(albumResults)
 //                            print("album found")

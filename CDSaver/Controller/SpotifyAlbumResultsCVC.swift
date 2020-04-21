@@ -107,6 +107,21 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         paragraphStyle.alignment = .left
         attributedInfoText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: 60))
         infoLabel.attributedText = attributedInfoText
+        
+//        let blurEffect = UIBlurEffect(style: .dark)
+//        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurredEffectView.frame = infoView.bounds
+//        infoView.addSubview(blurredEffectView)
+////        infoView.sendSubviewToBack(blurredEffectView)
+//        
+//        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
+//        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
+//        vibrancyEffectView.frame = infoView.bounds
+//
+//        vibrancyEffectView.contentView.addSubview(infoLabel)
+//        vibrancyEffectView.contentView.addSubview(addAlbumsButton)
+//        blurredEffectView.contentView.addSubview(vibrancyEffectView)
+        
     }
     
 
@@ -228,11 +243,12 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             UIView.animate(withDuration: 0.4, animations: {
                 self.view.layoutIfNeeded()
             }) { _ in
-                UIView.animate(withDuration: 0.2) {
+                UIView.animate(withDuration: 0.1, animations: {
                     self.addAlbumsButton.alpha = 0
+                }) { _ in
+                    self.infoLabel.isHidden = false
+                    self.animateDropDownView()
                 }
-                self.infoLabel.isHidden = false
-                self.animateDropDownView()
             }
         } else {
             animateDropDownView()
@@ -245,7 +261,6 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         if infoViewHeightConstraint.constant == newInfoViewMinHeight {
             infoLabel.isHidden = true
             UIView.animate(withDuration: 0.4) {
-                self.addAlbumsButtonWidthConstraint.constant = 300
                 self.addAlbumsButton.alpha = 1
             }
             animateDropDownView()
@@ -256,24 +271,22 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             }) { _ in
                 self.infoLabel.isHidden = true
                 UIView.animate(withDuration: 0.4) {
-                    self.addAlbumsButtonWidthConstraint.constant = 300
                     self.addAlbumsButton.alpha = 1
                 }
                 self.animateDropDownView()
             }
         } else {
-            UIView.animate(withDuration: 0.4) {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.addAlbumsButton.alpha = 0
-                self.addAlbumsButtonWidthConstraint.constant = 5
-                
-            }
-            animateDropDownView()
+            })
+            self.animateDropDownView()
+
         }
     }
     
     
     @IBAction func addAlbumsButtonTapped(_ sender: Any) {
-        showBlurredFXView(true)
+//        showBlurredFXView(true)
         blurredEffect.isUserInteractionEnabled = false
         
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
@@ -318,7 +331,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
                     print(index)
                     if index == totalAlbums {
                         print("Completion")
-                        self.performSegue(withIdentifier: "addAlbumsCompletion", sender: self)
+//                        self.performSegue(withIdentifier: "addAlbumsCompletion", sender: self)
                     }
                  }
              }
