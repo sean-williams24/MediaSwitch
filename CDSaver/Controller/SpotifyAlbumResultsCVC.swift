@@ -331,7 +331,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
                     print(index)
                     if index == totalAlbums {
                         print("Completion")
-//                        self.performSegue(withIdentifier: "addAlbumsCompletion", sender: self)
+                        self.performSegue(withIdentifier: "addAlbumsCompletion", sender: self)
                     }
                  }
              }
@@ -530,19 +530,19 @@ extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
 //        }
     }
     
-     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-
-     if(velocity.y>0) {
-        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
-             self.navigationController?.setNavigationBarHidden(true, animated: true)
-         }, completion: nil)
-
-     } else {
-        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-        }, completion: nil)
-        }
-    }
+//     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//
+//     if(velocity.y>0) {
+//        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
+//             self.navigationController?.setNavigationBarHidden(true, animated: true)
+//         }, completion: nil)
+//
+//     } else {
+//        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
+//            self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        }, completion: nil)
+//        }
+//    }
     
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {

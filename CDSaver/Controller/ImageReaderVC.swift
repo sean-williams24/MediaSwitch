@@ -8,8 +8,10 @@
 
 import Firebase
 import UIKit
+import QCropper
 
 class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
     
     // MARK: - Outlets
 
@@ -47,15 +49,20 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! AlbumTitlesVC
-        vc.albumTitles = self.albumTitles
+        vc.albumTitles = self.albumTitles.removingDuplicates()
     }
     
     // MARK: - Image Picker Delegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true)
-        
-        guard let image = info[.editedImage] as? UIImage else { return }
+        guard let image = info[.originalImage] as? UIImage else { return }
+
+        let cropper = CropperViewController(originalImage: image)
+        cropper.delegate = self
+
+        picker.dismiss(animated: true) {
+            self.present(cropper, animated:  true)
+        }
         
         imageView.image = image
     }
@@ -63,18 +70,23 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     // MARK: - Action Methods
     
     @IBAction func imageLibraryButtonTapped(_ sender: Any) {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = false
         
+        present(vc, animated: true)
     }
     
     @IBAction func cameraButtonTapped(_ sender: Any) {
-        
         let vc = UIImagePickerController()
         vc.sourceType = .camera
         vc.delegate = self
-        vc.allowsEditing = true
+        vc.allowsEditing = false
+        vc.showsCameraControls = true
+        vc.cameraCaptureMode = .photo
+        
         present(vc, animated: true)
-        
-        
     }
     
     @IBAction func extractAlbumsTapped(_ sender: Any) {
@@ -84,15 +96,31 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         var previousYPosition: CGFloat = 0
         
         processor.process(in: imageView) { (text, result) in
-            guard let result = result else { return }
-            
+            guard let result = result else {
+                print("No titles?")
+                // SHOW ALERT
+                return
+            }
+//            print(text)
             for block in result.blocks {
-                let albumName = block.text.withoutSpecialCharacters
+                var albumName = block.text.withoutSpecialCharacters
+                print("")
+                print("BLOCK TEXT RESULT: \(albumName)")
                 
-                print(albumName)
+                if albumName.contains("\n") {
+                    print("Contains multi line")
+                    var blockArray = albumName.components(separatedBy: "\n")
+                    print(blockArray)
+                    blockArray.removeDuplicates()
+                    albumName = blockArray.joined(separator: " ")
+                    print(albumName)
+                }
                 
+
                 // Ensure string is not purely numeric
                 if !albumName.isNumeric {
+                    
+//                    self.albumTitles.append(albumName)
                     
                     if let topLeftPoint = block.cornerPoints?.first as? CGPoint {
                         print(topLeftPoint.y)
@@ -100,29 +128,33 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
                             // First result
                             previousYPosition = topLeftPoint.y
                             tempAlbumArray.append(albumName)
-                            
+
                         } else {
                             // Second result and onward >>>
                             if topLeftPoint.y - previousYPosition < 50 {
                                 // On the same disc
                                 previousYPosition = topLeftPoint.y
-                                
+
                                 for tempAlbum in tempAlbumArray {
                                     let combinedStrings = tempAlbum + " " + albumName
+//                                    print(tempAlbum)
+//                                    print(albumName)
+//                                    print(combinedStrings)
+
                                     tempAlbumArray.insert(combinedStrings, at: 0)
                                 }
+//                                tempAlbumArray.append(contentsOf: secondTempAlbumArray)
                                 tempAlbumArray.append(albumName)
-                                
+                                print(tempAlbumArray)
+
                             } else {
                                 // New disc
                                 // Add temp albums to global array (previous disc)
-                                for tempAlbum in tempAlbumArray {
-                                    self.albumTitles.append(tempAlbum)
-                                }
-                                
+                                self.albumTitles += tempAlbumArray
+
                                 // clear temp array
                                 tempAlbumArray.removeAll()
-                                
+
                                 // add first result on next disc to temp array and set Y position
                                 tempAlbumArray.append(albumName)
                                 previousYPosition = topLeftPoint.y
@@ -131,10 +163,9 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
                     }
                 }
             }
-            for tempAlbum in tempAlbumArray {
-                self.albumTitles.append(tempAlbum)
-            }
+            self.albumTitles += tempAlbumArray
             print("Extraction complete")
+
             self.performSegue(withIdentifier: "showAlbumTitles", sender: self)
             
         }
@@ -148,6 +179,21 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
 
     // MARK: - Extensions
 
+extension ImageReaderVC: CropperViewControllerDelegate {
+    
+        func cropperDidConfirm(_ cropper: CropperViewController, state: CropperState?) {
+            cropper.dismiss(animated: true, completion: nil)
+
+            if let state = state,
+                let image = cropper.originalImage.cropped(withCropperState: state) {
+    //            cropperState = state
+                imageView.image = image
+//                print(cropper.isCurrentlyInInitialState)
+//                print(image)
+            }
+        }
+}
+
 extension String {
     var isNumeric: Bool {
         guard self.count > 0 else { return false }
@@ -159,6 +205,20 @@ extension String {
     
     var withoutSpecialCharacters: String {
         return self.components(separatedBy: CharacterSet.symbols).joined(separator: "")
+    }
+}
+
+extension Array where Element: Hashable {
+    func removingDuplicates() -> [Element] {
+        var addedDict = [Element: Bool]()
+        
+        return filter {
+            addedDict.updateValue(true, forKey: $0) == nil
+        }
+    }
+    
+    mutating func removeDuplicates() {
+        self = self.removingDuplicates()
     }
 }
 

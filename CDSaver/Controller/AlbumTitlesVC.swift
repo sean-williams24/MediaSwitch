@@ -26,19 +26,19 @@ class AlbumTitlesVC: UITableViewController {
 //        albumTitles = ["bakkos+the+killing", "slipknot+iowa", "system+of+a+down+toxicity", "Dr+Dre+2001", "jamiroquai%20Automaton"]
 //        albumTitles = ["lady gaga"]
         
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
-        var blurFrame = navigationController?.navigationBar.bounds
-        blurFrame?.size.height += statusBarHeight
-        blurFrame?.origin.y -= statusBarHeight
-        let blurView  = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-        blurView.alpha = 0.92
-        blurView.isUserInteractionEnabled = false
-        blurView.frame = blurFrame!
-        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        navigationController?.navigationBar.addSubview(blurView)
-        blurView.layer.zPosition = -1
+//        navigationController?.navigationBar.isTranslucent = true
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
+//        var blurFrame = navigationController?.navigationBar.bounds
+//        blurFrame?.size.height += statusBarHeight
+//        blurFrame?.origin.y -= statusBarHeight
+//        let blurView  = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+//        blurView.alpha = 0.92
+//        blurView.isUserInteractionEnabled = false
+//        blurView.frame = blurFrame!
+//        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        navigationController?.navigationBar.addSubview(blurView)
+//        blurView.layer.zPosition = -1
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search Spotify", style: .done, target: self, action: #selector(albumSearch(_:)))
         

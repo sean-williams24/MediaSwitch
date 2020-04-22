@@ -45,8 +45,13 @@ class SpotifyVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: true)
         
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
 
     }
     
@@ -86,7 +91,7 @@ class SpotifyVC: UIViewController {
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         let searchURL = "https://api.spotify.com/v1/search?"
 
-        AF.request(searchURL, method: .get, parameters: ["q": "a", "type": "album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { (response) in
+        AF.request(searchURL, method: .get, parameters: ["q": "stevelukather", "type": "album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { (response) in
             
             switch response.result {
             case .success(let value):
