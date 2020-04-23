@@ -10,11 +10,13 @@ import Alamofire
 import SwiftyJSON
 import UIKit
 
-class SpotifyVC: UIViewController {
+class SpotifyVC: UIViewController, CAAnimationDelegate {
     
     
     // MARK: - Outlets
     
+    @IBOutlet weak var spotifyButton: UIImageView!
+    @IBOutlet weak var appleMusicButton: RoundButton!
     
     
     
@@ -40,12 +42,31 @@ class SpotifyVC: UIViewController {
         return appRemote
     }()
     
+    var colourSets = [[CGColor]]()
+    var currentColourSet: Int!
+    var gradientLayer = CAGradientLayer()
+    var colourTimer = Timer()
+
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(connectToSpotifyTapped))
+        spotifyButton.isUserInteractionEnabled = true
+        spotifyButton.addGestureRecognizer(tapGesture)
+        
+        createColorSets()
+        
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: appleMusicButton.frame.width - 40, height: appleMusicButton.frame.height)
+        gradientLayer.cornerRadius = 25
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        gradientLayer.colors = colourSets[currentColourSet]
+        appleMusicButton.layer.addSublayer(gradientLayer)
+        
+        colourTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(animateColours), userInfo: nil, repeats: true)
 
     }
     
@@ -58,25 +79,41 @@ class SpotifyVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        colourTimer.invalidate()
     }
     
     
     // MARK: - Private Methods
     
-//    @objc func addAlbumsTapped(_ button: UIButton) {
-//        let addAlbumsURL = "https://api.spotify.com/v1/me/albums?ids=\(albumURI)"
-//        let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
-//
-//        AF.request(addAlbumsURL, method: .put, parameters: ["ids": albumURI], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).response { (response) in
-//
-//            if let statusCode = response.response?.statusCode {
-//                if statusCode == 200 {
-//                    print("Album Added")
-//                }
-//            }
-//        }
-//    }
-
+    func createColorSets() {
+        colourSets.append([UIColor.systemPink.cgColor, UIColor.systemBlue.cgColor])
+        colourSets.append([UIColor.systemPurple.cgColor, UIColor.systemPink.cgColor])
+        colourSets.append([UIColor.systemBlue.cgColor, UIColor.systemPink.cgColor])
+     
+        currentColourSet = 0
+    }
+    
+    @objc func animateColours() {
+        if currentColourSet < colourSets.count - 1 {
+            currentColourSet! += 1
+        } else {
+            currentColourSet! = 0
+        }
+        
+        let colourChangeAnimation = CABasicAnimation(keyPath: "colors")
+        colourChangeAnimation.duration = 2.0
+        colourChangeAnimation.toValue = colourSets[currentColourSet]
+        colourChangeAnimation.fillMode = .forwards
+        colourChangeAnimation.isRemovedOnCompletion = false
+        colourChangeAnimation.delegate = self
+        gradientLayer.add(colourChangeAnimation, forKey: "colorChange")
+    }
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if flag {
+            gradientLayer.colors = colourSets[currentColourSet]
+        }
+    }
     
     
     func connectionEstablished() {
@@ -86,7 +123,23 @@ class SpotifyVC: UIViewController {
     
     // MARK: - Action Methods
     
-    @IBAction func connectTapped(_ sender: Any) {
+    
+    @IBAction func appleMusicButtonTapped(_ sender: Any) {
+        
+        
+    }
+    
+    
+    
+    @objc func connectToSpotifyTapped() {
+        
+        UIView.animate(withDuration: 0.1, animations: {
+            self.spotifyButton.transform = CGAffineTransform(scaleX: 0.97, y: 0.97)
+        }) { _ in
+            UIView.animate(withDuration: 0.1) {
+                self.spotifyButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+        }
         
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         let searchURL = "https://api.spotify.com/v1/search?"

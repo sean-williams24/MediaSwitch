@@ -15,83 +15,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="oUa-aX-Epu">
-                                <rect key="frame" x="10" y="730" width="394" height="117"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs9-Fl-HTJ" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="0.0" width="374" height="50"/>
-                                        <color key="backgroundColor" red="0.67526610659999997" green="0.2331447005" blue="0.60787641999999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="yyy-xY-sZt"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                        <state key="normal" title="Apple Music">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="15"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <segue destination="6bT-Gy-6tp" kind="show" id="thW-wb-g5j"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRy-KL-xro" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="67" width="374" height="50"/>
-                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="300" id="rBa-vT-VWQ"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                        <state key="normal" title="Spotify">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="15"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="0.0"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="connectTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NB6-xM-nGz"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="gs9-Fl-HTJ" firstAttribute="leading" secondItem="oUa-aX-Epu" secondAttribute="leading" constant="10" id="myc-ND-Mt0"/>
-                                    <constraint firstItem="SRy-KL-xro" firstAttribute="leading" secondItem="oUa-aX-Epu" secondAttribute="leading" constant="10" id="tJy-bi-7Np"/>
-                                </constraints>
-                            </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MediaSwitch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1p-w2-kFu">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MediaSwitch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1p-w2-kFu">
                                 <rect key="frame" x="96.5" y="57" width="221.5" height="47.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YBR-wH-CmA">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YBR-wH-CmA">
                                 <rect key="frame" x="0.0" y="112" width="414" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="bcD-5k-XBH"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONNECT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S86-45-ic9">
+                                <rect key="frame" x="165.5" y="443" width="83" height="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="728" image="Spotify_Logo_RGB_Green-1" translatesAutoresizingMaskIntoConstraints="NO" id="YQS-wt-YzZ">
+                                <rect key="frame" x="20" y="493" width="374" height="192"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs9-Fl-HTJ" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
+                                <rect key="frame" x="20" y="293" width="374" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="yyy-xY-sZt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" title="Apple Music">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="appleMusicButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qPL-Ow-qXj"/>
+                                    <segue destination="6bT-Gy-6tp" kind="show" id="thW-wb-g5j"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YQS-wt-YzZ" secondAttribute="trailing" constant="20" id="51g-XO-a9J"/>
                             <constraint firstItem="YBR-wH-CmA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9M9-5G-j0h"/>
-                            <constraint firstItem="oUa-aX-Epu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="KgO-MC-8TN"/>
+                            <constraint firstItem="YQS-wt-YzZ" firstAttribute="top" secondItem="S86-45-ic9" secondAttribute="bottom" constant="30" id="Fhg-8A-REw"/>
+                            <constraint firstItem="S86-45-ic9" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="PyW-E4-7d1"/>
                             <constraint firstItem="S1p-w2-kFu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="13" id="RSC-WN-OTF"/>
                             <constraint firstItem="YBR-wH-CmA" firstAttribute="top" secondItem="S1p-w2-kFu" secondAttribute="bottom" constant="7.5" id="Ybc-Yo-gpL"/>
+                            <constraint firstItem="gs9-Fl-HTJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bma-fU-ML1"/>
+                            <constraint firstItem="S86-45-ic9" firstAttribute="top" secondItem="gs9-Fl-HTJ" secondAttribute="bottom" constant="100" id="d5A-eb-Ce2"/>
                             <constraint firstItem="YBR-wH-CmA" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kjU-Y8-vjE"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oUa-aX-Epu" secondAttribute="trailing" constant="10" id="mpT-Fs-zxU"/>
+                            <constraint firstItem="YQS-wt-YzZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="osk-Rz-GeD"/>
                             <constraint firstItem="S1p-w2-kFu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="rfi-0Z-ewM"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="oUa-aX-Epu" secondAttribute="bottom" constant="15" id="zfZ-PK-s42"/>
+                            <constraint firstItem="S86-45-ic9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="u1G-1S-OZW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gs9-Fl-HTJ" secondAttribute="trailing" constant="20" id="ucj-gI-sh8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -100,6 +84,8 @@
                     </navigationItem>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="appleMusicButton" destination="gs9-Fl-HTJ" id="poM-HL-m3s"/>
+                        <outlet property="spotifyButton" destination="YQS-wt-YzZ" id="XfC-wz-Di7"/>
                         <segue destination="TLL-Tk-L24" kind="show" identifier="showImageReader" id="xQP-69-y3r"/>
                     </connections>
                 </viewController>
@@ -857,6 +843,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
     </scenes>
     <resources>
         <image name="IMG_3738" width="3024" height="4032"/>
+        <image name="Spotify_Logo_RGB_Green-1" width="640" height="192"/>
         <image name="album" width="512" height="512"/>
         <image name="bakkos" width="500" height="500"/>
         <image name="camera" catalog="system" width="64" height="48"/>
