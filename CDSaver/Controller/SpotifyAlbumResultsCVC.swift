@@ -23,14 +23,14 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var infoButton: RoundButton!
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var goButton: RoundButton!
-    @IBOutlet weak var addAlbumsButtonWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var addAlbumsButton: RoundButton!
+    @IBOutlet weak var addAlbumsButton: UIView!
     @IBOutlet weak var deleteButton: RoundButton!
     @IBOutlet weak var pagerView: FSPagerView! {
         didSet {
             self.pagerView.register(PagerViewCell.self, forCellWithReuseIdentifier: "cell")
         }
     }
+    @IBOutlet weak var logoImageView: UIImageView!
     
     
     // MARK: - Properties
@@ -45,7 +45,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     var altAlbumsViewStartLocation: CGPoint!
     var originalPoint: CGPoint!
     let newInfoViewMinHeight: CGFloat = 0.0
-    var newInfoViewMaxHeight: CGFloat = 90.0
+    var newInfoViewMaxHeight: CGFloat = 110.0
     var albumResultsIndex: Int!
     var selectedAlbums: [IndexPath] = []
     var blurredEffect = UIVisualEffectView()
@@ -108,19 +108,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         attributedInfoText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: 60))
         infoLabel.attributedText = attributedInfoText
         
-//        let blurEffect = UIBlurEffect(style: .dark)
-//        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
-//        blurredEffectView.frame = infoView.bounds
-//        infoView.addSubview(blurredEffectView)
-////        infoView.sendSubviewToBack(blurredEffectView)
-//        
-//        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
-//        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
-//        vibrancyEffectView.frame = infoView.bounds
-//
-//        vibrancyEffectView.contentView.addSubview(infoLabel)
-//        vibrancyEffectView.contentView.addSubview(addAlbumsButton)
-//        blurredEffectView.contentView.addSubview(vibrancyEffectView)
+        addAlbumsButton.backgroundColor = Settings.spotifyGreen
+        addAlbumsButton.layer.cornerRadius = 30
         
     }
     
@@ -243,12 +232,14 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             UIView.animate(withDuration: 0.4, animations: {
                 self.view.layoutIfNeeded()
             }) { _ in
-                UIView.animate(withDuration: 0.1, animations: {
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.logoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
                     self.addAlbumsButton.alpha = 0
                 }) { _ in
-                    self.infoLabel.isHidden = false
-                    self.animateDropDownView()
+
                 }
+                self.infoLabel.isHidden = false
+                self.animateDropDownView()
             }
         } else {
             animateDropDownView()
@@ -261,6 +252,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         if infoViewHeightConstraint.constant == newInfoViewMinHeight {
             infoLabel.isHidden = true
             UIView.animate(withDuration: 0.4) {
+                self.logoImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
                 self.addAlbumsButton.alpha = 1
             }
             animateDropDownView()
@@ -271,14 +263,17 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             }) { _ in
                 self.infoLabel.isHidden = true
                 UIView.animate(withDuration: 0.4) {
+                    self.logoImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
                     self.addAlbumsButton.alpha = 1
                 }
                 self.animateDropDownView()
             }
         } else {
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.logoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
                 self.addAlbumsButton.alpha = 0
-            })
+            }) { _ in
+            }
             self.animateDropDownView()
 
         }
@@ -555,9 +550,13 @@ extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
             infoViewHeightConstraint.constant = newInfoViewMinHeight
         }
         
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(withDuration: 0.4, animations: {
+                 self.logoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
+                 self.addAlbumsButton.alpha = 0
             self.view.layoutIfNeeded()
-        }
+
+             }) { _ in
+             }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -565,9 +564,14 @@ extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
             infoViewHeightConstraint.constant = newInfoViewMinHeight
         }
         
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(withDuration: 0.4, animations: {
+                self.logoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
+                self.addAlbumsButton.alpha = 0
             self.view.layoutIfNeeded()
-        }
+
+            }) { _ in
+                
+            }
     }
     
 }
