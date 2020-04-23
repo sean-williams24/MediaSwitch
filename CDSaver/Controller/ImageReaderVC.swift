@@ -47,78 +47,12 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         coverButtonView.layer.cornerRadius = 30
         albumStackView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         albumStackView.layer.cornerRadius = 30
-        
-//        blurredEffectView.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(blurredEffectView)
-        
-//        NSLayoutConstraint.activate([
-//            blurredEffectView.heightAnchor.constraint(equalTo: view.heightAnchor),
-//            blurredEffectView.widthAnchor.constraint(equalTo: view.widthAnchor),
-//        ])
-//
-//        let label = UILabel()
-//        label.text = "Extract from CD stack or album covers?"
-//        label.font = UIFont(name: "HelveticaNeue-Regular", size: 18)
-//        label.sizeToFit()
-//        label.textColor = .white
-//        label.center = view.center
-//
-//        let stackView = UIStackView()
-//        stackView.alignment = .center
-//        stackView.axis = .horizontal
-//        stackView.distribution = .fillEqually
-//        stackView.spacing = 10
-        
-//        let stackButton = UIButton()
-//        stackButton.setBackgroundImage(UIImage(systemName: "square.stack.3d.up.fill"), for: .normal)
-//        stackButton.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-////        stackButton.heightAnchor.constraint(equalToConstant: 130.0).isActive = true
-////        stackButton.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
-////        stackButton.layer.cornerRadius = 30
-//        stackButton.tintColor = .white
-//        stackButton.addTarget(self, action: #selector(albumStackExtraction), for: .touchUpInside)
-        
-//        let stackButtonView = UIView()
-//        stackButtonView.translatesAutoresizingMaskIntoConstraints = false
-//        stackButtonView.heightAnchor.constraint(equalToConstant: 130.0).isActive = true
-//        stackButtonView.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
-//        stackButtonView.layer.cornerRadius = 30
-//        stackButtonView.addSubview(stackButton)
-//        stackButton.topAnchor.constraint(equalTo: stackButtonView.topAnchor, constant: 10).isActive = true
-//        stackButton.bottomAnchor.constraint(equalTo: stackButtonView.bottomAnchor, constant: 10).isActive = true
-//        stackButton.leadingAnchor.constraint(equalTo: stackButtonView.leadingAnchor, constant: 10).isActive = true
-//        stackButton.trailingAnchor.constraint(equalTo: stackButtonView.trailingAnchor, constant: 10).isActive = true
-
-
-        
-//        let coversButton = UIButton()
-//        coversButton.setBackgroundImage(UIImage(systemName: "album"), for: .normal)
-//        coversButton.titleLabel?.text = "Album Covers"
-//        coversButton.setTitle("Album Covers", for: .normal)
-
-        
-//        stackView.addArrangedSubview(stackButtonView)
-//        stackView.addArrangedSubview(coversButton)
-//        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-//        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
-//        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
-//        vibrancyEffectView.frame = view.bounds
-//        vibrancyEffectView.contentView.addSubview(label)
-        
-//        blurredEffectView.contentView.addSubview(label)
-//        blurredEffectView.contentView.addSubview(stackView)
-        
-//        NSLayoutConstraint.activate([
-//            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-//            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0),
-////            stackView.widthAnchor.constraint(lessThanOrEqualToConstant: 320),
-////            stackView.heightAnchor.constraint(lessThanOrEqualToConstant: 160),
-////            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-//            //            stackView.heightAnchor.constraint(equalToConstant: 300)
-//        ])
-        
         blurredEffectView.isHidden = true
+        
+        cameraButton.tintColor = Settings.spotifyGreen
+        imageLibraryButton.tintColor = Settings.spotifyGreen
+        stackButton.tintColor = Settings.spotifyGreen
+        coverButton.tintColor = Settings.spotifyGreen
     }
     
     override func viewDidDisappear(_ animated: Bool) {

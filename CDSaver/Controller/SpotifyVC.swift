@@ -52,7 +52,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(connectToSpotifyTapped))
         spotifyButton.isUserInteractionEnabled = true
         spotifyButton.addGestureRecognizer(tapGesture)
@@ -66,13 +66,15 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         gradientLayer.colors = colourSets[currentColourSet]
         appleMusicButton.layer.addSublayer(gradientLayer)
         
-        colourTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(animateColours), userInfo: nil, repeats: true)
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        animateColours()
+        colourTimer = Timer.scheduledTimer(timeInterval: 4.5, target: self, selector: #selector(animateColours), userInfo: nil, repeats: true)
 
     }
     
@@ -101,7 +103,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         }
         
         let colourChangeAnimation = CABasicAnimation(keyPath: "colors")
-        colourChangeAnimation.duration = 2.0
+        colourChangeAnimation.duration = 1.5
         colourChangeAnimation.toValue = colourSets[currentColourSet]
         colourChangeAnimation.fillMode = .forwards
         colourChangeAnimation.isRemovedOnCompletion = false
