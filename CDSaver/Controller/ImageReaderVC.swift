@@ -18,14 +18,19 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var imageLibraryButton: UIButton!
+    @IBOutlet weak var blurredEffectView: UIVisualEffectView!
+    @IBOutlet weak var coverButtonView: UIView!
+    @IBOutlet weak var coverButton: UIButton!
+    @IBOutlet weak var buttonStack: UIStackView!
+    @IBOutlet weak var albumStackView: UIView!
+    @IBOutlet weak var stackButton: UIButton!
     
     
     // MARK: - Properties
     
     let processor = ScaledElementProcessor()
     var albumTitles = [String]()
-    var blurredEffectView = UIVisualEffectView()
-    let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+    let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
     
     
     // MARK: - Life Cycle
@@ -35,64 +40,83 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         navigationController?.navigationBar.isHidden = false
         
         blurredEffectView.effect = nil
-        blurredEffectView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(blurredEffectView)
+        let dismissTap = UITapGestureRecognizer(target: self, action: #selector(dismissBlurView))
+        blurredEffectView.addGestureRecognizer(dismissTap)
         
-        NSLayoutConstraint.activate([
-            blurredEffectView.heightAnchor.constraint(equalTo: view.heightAnchor),
-            blurredEffectView.widthAnchor.constraint(equalTo: view.widthAnchor),
-        ])
+        coverButtonView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        coverButtonView.layer.cornerRadius = 30
+        albumStackView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        albumStackView.layer.cornerRadius = 30
         
-        let label = UILabel()
-        label.text = "Extract from CD stack or album covers?"
-        label.font = UIFont(name: "HelveticaNeue-Light", size: 18)
-        label.sizeToFit()
-        label.textColor = .black
-        label.center = blurredEffectView.center
+//        blurredEffectView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(blurredEffectView)
         
-        let stackView = UIStackView()
-        stackView.alignment = .center
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
+//        NSLayoutConstraint.activate([
+//            blurredEffectView.heightAnchor.constraint(equalTo: view.heightAnchor),
+//            blurredEffectView.widthAnchor.constraint(equalTo: view.widthAnchor),
+//        ])
+//
+//        let label = UILabel()
+//        label.text = "Extract from CD stack or album covers?"
+//        label.font = UIFont(name: "HelveticaNeue-Regular", size: 18)
+//        label.sizeToFit()
+//        label.textColor = .white
+//        label.center = view.center
+//
+//        let stackView = UIStackView()
+//        stackView.alignment = .center
+//        stackView.axis = .horizontal
+//        stackView.distribution = .fillEqually
+//        stackView.spacing = 10
         
-        let stackButton = UIButton()
-        stackButton.setBackgroundImage(UIImage(systemName: "square.stack.3d.up.fill"), for: .normal)
-        stackButton.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        stackButton.heightAnchor.constraint(equalToConstant: 170.0).isActive = true
-        //        stackButton.widthAnchor.constraint(equalToConstant: 120.0).isActive = true
-        stackButton.layer.cornerRadius = 30
-        stackButton.tintColor = .white
-        stackButton.addTarget(self, action: #selector(albumStackExtraction), for: .touchUpInside)
+//        let stackButton = UIButton()
+//        stackButton.setBackgroundImage(UIImage(systemName: "square.stack.3d.up.fill"), for: .normal)
+//        stackButton.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+////        stackButton.heightAnchor.constraint(equalToConstant: 130.0).isActive = true
+////        stackButton.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
+////        stackButton.layer.cornerRadius = 30
+//        stackButton.tintColor = .white
+//        stackButton.addTarget(self, action: #selector(albumStackExtraction), for: .touchUpInside)
         
-        let coversButton = UIButton()
-        coversButton.setBackgroundImage(UIImage(systemName: "square.stack.3d.down.right.fill"), for: .normal)
-        coversButton.backgroundColor = UIColor.black.withAlphaComponent(0.4)
-        coversButton.heightAnchor.constraint(equalToConstant: 170.0).isActive = true
-        //        coversButton.widthAnchor.constraint(equalToConstant: 120.0).isActive = true
-        coversButton.layer.cornerRadius = 30
-        coversButton.tintColor = .white
-        coversButton.contentMode = .scaleAspectFit
-        coversButton.addTarget(self, action: #selector(albumCoverExtraction), for: .touchUpInside)
+//        let stackButtonView = UIView()
+//        stackButtonView.translatesAutoresizingMaskIntoConstraints = false
+//        stackButtonView.heightAnchor.constraint(equalToConstant: 130.0).isActive = true
+//        stackButtonView.widthAnchor.constraint(equalToConstant: 130.0).isActive = true
+//        stackButtonView.layer.cornerRadius = 30
+//        stackButtonView.addSubview(stackButton)
+//        stackButton.topAnchor.constraint(equalTo: stackButtonView.topAnchor, constant: 10).isActive = true
+//        stackButton.bottomAnchor.constraint(equalTo: stackButtonView.bottomAnchor, constant: 10).isActive = true
+//        stackButton.leadingAnchor.constraint(equalTo: stackButtonView.leadingAnchor, constant: 10).isActive = true
+//        stackButton.trailingAnchor.constraint(equalTo: stackButtonView.trailingAnchor, constant: 10).isActive = true
+
+
         
-        stackView.addArrangedSubview(stackButton)
-        stackView.addArrangedSubview(coversButton)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+//        let coversButton = UIButton()
+//        coversButton.setBackgroundImage(UIImage(systemName: "album"), for: .normal)
+//        coversButton.titleLabel?.text = "Album Covers"
+//        coversButton.setTitle("Album Covers", for: .normal)
+
         
-        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
-        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
-        vibrancyEffectView.frame = view.bounds
-        vibrancyEffectView.contentView.addSubview(label)
+//        stackView.addArrangedSubview(stackButtonView)
+//        stackView.addArrangedSubview(coversButton)
+//        stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        blurredEffectView.contentView.addSubview(vibrancyEffectView)
-        blurredEffectView.contentView.addSubview(stackView)
+//        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
+//        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
+//        vibrancyEffectView.frame = view.bounds
+//        vibrancyEffectView.contentView.addSubview(label)
         
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 50),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            //            stackView.heightAnchor.constraint(equalToConstant: 300)
-        ])
+//        blurredEffectView.contentView.addSubview(label)
+//        blurredEffectView.contentView.addSubview(stackView)
+        
+//        NSLayoutConstraint.activate([
+//            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+//            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0),
+////            stackView.widthAnchor.constraint(lessThanOrEqualToConstant: 320),
+////            stackView.heightAnchor.constraint(lessThanOrEqualToConstant: 160),
+////            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+//            //            stackView.heightAnchor.constraint(equalToConstant: 300)
+//        ])
         
         blurredEffectView.isHidden = true
     }
@@ -106,7 +130,16 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
 
     // MARK: - Private Methods
     
-    @objc func albumCoverExtraction() {
+    @objc func dismissBlurView() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.blurredEffectView.effect = nil
+            self.buttonStack.alpha = 0
+        }) { _ in
+            self.blurredEffectView.isHidden = true
+        }
+    }
+    
+    @IBAction func albumCoverExtraction() {
         blurredEffectView.isUserInteractionEnabled = false
         albumTitles.removeAll()
         
@@ -134,7 +167,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     }
     
     
-    @objc fileprivate func albumStackExtraction() {
+    @IBAction func albumStackExtraction() {
         blurredEffectView.isUserInteractionEnabled = false
         albumTitles.removeAll()
         
@@ -248,11 +281,12 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     
     @IBAction func extractAlbumsTapped(_ sender: Any) {
-        blurredEffectView.alpha = 0
+//        blurredEffectView.alpha = 1
         blurredEffectView.isHidden = false
-        UIView.animate(withDuration: 0.5) {
-            self.blurredEffectView.alpha = 0.95
+        UIView.animate(withDuration: 0.4) {
+//            self.blurredEffectView.alpha = 1
             self.blurredEffectView.effect = self.blurEffect
+            self.buttonStack.alpha = 1
         }
 
     }
