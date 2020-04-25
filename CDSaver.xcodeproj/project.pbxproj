@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B3428F760640D75BFECECFC6 /* Pods_CDSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */; };
-		CE3D577A2451BA6C003E1061 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D57792451BA6C003E1061 /* Settings.swift */; };
+		CE3D577A2451BA6C003E1061 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D57792451BA6C003E1061 /* Style.swift */; };
 		CE5794AC2445D2F900793C15 /* PagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5794AB2445D2F900793C15 /* PagerViewCell.swift */; };
 		CE5794AE2448846800793C15 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5794AD2448846700793C15 /* RoundButton.swift */; };
 		CE6896E0243E042500B37A90 /* AlbumTitlesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6896DF243E042500B37A90 /* AlbumTitlesVC.swift */; };
@@ -34,7 +34,7 @@
 /* Begin PBXFileReference section */
 		15D9F9DF64BF008A1BC2680D /* Pods-CDSaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.release.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.release.xcconfig"; sourceTree = "<group>"; };
 		8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CDSaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE3D57792451BA6C003E1061 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		CE3D57792451BA6C003E1061 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		CE5794AB2445D2F900793C15 /* PagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewCell.swift; sourceTree = "<group>"; };
 		CE5794AD2448846700793C15 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		CE6896DF243E042500B37A90 /* AlbumTitlesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTitlesVC.swift; sourceTree = "<group>"; };
@@ -123,12 +123,12 @@
 		CEC567C2243C80D3009C8CB2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CEC567C0243C80CA009C8CB2 /* Auth.swift */,
 				CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */,
 				CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */,
 				CE5794AD2448846700793C15 /* RoundButton.swift */,
 				CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */,
-				CE3D57792451BA6C003E1061 /* Settings.swift */,
+				CE3D57792451BA6C003E1061 /* Style.swift */,
+				CEC567C0243C80CA009C8CB2 /* Auth.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -299,7 +299,7 @@
 				CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */,
 				CEB98F4B243B95630028FED3 /* AppDelegate.swift in Sources */,
 				CEC567C5243C90F1009C8CB2 /* SpotifyAlbum.swift in Sources */,
-				CE3D577A2451BA6C003E1061 /* Settings.swift in Sources */,
+				CE3D577A2451BA6C003E1061 /* Style.swift in Sources */,
 				CE5794AE2448846800793C15 /* RoundButton.swift in Sources */,
 				CE6896E0243E042500B37A90 /* AlbumTitlesVC.swift in Sources */,
 				CEB98F4D243B95630028FED3 /* SceneDelegate.swift in Sources */,

@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>&quot;Please link your Apple Music account to add your albums&quot;</string>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>&quot;Please link your Apple Music account to add your albums&quot;</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -38,9 +42,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>"Camera access required to snap your music collection"</string>
+	<string>&quot;Camera access required to snap your music collection&quot;</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>"Photo library access required to import your music collection"</string>
+	<string>&quot;Photo library access required to import your music collection&quot;</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

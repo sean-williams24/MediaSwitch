@@ -8,7 +8,10 @@
 
 import Foundation
 
-class Settings {
+class Style {
     
-    static let spotifyGreen = UIColor(red: 0.117, green: 0.843 , blue: 0.376, alpha: 1.0)
+    struct Colours {
+           public static let spotifyGreen = UIColor(red: 0.117, green: 0.843 , blue: 0.376, alpha: 1.0)
+
+    }
 }

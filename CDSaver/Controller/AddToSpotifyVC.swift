@@ -19,7 +19,7 @@ class AddToSpotifyVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .black
+        view.backgroundColor = .clear
 //        
 //        let blurEffect = UIBlurEffect(style: .dark)
 //        let blurView = UIVisualEffectView(effect: blurEffect)
@@ -56,7 +56,7 @@ class AddToSpotifyVC: UIViewController {
 //        failedAlbums = ["The Killing", "Slipknot"]
         
         resultsTextLabel.text = """
-        All Done
+        All Done.
         
         \(numberOfAlbumsAdded!) albums added to your Spotify library
         

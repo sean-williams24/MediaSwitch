@@ -28,17 +28,39 @@
                                     <constraint firstAttribute="height" constant="2" id="bcD-5k-XBH"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONNECT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S86-45-ic9">
-                                <rect key="frame" x="165.5" y="443" width="83" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONNECT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S86-45-ic9">
+                                <rect key="frame" x="147" y="428" width="120" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="hjw-lF-YQS"/>
+                                    <constraint firstAttribute="height" constant="50" id="tNt-Pw-Top"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="728" image="Spotify_Logo_RGB_Green-1" translatesAutoresizingMaskIntoConstraints="NO" id="YQS-wt-YzZ">
-                                <rect key="frame" x="20" y="493" width="374" height="192"/>
+                                <rect key="frame" x="20" y="508" width="374" height="192"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Br8-hN-9pn">
+                                <rect key="frame" x="165.5" y="494" width="83" height="70"/>
+                                <color key="tintColor" red="0.34126895670000001" green="0.71291351319999996" blue="0.3764090538" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="72" id="IGe-AW-rmX"/>
+                                    <constraint firstAttribute="width" constant="83" id="wsl-Ac-Vr6"/>
+                                </constraints>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="light"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PeZ-F7-oAI">
+                                <rect key="frame" x="165.5" y="342" width="83" height="70"/>
+                                <color key="tintColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="72" id="4Rg-nY-s3f"/>
+                                    <constraint firstAttribute="width" constant="83" id="i1c-M5-98V"/>
+                                </constraints>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="light"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs9-Fl-HTJ" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
-                                <rect key="frame" x="20" y="293" width="374" height="50"/>
+                                <rect key="frame" x="20" y="258" width="374" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="yyy-xY-sZt"/>
@@ -57,7 +79,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="appleMusicButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qPL-Ow-qXj"/>
-                                    <segue destination="6bT-Gy-6tp" kind="show" id="thW-wb-g5j"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -67,11 +88,15 @@
                             <constraint firstItem="YBR-wH-CmA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9M9-5G-j0h"/>
                             <constraint firstItem="YQS-wt-YzZ" firstAttribute="top" secondItem="S86-45-ic9" secondAttribute="bottom" constant="30" id="Fhg-8A-REw"/>
                             <constraint firstItem="S86-45-ic9" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="PyW-E4-7d1"/>
+                            <constraint firstItem="Br8-hN-9pn" firstAttribute="top" secondItem="S86-45-ic9" secondAttribute="bottom" constant="15" id="QOG-e5-KC1"/>
                             <constraint firstItem="S1p-w2-kFu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="13" id="RSC-WN-OTF"/>
+                            <constraint firstItem="PeZ-F7-oAI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="VgF-v7-CAx"/>
                             <constraint firstItem="YBR-wH-CmA" firstAttribute="top" secondItem="S1p-w2-kFu" secondAttribute="bottom" constant="7.5" id="Ybc-Yo-gpL"/>
                             <constraint firstItem="gs9-Fl-HTJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bma-fU-ML1"/>
-                            <constraint firstItem="S86-45-ic9" firstAttribute="top" secondItem="gs9-Fl-HTJ" secondAttribute="bottom" constant="100" id="d5A-eb-Ce2"/>
+                            <constraint firstItem="Br8-hN-9pn" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ca4-hc-p2M"/>
+                            <constraint firstItem="S86-45-ic9" firstAttribute="top" secondItem="gs9-Fl-HTJ" secondAttribute="bottom" constant="120" id="d5A-eb-Ce2"/>
                             <constraint firstItem="YBR-wH-CmA" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kjU-Y8-vjE"/>
+                            <constraint firstItem="S86-45-ic9" firstAttribute="top" secondItem="PeZ-F7-oAI" secondAttribute="bottom" constant="15" id="ljg-qF-ik7"/>
                             <constraint firstItem="YQS-wt-YzZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="osk-Rz-GeD"/>
                             <constraint firstItem="S1p-w2-kFu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="rfi-0Z-ewM"/>
                             <constraint firstItem="S86-45-ic9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="u1G-1S-OZW"/>
@@ -85,7 +110,10 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="appleMusicButton" destination="gs9-Fl-HTJ" id="poM-HL-m3s"/>
+                        <outlet property="connectLabel" destination="S86-45-ic9" id="Gkv-hH-N5G"/>
+                        <outlet property="downArrow" destination="Br8-hN-9pn" id="scL-aU-3nY"/>
                         <outlet property="spotifyButton" destination="YQS-wt-YzZ" id="XfC-wz-Di7"/>
+                        <outlet property="upArrow" destination="PeZ-F7-oAI" id="cYd-yK-3zi"/>
                         <segue destination="TLL-Tk-L24" kind="show" identifier="showImageReader" id="xQP-69-y3r"/>
                     </connections>
                 </viewController>
@@ -796,6 +824,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Done. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="F3A-R6-TQ0">
                                 <rect key="frame" x="10" y="444.5" width="394" height="17.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -846,6 +875,8 @@ Once you’re happy with the options - add albums to your Spotify account by tap
         <image name="Spotify_Icon_RGB_Green 2" width="80" height="80"/>
         <image name="Spotify_Logo_RGB_Green-1" width="640" height="192"/>
         <image name="album" width="512" height="512"/>
+        <image name="arrow.down" catalog="system" width="60" height="64"/>
+        <image name="arrow.up" catalog="system" width="60" height="64"/>
         <image name="bakkos" width="500" height="500"/>
         <image name="camera" catalog="system" width="64" height="48"/>
         <image name="chevron.compact.down" catalog="system" width="64" height="20"/>

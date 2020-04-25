@@ -6,6 +6,7 @@
 //  Copyright © 2020 Sean Williams. All rights reserved.
 //
 
+import SwiftJWT
 import UIKit
 
 class ViewController: UIViewController {
@@ -13,38 +14,24 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let imageView = UIImageView(image: UIImage(named: "bakkos"))
-        imageView.frame = view.bounds
-        imageView.contentMode = .scaleAspectFit
-        view.addSubview(imageView)
+        let teamId = Auth.Apple.teamId
+        let keyId = Auth.Apple.keyId
+        let keyFileUrl = Bundle.main.url(forResource: "", withExtension: "p8")!
 
-        let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
-        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
-        blurredEffectView.frame = imageView.bounds
-        view.addSubview(blurredEffectView)
-        
-        let segmentedControl = UILabel()
-        segmentedControl.text = "Sean IS SOUND"
-        segmentedControl.sizeToFit()
-        segmentedControl.center = view.center
+        struct MyClaims: Claims {
+            let iss: String
+            let iat: Date?
+            let exp: Date?
+        }
 
-        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
-        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
-        vibrancyEffectView.frame = imageView.bounds
+        let myHeader = Header(kid: keyId)
+        let myClaims = MyClaims(iss: teamId, iat: Date(), exp: Date() +  24 * 60 * 60)
+        var myJWT = SwiftJWT.JWT(header: myHeader, claims: myClaims)
 
-        vibrancyEffectView.contentView.addSubview(segmentedControl)
-        blurredEffectView.contentView.addSubview(vibrancyEffectView)
+        let token = try! myJWT.sign(using: .es256(privateKey: try! String(contentsOf: keyFileUrl).data(using: .utf8)!))
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import StoreKit
 import UIKit
 
 class AlbumTitlesVC: UITableViewController {
@@ -16,64 +17,93 @@ class AlbumTitlesVC: UITableViewController {
 
     var albumTitles = [String]()
     var albumResults = [[Album]]()
-
+    var storefront = ""
     
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        albumTitles = ["STEVELUKATHER", "BILLY JOEL RIVER OF DREAMS", "JAMIROQUAI AUTOMATON"]
-//        albumTitles = ["bakkos+the+killing", "slipknot+iowa", "system+of+a+down+toxicity", "Dr+Dre+2001", "jamiroquai%20Automaton"]
-//        albumTitles = ["lady gaga"]
-        
-//        navigationController?.navigationBar.isTranslucent = true
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
-//        var blurFrame = navigationController?.navigationBar.bounds
-//        blurFrame?.size.height += statusBarHeight
-//        blurFrame?.origin.y -= statusBarHeight
-//        let blurView  = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-//        blurView.alpha = 0.92
-//        blurView.isUserInteractionEnabled = false
-//        blurView.frame = blurFrame!
-//        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        navigationController?.navigationBar.addSubview(blurView)
-//        blurView.layer.zPosition = -1
-        
+        //        albumTitles = ["STEVELUKATHER", "BILLY JOEL RIVER OF DREAMS", "JAMIROQUAI AUTOMATON"]
+        //        albumTitles = ["bakkos+the+killing", "slipknot+iowa", "system+of+a+down+toxicity", "Dr+Dre+2001", "jamiroquai%20Automaton"]
+        //        albumTitles = ["lady gaga"]
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search Spotify", style: .done, target: self, action: #selector(albumSearch(_:)))
         
-
+        let controller = SKCloudServiceController()
+        
+        
+        controller.requestStorefrontCountryCode { (code, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            } else {
+                if let code = code {
+                    self.storefront = code
+                    print("Got user code: \(code)")
+                } else {
+                    print("Did not get user code")
+                }
+            }
+        }
+        
+        controller.requestUserToken(forDeveloperToken: Auth.Apple.developerToken) { (userToken, error) in
+            guard error == nil else {
+                print(error?.localizedDescription as Any)
+                return
+            }
+            if let userToken = userToken {
+                Auth.Apple.userToken = userToken
+                print(userToken as Any)
+            } else {
+                print("Did not get user token")
+            }
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-
+    
+    // MARK: - Apple Music Methods
+    
+    
+    
     
     // MARK: - Private Methods
-
-    @objc func albumSearch(_ button: UIButton) {
+    
+    func appleMusicAlbumSearch() {
+        albumResults.removeAll()
+        let searchURL = "https://api.music.apple.com/v1/catalog/\(storefront)/search?"
+        
+        for CD in albumTitles {
+            AF.request(searchURL, method: .get, parameters: ["term": CD, "types": "albums"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer " + Auth.Apple.developerToken]).responseJSON { (response) in
+                print(response.result)
+                switch response.result {
+                case .success:
+                    let decoder = JSONDecoder()
+                    
+                case .failure(let error):
+                    print(error.localizedDescription as Any)
+                }
+            }
+        }
+    }
+    
+    func spotifyAlbumSearch() {
         albumResults.removeAll()
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         let searchURL = "https://api.spotify.com/v1/search?"
-        //        let albumQuery = "q=jamiroquai%20Automaton&type=album"
-        
         var i = 0
         for CD in albumTitles {
             
             AF.request(searchURL, method: .get, parameters: ["q": CD, "type":"album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { response in
-//                print(response.result)
+
                 switch response.result {
                 case .success:
                     let decoder = JSONDecoder()
                     let spotify = try? decoder.decode(Spotify.self, from: response.data!)
-//                    print(spotify)
-//                    print(response.data)
                     if let albumResults = spotify?.albums.items {
-//                        print(albumResults)
                         if !albumResults.isEmpty {
                             self.albumResults.append(albumResults)
-//                            print("album found")
                         }
                     }
                     
@@ -88,6 +118,10 @@ class AlbumTitlesVC: UITableViewController {
                 }
             }
         }
+    }
+    
+    @objc func albumSearch(_ button: UIButton) {
+        appleMusicAlbumSearch()
     }
     
     

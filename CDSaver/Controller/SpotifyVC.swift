@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import StoreKit
 import SwiftyJSON
 import UIKit
 
@@ -17,6 +18,9 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     
     @IBOutlet weak var spotifyButton: UIImageView!
     @IBOutlet weak var appleMusicButton: RoundButton!
+    @IBOutlet weak var downArrow: UIImageView!
+    @IBOutlet weak var upArrow: UIImageView!
+    @IBOutlet weak var connectLabel: UILabel!
     
     
     
@@ -66,7 +70,12 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         gradientLayer.colors = colourSets[currentColourSet]
         appleMusicButton.layer.addSublayer(gradientLayer)
         
-
+        connectLabel.layer.borderColor = UIColor.label.cgColor
+        connectLabel.layer.borderWidth = 1
+        connectLabel.layer.cornerRadius = 25
+        
+        downArrow.blink(duration: 1, delay: 3, alpha: 0.05)
+        upArrow.blink(duration: 1, delay: 3, alpha: 0.05)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,6 +91,12 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         colourTimer.invalidate()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        connectLabel.layer.borderColor = UIColor.label.cgColor
+
     }
     
     
@@ -119,7 +134,6 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     
     
     func connectionEstablished() {
-        print("Perform segue")
         performSegue(withIdentifier: "showImageReader", sender: self)
     }
     
@@ -127,7 +141,21 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     
     
     @IBAction func appleMusicButtonTapped(_ sender: Any) {
-        
+        SKCloudServiceController.requestAuthorization { (status) in
+            switch status {
+            case .denied, .restricted:
+                print("Apple Music Denied")
+                //TODO: - SHOW ALERT
+                // CHECK to see what happens if user denies access
+                
+            case .authorized:
+                print("Apple Music Authorized")
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "showImageReader", sender: self)
+                }
+            default: break
+            }
+        }
         
     }
     
@@ -243,4 +271,13 @@ extension SpotifyVC: SPTAppRemoteDelegate {
         //        playerViewController.appRemoteDisconnect()
     }
     
+}
+
+
+extension UIView {
+    func blink(duration: TimeInterval = 0.5, delay: TimeInterval = 0.0, alpha: CGFloat = 0.0) {
+        UIView.animate(withDuration: duration, delay: delay, options: [.curveEaseInOut, .repeat, .autoreverse], animations: {
+            self.alpha = alpha
+        })
+    }
 }

@@ -49,10 +49,10 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         albumStackView.layer.cornerRadius = 30
         blurredEffectView.isHidden = true
         
-        cameraButton.tintColor = Settings.spotifyGreen
-        imageLibraryButton.tintColor = Settings.spotifyGreen
-        stackButton.tintColor = Settings.spotifyGreen
-        coverButton.tintColor = Settings.spotifyGreen
+        cameraButton.tintColor = Style.Colours.spotifyGreen
+        imageLibraryButton.tintColor = Style.Colours.spotifyGreen
+        stackButton.tintColor = Style.Colours.spotifyGreen
+        coverButton.tintColor = Style.Colours.spotifyGreen
     }
     
     override func viewDidDisappear(_ animated: Bool) {

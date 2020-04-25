@@ -108,8 +108,11 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         attributedInfoText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: 60))
         infoLabel.attributedText = attributedInfoText
         
-        addAlbumsButton.backgroundColor = Settings.spotifyGreen
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addAlbumsButtonTapped))
+        addAlbumsButton.addGestureRecognizer(tapGesture)
+        addAlbumsButton.backgroundColor = Style.Colours.spotifyGreen
         addAlbumsButton.layer.cornerRadius = 30
+        
         
     }
     
@@ -280,12 +283,12 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     
-    @IBAction func addAlbumsButtonTapped(_ sender: Any) {
-//        showBlurredFXView(true)
+    @objc func addAlbumsButtonTapped() {
+        showBlurredFXView(true)
         blurredEffect.isUserInteractionEnabled = false
         
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
-        print(albumResults.count)
+        
         var index = 0
         let totalAlbums = albumResults.count
         for albumCollection in self.albumResults {
