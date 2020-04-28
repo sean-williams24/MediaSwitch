@@ -24,11 +24,11 @@ struct SpotifyAlbums: Codable {
     let href: String
     let previous: JSONNull?
     let offset: Int
-    let items: [Album]
+    let items: [SpotifyAlbum]
 }
 
 // MARK: - Album
-struct Album: Codable {
+struct SpotifyAlbum: Codable {
     let type: String
     let availableMarkets: [String]
     let externalUrls: ExternalUrls

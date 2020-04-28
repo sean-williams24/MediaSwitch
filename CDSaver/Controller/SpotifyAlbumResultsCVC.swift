@@ -35,8 +35,11 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     
     // MARK: - Properties
     
-    var albumResults = [[Album]]()
-    var albumGroup = [Album]()
+    var spotifyAlbumResults = [[SpotifyAlbum]]()
+    var spotifyAlbumGroup = [SpotifyAlbum]()
+    var appleAlbumResults = [[AppleMusicAlbum]]()
+    var appleAlbumGroup = [AppleMusicAlbum]()
+    var viewingAppleMusic: Bool!
     var failedAlbums: [String] = []
     var numberOfAlbumsAdded = 0
     private let sectionInsets = UIEdgeInsets(top: 0, left: 10.0, bottom: 15.0, right: 10.0)
@@ -60,6 +63,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("SHOULD have results \(appleAlbumResults.count)")
+        print(viewingAppleMusic)
         
         collectionView.contentInsetAdjustmentBehavior = .never
         alternativeAlbumsView.backgroundColor = .clear
@@ -67,7 +72,6 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         infoViewHeightConstraint.constant = 0
         collectionView.allowsMultipleSelection = true
         infoView.layer.borderWidth = 0.8
-
         
         pagerView.transformer = FSPagerViewTransformer(type: .linear)
         let width = view.frame.width / 2
@@ -212,7 +216,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         
         showBlurredFXView(true)
         
-        albumGroup = albumResults[sender.tag]
+        spotifyAlbumGroup = spotifyAlbumResults[sender.tag]
         albumResultsIndex = sender.tag
         pagerView.reloadData()
         
@@ -290,8 +294,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         
         var index = 0
-        let totalAlbums = albumResults.count
-        for albumCollection in self.albumResults {
+        let totalAlbums = spotifyAlbumResults.count
+        for albumCollection in self.spotifyAlbumResults {
              if let album = albumCollection.first {
                  let addAlbumsURL = "https://api.spotify.com/v1/me/albums?ids=\(album.id)"
                  
@@ -305,9 +309,9 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
 //                                return albumArray.first?.id == albumCollection.first?.id
 //                            }
                             
-                            for (i, albumArray) in self.albumResults.enumerated() {
+                            for (i, albumArray) in self.spotifyAlbumResults.enumerated() {
                                 if albumArray.first?.id == albumCollection.first?.id {
-                                    self.albumResults.remove(at: i)
+                                    self.spotifyAlbumResults.remove(at: i)
                                     self.collectionView.deleteItems(at: [IndexPath(item: i, section: 0)])
                                     print("\(album.name) removed from results")
                                     index += 1
@@ -339,7 +343,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
         for indexPath in selectedAlbums.sorted().reversed() {
-            albumResults.remove(at: indexPath.item)
+            spotifyAlbumResults.remove(at: indexPath.item)
         }
         
         self.collectionView.performBatchUpdates({
@@ -363,59 +367,81 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return albumResults.count
+        
+        return viewingAppleMusic ? appleAlbumResults.count : spotifyAlbumResults.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! AlbumCVCell
         cell.imageView.backgroundColor = .white
-        let albumGroup = albumResults[indexPath.item]
         
-        if !albumGroup.isEmpty {
-            let firstAlbum = albumGroup[0]
-            let albumCoverString = firstAlbum.images[0].url
-            
-//            print("ALBUM NAME: \(firstAlbum.name)")
-//            print("AMOUNT OF OPTIONS: \(albumGroup.count)")
-            
-            if albumGroup.count == 1 {
-                cell.alternativesButtonView.isHidden = true
-            } else {
-                cell.alternativesButtonView.isHidden = false
+        var albumArtworkURLString = ""
+        
+        if viewingAppleMusic {
+            let appleMusicAlbumGroup = appleAlbumResults[indexPath.item]
+            if !appleMusicAlbumGroup.isEmpty {
+                let firstAlbum = appleMusicAlbumGroup[0].attributes
+                let url = firstAlbum.artwork.url
+                albumArtworkURLString = String(url.dropLast(14))
+                albumArtworkURLString.append("400x400bb.jpeg")
+             
+                if appleMusicAlbumGroup.count == 1 {
+                    cell.alternativesButtonView.isHidden = true
+                } else {
+                    cell.alternativesButtonView.isHidden = false
+                }
+                
+                cell.albumTitleTextLabel.text = firstAlbum.name
+                cell.artistTextLabel.text = firstAlbum.artistName
             }
             
-            cell.albumTitleTextLabel.text = firstAlbum.name
-            cell.artistTextLabel.text = firstAlbum.artists[0].name
-            cell.alternativesButton.tag = indexPath.item
-            
-            // Download and cahce album cover image
-            let imageURL = URL(string: albumCoverString)
-            cell.imageView.kf.setImage(with: imageURL)
-            
-            let processor = DownsamplingImageProcessor(size: cell.imageView.bounds.size)
-                |> RoundCornerImageProcessor(cornerRadius: 3)
-
-            cell.imageView.kf.indicatorType = .activity
-            cell.imageView.kf.setImage(
-                with: imageURL,
-                placeholder: UIImage(named: "placeholderImage"),
-                options: [
-                    .processor(processor),
-                    .scaleFactor(UIScreen.main.scale),
-                    .transition(.flipFromLeft(1)),
-                    .cacheOriginalImage
-                ])
-            {
-                result in
-                switch result {
-                case .success:
-//                    print("Task done for: \(value.source.url?.absoluteString ?? "")")
-                    print("")
-                case .failure(let error):
-                    print("Job failed: \(error.localizedDescription)")
+        } else {
+            let spotifyAlbumGroup = spotifyAlbumResults[indexPath.item]
+            if !spotifyAlbumGroup.isEmpty {
+                let firstAlbum = spotifyAlbumGroup[0]
+                albumArtworkURLString = firstAlbum.images[0].url
+                
+                if spotifyAlbumGroup.count == 1 {
+                    cell.alternativesButtonView.isHidden = true
+                } else {
+                    cell.alternativesButtonView.isHidden = false
                 }
+                
+                cell.albumTitleTextLabel.text = firstAlbum.name
+                cell.artistTextLabel.text = firstAlbum.artists[0].name
             }
         }
+        
+        cell.alternativesButton.tag = indexPath.item
+        
+        // Download and cahce album cover image
+        let imageURL = URL(string: albumArtworkURLString)
+        cell.imageView.kf.setImage(with: imageURL)
+
+        let processor = DownsamplingImageProcessor(size: cell.imageView.bounds.size)
+            |> RoundCornerImageProcessor(cornerRadius: 3)
+        
+        cell.imageView.kf.indicatorType = .activity
+        cell.imageView.kf.setImage(
+            with: imageURL,
+            placeholder: UIImage(named: "placeholderImage"),
+            options: [
+                .processor(processor),
+                .scaleFactor(UIScreen.main.scale),
+                .transition(.flipFromLeft(1)),
+                .cacheOriginalImage
+            ])
+        {
+            result in
+            switch result {
+            case .success(let value):
+                print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                print("")
+            case .failure(let error):
+                print("Job failed: \(error.localizedDescription)")
+            }
+        }
+
         return cell
     }
     
@@ -457,13 +483,13 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
 extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
     
     func numberOfItems(in pagerView: FSPagerView) -> Int {
-        return albumGroup.count
+        return spotifyAlbumGroup.count
     }
     
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index) as! PagerViewCell
-        let album = albumGroup[index]
+        let album = spotifyAlbumGroup[index]
         let albumCoverString = album.images[0].url
         cell.albumTitleLabel?.text = album.name
         
@@ -485,7 +511,7 @@ extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
     }
     
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
-        let chosenAlbum = albumGroup[index]
+        let chosenAlbum = spotifyAlbumGroup[index]
         
         alternativeAlbumsViewHeightConstraint.constant = 0
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
@@ -494,13 +520,13 @@ extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
         
         showBlurredFXView(false)
         
-        for (i, album) in albumGroup.enumerated().reversed() {
+        for (i, album) in spotifyAlbumGroup.enumerated().reversed() {
             if album.id == chosenAlbum.id {
-                albumGroup.remove(at: i)
-                albumGroup.insert(chosenAlbum, at: 0)
+                spotifyAlbumGroup.remove(at: i)
+                spotifyAlbumGroup.insert(chosenAlbum, at: 0)
                 
-                albumResults.remove(at: albumResultsIndex)
-                albumResults.insert(albumGroup, at: albumResultsIndex)
+                spotifyAlbumResults.remove(at: albumResultsIndex)
+                spotifyAlbumResults.insert(spotifyAlbumGroup, at: albumResultsIndex)
                 collectionView.reloadItems(at: [IndexPath(item: albumResultsIndex, section: 0)])
                 
                 
@@ -576,5 +602,9 @@ extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
                 
             }
     }
+    
+}
+
+extension String {
     
 }

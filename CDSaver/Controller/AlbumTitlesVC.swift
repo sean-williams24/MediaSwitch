@@ -16,7 +16,9 @@ class AlbumTitlesVC: UITableViewController {
     // MARK: - Properties
 
     var albumTitles = [String]()
-    var albumResults = [[Album]]()
+    var spotifyAlbums: [[SpotifyAlbum]] = []
+    var appleMusicAlbums: [[AppleMusicAlbum]] = []
+    var viewingAppleMusic: Bool!
     var storefront = ""
     
     // MARK: - Lifecycle
@@ -37,25 +39,25 @@ class AlbumTitlesVC: UITableViewController {
             } else {
                 if let code = code {
                     self.storefront = code
-                    print("Got user code: \(code)")
+                    print("Got store code: \(code)")
                 } else {
-                    print("Did not get user code")
+                    print("Did not get store code")
                 }
             }
         }
         
-        controller.requestUserToken(forDeveloperToken: Auth.Apple.developerToken) { (userToken, error) in
-            guard error == nil else {
-                print(error?.localizedDescription as Any)
-                return
-            }
-            if let userToken = userToken {
-                Auth.Apple.userToken = userToken
-                print(userToken as Any)
-            } else {
-                print("Did not get user token")
-            }
-        }
+//        controller.requestUserToken(forDeveloperToken: Auth.Apple.developerToken) { (userToken, error) in
+//            guard error == nil else {
+//                print(error?.localizedDescription as Any)
+//                return
+//            }
+//            if let userToken = userToken {
+//                Auth.Apple.userToken = userToken
+//                print(userToken as Any)
+//            } else {
+//                print("Did not get user token")
+//            }
+//        }
         
     }
     
@@ -71,25 +73,44 @@ class AlbumTitlesVC: UITableViewController {
     // MARK: - Private Methods
     
     func appleMusicAlbumSearch() {
-        albumResults.removeAll()
+        appleMusicAlbums.removeAll()
         let searchURL = "https://api.music.apple.com/v1/catalog/\(storefront)/search?"
         
-        for CD in albumTitles {
-            AF.request(searchURL, method: .get, parameters: ["term": CD, "types": "albums"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer " + Auth.Apple.developerToken]).responseJSON { (response) in
-                print(response.result)
-                switch response.result {
-                case .success:
-                    let decoder = JSONDecoder()
-                    
-                case .failure(let error):
-                    print(error.localizedDescription as Any)
+        AF.request(searchURL, method: .get, parameters: ["term": "slipknot", "types": "albums"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer " + Auth.Apple.developerToken]).responseJSON { (response) in
+
+            switch response.result {
+            case .success:
+                
+                let decoder = JSONDecoder()
+                if let data = response.data {
+                    do {
+                        let appleMusic = try decoder.decode(AppleMusic.self, from: data)
+                        let albumsData = appleMusic.results.albums.data
+                        
+                        print(albumsData)
+                        
+                        if !albumsData.isEmpty {
+                            
+                            self.appleMusicAlbums.append(albumsData)
+                            print(self.appleMusicAlbums.count)
+                            
+                            self.viewingAppleMusic = true
+                            self.performSegue(withIdentifier: "showSpotifyAlbums", sender: self)
+
+                        }
+                    } catch {
+                        print(error.localizedDescription)
+                    }
                 }
+
+            case .failure(let error):
+                print(error.localizedDescription as Any)
             }
         }
     }
     
     func spotifyAlbumSearch() {
-        albumResults.removeAll()
+        spotifyAlbums.removeAll()
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         let searchURL = "https://api.spotify.com/v1/search?"
         var i = 0
@@ -103,7 +124,8 @@ class AlbumTitlesVC: UITableViewController {
                     let spotify = try? decoder.decode(Spotify.self, from: response.data!)
                     if let albumResults = spotify?.albums.items {
                         if !albumResults.isEmpty {
-                            self.albumResults.append(albumResults)
+                            
+                            self.spotifyAlbums.append(albumResults)
                         }
                     }
                     
@@ -114,6 +136,7 @@ class AlbumTitlesVC: UITableViewController {
                 i += 1
                 if i == self.albumTitles.count {
                     print("Search complete")
+                    self.viewingAppleMusic = false
                     self.performSegue(withIdentifier: "showSpotifyAlbums", sender: self)
                 }
             }
@@ -186,7 +209,15 @@ class AlbumTitlesVC: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! SpotifyAlbumResultsCVC
-        vc.albumResults = self.albumResults
+        
+        if viewingAppleMusic {
+            vc.appleAlbumResults = appleMusicAlbums ?? []
+            vc.viewingAppleMusic = true
+        } else {
+            vc.spotifyAlbumResults = spotifyAlbums ?? []
+            vc.viewingAppleMusic = false
+        }
+        
         
     }
     
