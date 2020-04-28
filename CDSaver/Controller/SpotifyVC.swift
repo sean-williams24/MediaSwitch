@@ -24,7 +24,6 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var connectLabel: UILabel!
     
     
-    
     // MARK: - Properties
     
     let redirectUri = URL(string:"media-switch://spotify-login-callback")!
@@ -48,7 +47,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     }()
     
     var colourSets = [[CGColor]]()
-    var currentColourSet: Int!
+    var currentColourSet = 0
     var gradientLayer = CAGradientLayer()
     var colourTimer = Timer()
 
@@ -62,8 +61,8 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         spotifyButton.isUserInteractionEnabled = true
         spotifyButton.addGestureRecognizer(tapGesture)
         
-        createColorSets()
-        
+        colourSets = createColorSets()
+
         gradientLayer.frame = CGRect(x: 0, y: 0, width: appleMusicButton.frame.width - 40, height: appleMusicButton.frame.height)
         gradientLayer.cornerRadius = 25
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
@@ -78,22 +77,22 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         downArrow.blink(duration: 1, delay: 3, alpha: 0.05)
         upArrow.blink(duration: 1, delay: 3, alpha: 0.05)
         
-//        let teamId = Auth.Apple.teamId
-//        let keyId = Auth.Apple.keyId
-//        let keyFileUrl = Bundle.main.url(forResource: "", withExtension: "p8")!
-//
-//        struct MyClaims: Claims {
-//            let iss: String
-//            let iat: Date?
-//            let exp: Date?
-//        }
-//
-//        let myHeader = Header(kid: keyId)
-//        let myClaims = MyClaims(iss: teamId, iat: Date(), exp: Date() +  24 * 60 * 60)
-//        var myJWT = SwiftJWT.JWT(header: myHeader, claims: myClaims)
-//
-//        let token = try! myJWT.sign(using: .es256(privateKey: try! String(contentsOf: keyFileUrl).data(using: .utf8)!))
-//        print(token)
+    //        let teamId = Auth.Apple.teamId
+    //        let keyId = Auth.Apple.keyId
+    //        let keyFileUrl = Bundle.main.url(forResource: "", withExtension: "p8")!
+    //
+    //        struct MyClaims: Claims {
+    //            let iss: String
+    //            let iat: Date?
+    //            let exp: Date?
+    //        }
+    //
+    //        let myHeader = Header(kid: keyId)
+    //        let myClaims = MyClaims(iss: teamId, iat: Date(), exp: Date() + 166 * 24 * 60 * 60)
+    //        var myJWT = SwiftJWT.JWT(header: myHeader, claims: myClaims)
+    //
+    //        let token = try! myJWT.sign(using: .es256(privateKey: try! String(contentsOf: keyFileUrl).data(using: .utf8)!))
+    //        print(token)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,20 +118,12 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     
     
     // MARK: - Private Methods
-    
-    func createColorSets() {
-        colourSets.append([UIColor.systemPink.cgColor, UIColor.systemBlue.cgColor])
-        colourSets.append([UIColor.systemPurple.cgColor, UIColor.systemPink.cgColor])
-        colourSets.append([UIColor.systemBlue.cgColor, UIColor.systemPink.cgColor])
-     
-        currentColourSet = 0
-    }
-    
+ 
     @objc func animateColours() {
         if currentColourSet < colourSets.count - 1 {
-            currentColourSet! += 1
+            currentColourSet += 1
         } else {
-            currentColourSet! = 0
+            currentColourSet = 0
         }
         
         let colourChangeAnimation = CABasicAnimation(keyPath: "colors")

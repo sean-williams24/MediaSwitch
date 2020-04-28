@@ -468,7 +468,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="m9Q-Kj-teB">
                                 <rect key="frame" x="30" y="54" width="354" height="70"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1tz-VU-v2n" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1tz-VU-v2n">
                                         <rect key="frame" x="0.0" y="5" width="60" height="60"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <constraints>
@@ -511,7 +511,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dz9-9f-lov" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
-                                        <rect key="frame" x="147" y="5" width="60" height="60"/>
+                                        <rect key="frame" x="98" y="5" width="60" height="60"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="WyD-US-HLV"/>
@@ -549,10 +549,17 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="goButtonTapped:" destination="hui-SB-PUx" eventType="touchUpInside" id="xFF-Tr-5h4"/>
+                                            <action selector="spotifyButtonTapped:" destination="hui-SB-PUx" eventType="touchUpInside" id="xFF-Tr-5h4"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ons-zL-uX8" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Apple_Music_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="Daa-92-RPO">
+                                        <rect key="frame" x="196" y="5" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="dAS-gK-zsK"/>
+                                            <constraint firstAttribute="height" constant="60" id="iy7-TZ-vA2"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ons-zL-uX8">
                                         <rect key="frame" x="294" y="5" width="60" height="60"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <constraints>
@@ -776,17 +783,20 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                     </navigationItem>
                     <connections>
                         <outlet property="addAlbumsButton" destination="iXX-bh-2cX" id="NH3-nv-Qz3"/>
+                        <outlet property="addAlbumsLabel" destination="pPX-nL-OKx" id="bhT-0s-wWL"/>
+                        <outlet property="addAlbumsStackView" destination="z2z-gi-EIA" id="G87-9N-M3B"/>
                         <outlet property="alternativeAlbumsView" destination="luZ-EC-Fxb" id="6Fi-To-QOp"/>
                         <outlet property="alternativeAlbumsViewHeightConstraint" destination="sC2-mV-rCb" id="hwv-QG-f4y"/>
+                        <outlet property="appleButton" destination="Daa-92-RPO" id="dgW-XF-Yx7"/>
                         <outlet property="collectionView" destination="rND-My-Bio" id="Adf-2t-nzn"/>
                         <outlet property="deleteButton" destination="Ons-zL-uX8" id="KQo-jN-SLQ"/>
-                        <outlet property="goButton" destination="Dz9-9f-lov" id="doT-OG-Pko"/>
                         <outlet property="infoButton" destination="1tz-VU-v2n" id="5Gz-9B-23q"/>
                         <outlet property="infoLabel" destination="W1m-bS-YSB" id="n1G-s2-UWB"/>
                         <outlet property="infoView" destination="bQN-yZ-iEt" id="2pW-Xd-kKb"/>
                         <outlet property="infoViewHeightConstraint" destination="zgz-8a-5P3" id="MoK-de-Eqa"/>
                         <outlet property="logoImageView" destination="ome-Pa-0r5" id="wIZ-Zh-Wv4"/>
                         <outlet property="pagerView" destination="nL4-oQ-5sC" id="Usx-OV-ddQ"/>
+                        <outlet property="spotifyButton" destination="Dz9-9f-lov" id="doT-OG-Pko"/>
                         <segue destination="Zuy-tT-gXd" kind="presentation" identifier="addAlbumsCompletion" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="CIE-of-a0r"/>
                     </connections>
                 </viewController>
@@ -870,6 +880,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
         </scene>
     </scenes>
     <resources>
+        <image name="Apple_Music_Icon" width="200" height="200"/>
         <image name="IMG_3738" width="3024" height="4032"/>
         <image name="Spotify_Icon_RGB_Black 2" width="80" height="80"/>
         <image name="Spotify_Icon_RGB_Green 2" width="80" height="80"/>
