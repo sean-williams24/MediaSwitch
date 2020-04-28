@@ -215,8 +215,11 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     @IBAction func alternativeAlbumsButtonTapped(_ sender: UIButton) {
         
         showBlurredFXView(true)
-        
-        spotifyAlbumGroup = spotifyAlbumResults[sender.tag]
+        if viewingAppleMusic {
+            appleAlbumGroup = appleAlbumResults[sender.tag]
+        } else {
+            spotifyAlbumGroup = spotifyAlbumResults[sender.tag]
+        }
         albumResultsIndex = sender.tag
         pagerView.reloadData()
         
@@ -483,16 +486,26 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
 extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
     
     func numberOfItems(in pagerView: FSPagerView) -> Int {
-        return spotifyAlbumGroup.count
+        return viewingAppleMusic ? appleAlbumGroup.count : spotifyAlbumGroup.count
     }
     
     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index) as! PagerViewCell
-        let album = spotifyAlbumGroup[index]
-        let albumCoverString = album.images[0].url
-        cell.albumTitleLabel?.text = album.name
         
+        var albumCoverString = ""
+        if viewingAppleMusic {
+            let album = appleAlbumGroup[index]
+            var albumCoverString = album.attributes.artwork.url
+            albumCoverString = String(albumCoverString.dropLast(14))
+            albumCoverString.append("400x400bb.jpeg")
+            cell.albumTitleLabel?.text = album.attributes.name
+        } else {
+            let album = spotifyAlbumGroup[index]
+            albumCoverString = album.images[0].url
+            cell.albumTitleLabel?.text = album.name
+        }
+    
         // Download and cache album cover image
         let imageURL = URL(string: albumCoverString)
         cell.imageView?.kf.setImage(with: imageURL)
@@ -511,7 +524,6 @@ extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
     }
     
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
-        let chosenAlbum = spotifyAlbumGroup[index]
         
         alternativeAlbumsViewHeightConstraint.constant = 0
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
@@ -520,16 +532,29 @@ extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
         
         showBlurredFXView(false)
         
-        for (i, album) in spotifyAlbumGroup.enumerated().reversed() {
-            if album.id == chosenAlbum.id {
-                spotifyAlbumGroup.remove(at: i)
-                spotifyAlbumGroup.insert(chosenAlbum, at: 0)
-                
-                spotifyAlbumResults.remove(at: albumResultsIndex)
-                spotifyAlbumResults.insert(spotifyAlbumGroup, at: albumResultsIndex)
-                collectionView.reloadItems(at: [IndexPath(item: albumResultsIndex, section: 0)])
-                
-                
+        if viewingAppleMusic {
+            let chosenAlbum = appleAlbumGroup[index]
+            for (i, album) in appleAlbumGroup.enumerated().reversed() {
+                if album.id == chosenAlbum.id {
+                    appleAlbumGroup.remove(at: i)
+                    appleAlbumGroup.insert(chosenAlbum, at: 0)
+                    
+                    appleAlbumResults.remove(at: albumResultsIndex)
+                    appleAlbumResults.insert(appleAlbumGroup, at: albumResultsIndex)
+                    collectionView.reloadItems(at: [IndexPath(item: albumResultsIndex, section: 0)])
+                }
+            }
+        } else {
+            let chosenAlbum = spotifyAlbumGroup[index]
+            for (i, album) in spotifyAlbumGroup.enumerated().reversed() {
+                if album.id == chosenAlbum.id {
+                    spotifyAlbumGroup.remove(at: i)
+                    spotifyAlbumGroup.insert(chosenAlbum, at: 0)
+                    
+                    spotifyAlbumResults.remove(at: albumResultsIndex)
+                    spotifyAlbumResults.insert(spotifyAlbumGroup, at: albumResultsIndex)
+                    collectionView.reloadItems(at: [IndexPath(item: albumResultsIndex, section: 0)])
+                }
             }
         }
     }
