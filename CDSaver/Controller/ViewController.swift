@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         var myJWT = SwiftJWT.JWT(header: myHeader, claims: myClaims)
 
         let token = try! myJWT.sign(using: .es256(privateKey: try! String(contentsOf: keyFileUrl).data(using: .utf8)!))
+        print(token)
     }
     
 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B3428F760640D75BFECECFC6 /* Pods_CDSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */; };
 		CE3D577A2451BA6C003E1061 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D57792451BA6C003E1061 /* Style.swift */; };
+		CE4E430C2456FF9F00E10BAB /* AuthKey_H7XMQQN5AW.p8 in Resources */ = {isa = PBXBuildFile; fileRef = CE4E430B2456FF9F00E10BAB /* AuthKey_H7XMQQN5AW.p8 */; };
 		CE5794AC2445D2F900793C15 /* PagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5794AB2445D2F900793C15 /* PagerViewCell.swift */; };
 		CE5794AE2448846800793C15 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5794AD2448846700793C15 /* RoundButton.swift */; };
 		CE6896E0243E042500B37A90 /* AlbumTitlesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6896DF243E042500B37A90 /* AlbumTitlesVC.swift */; };
@@ -29,12 +30,14 @@
 		CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */; };
 		CEDA2F02244DAA8B0013CCB8 /* AddToSpotifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2F01244DAA8B0013CCB8 /* AddToSpotifyVC.swift */; };
 		CEDA2F04244EF2930013CCB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2F03244EF2930013CCB8 /* ViewController.swift */; };
+		CEFC3B3224546F5B00F74F48 /* AppleMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC3B3124546F5B00F74F48 /* AppleMusic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		15D9F9DF64BF008A1BC2680D /* Pods-CDSaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.release.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.release.xcconfig"; sourceTree = "<group>"; };
 		8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CDSaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3D57792451BA6C003E1061 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		CE4E430B2456FF9F00E10BAB /* AuthKey_H7XMQQN5AW.p8 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AuthKey_H7XMQQN5AW.p8; sourceTree = "<group>"; };
 		CE5794AB2445D2F900793C15 /* PagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewCell.swift; sourceTree = "<group>"; };
 		CE5794AD2448846700793C15 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		CE6896DF243E042500B37A90 /* AlbumTitlesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTitlesVC.swift; sourceTree = "<group>"; };
@@ -58,6 +61,7 @@
 		CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerExtension.swift; sourceTree = "<group>"; };
 		CEDA2F01244DAA8B0013CCB8 /* AddToSpotifyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddToSpotifyVC.swift; sourceTree = "<group>"; };
 		CEDA2F03244EF2930013CCB8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CEFC3B3124546F5B00F74F48 /* AppleMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusic.swift; sourceTree = "<group>"; };
 		E3A04432AB4F8BF8F02068C9 /* Pods-CDSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.debug.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +115,7 @@
 				CEB98F50243B95630028FED3 /* Main.storyboard */,
 				CE6896E3243E2BE000B37A90 /* AlbumCVCell.swift */,
 				CE5794AB2445D2F900793C15 /* PagerViewCell.swift */,
+				CE4E430B2456FF9F00E10BAB /* AuthKey_H7XMQQN5AW.p8 */,
 				CEB98F53243B95650028FED3 /* Assets.xcassets */,
 				CEB98F55243B95650028FED3 /* LaunchScreen.storyboard */,
 				CEB98F58243B95650028FED3 /* Info.plist */,
@@ -129,6 +134,7 @@
 				CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */,
 				CE3D57792451BA6C003E1061 /* Style.swift */,
 				CEC567C0243C80CA009C8CB2 /* Auth.swift */,
+				CEFC3B3124546F5B00F74F48 /* AppleMusic.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -218,6 +224,7 @@
 			files = (
 				CEB98F57243B95650028FED3 /* LaunchScreen.storyboard in Resources */,
 				CEB98F5F243C5FDF0028FED3 /* GoogleService-Info.plist in Resources */,
+				CE4E430C2456FF9F00E10BAB /* AuthKey_H7XMQQN5AW.p8 in Resources */,
 				CEB98F54243B95650028FED3 /* Assets.xcassets in Resources */,
 				CEB98F52243B95630028FED3 /* Main.storyboard in Resources */,
 			);
@@ -305,6 +312,7 @@
 				CEB98F4D243B95630028FED3 /* SceneDelegate.swift in Sources */,
 				CEDA2F02244DAA8B0013CCB8 /* AddToSpotifyVC.swift in Sources */,
 				CEC567C1243C80CA009C8CB2 /* Auth.swift in Sources */,
+				CEFC3B3224546F5B00F74F48 /* AppleMusic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

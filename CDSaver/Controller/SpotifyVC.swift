@@ -10,6 +10,7 @@ import Alamofire
 import StoreKit
 import SwiftyJSON
 import UIKit
+import SwiftJWT
 
 class SpotifyVC: UIViewController, CAAnimationDelegate {
     
@@ -76,6 +77,23 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         
         downArrow.blink(duration: 1, delay: 3, alpha: 0.05)
         upArrow.blink(duration: 1, delay: 3, alpha: 0.05)
+        
+//        let teamId = Auth.Apple.teamId
+//        let keyId = Auth.Apple.keyId
+//        let keyFileUrl = Bundle.main.url(forResource: "", withExtension: "p8")!
+//
+//        struct MyClaims: Claims {
+//            let iss: String
+//            let iat: Date?
+//            let exp: Date?
+//        }
+//
+//        let myHeader = Header(kid: keyId)
+//        let myClaims = MyClaims(iss: teamId, iat: Date(), exp: Date() +  24 * 60 * 60)
+//        var myJWT = SwiftJWT.JWT(header: myHeader, claims: myClaims)
+//
+//        let token = try! myJWT.sign(using: .es256(privateKey: try! String(contentsOf: keyFileUrl).data(using: .utf8)!))
+//        print(token)
     }
     
     override func viewWillAppear(_ animated: Bool) {
