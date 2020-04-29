@@ -159,6 +159,12 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
                 
             case .authorized:
                 print("Apple Music Authorized")
+                
+                let cotroller = SKCloudServiceController()
+                cotroller.requestCapabilities { (capabilities, error) in
+                    print(capabilities.contains(.addToCloudMusicLibrary))
+                }
+                
                 DispatchQueue.main.async {
                     self.performSegue(withIdentifier: "showImageReader", sender: self)
                 }

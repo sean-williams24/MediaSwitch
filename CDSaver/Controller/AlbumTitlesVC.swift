@@ -32,7 +32,6 @@ class AlbumTitlesVC: UITableViewController {
         
         let controller = SKCloudServiceController()
         
-        
         controller.requestStorefrontCountryCode { (code, error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
@@ -46,18 +45,7 @@ class AlbumTitlesVC: UITableViewController {
             }
         }
         
-//        controller.requestUserToken(forDeveloperToken: Auth.Apple.developerToken) { (userToken, error) in
-//            guard error == nil else {
-//                print(error?.localizedDescription as Any)
-//                return
-//            }
-//            if let userToken = userToken {
-//                Auth.Apple.userToken = userToken
-//                print(userToken as Any)
-//            } else {
-//                print("Did not get user token")
-//            }
-//        }
+        requestAppleUserToken()
         
     }
     
@@ -71,6 +59,22 @@ class AlbumTitlesVC: UITableViewController {
     
     
     // MARK: - Private Methods
+    
+    fileprivate func requestAppleUserToken() {
+        let controller = SKCloudServiceController()
+        controller.requestUserToken(forDeveloperToken: Auth.Apple.developerToken) { (userToken, error) in
+            guard error == nil else {
+                print(error?.localizedDescription as Any)
+                return
+            }
+            if let userToken = userToken {
+                Auth.Apple.userToken = userToken
+                print("USER TOKEN: " + userToken as Any)
+            } else {
+                print("Did not get user token")
+            }
+        }
+    }
     
     func appleMusicAlbumSearch() {
         appleMusicAlbums.removeAll()
@@ -211,10 +215,10 @@ class AlbumTitlesVC: UITableViewController {
         let vc = segue.destination as! SpotifyAlbumResultsCVC
         
         if viewingAppleMusic {
-            vc.appleAlbumResults = appleMusicAlbums ?? []
+            vc.appleAlbumResults = appleMusicAlbums
             vc.viewingAppleMusic = true
         } else {
-            vc.spotifyAlbumResults = spotifyAlbums ?? []
+            vc.spotifyAlbumResults = spotifyAlbums
             vc.viewingAppleMusic = false
         }
         

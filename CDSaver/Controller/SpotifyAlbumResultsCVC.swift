@@ -9,6 +9,7 @@
 import Alamofire
 import FSPagerView
 import Kingfisher
+import StoreKit
 import UIKit
 
 class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CAAnimationDelegate {
@@ -105,22 +106,10 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         deleting = false
         addAlbumsButton.alpha = 0
         
-        let attributedInfoText = NSMutableAttributedString(string: """
-            - Tap + button to choose from alternative options
-            - Tap albums to delete
-            - Add albums to your Spotify library by tapping GO
-            """)
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 8
-        paragraphStyle.alignment = .left
-        attributedInfoText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: 60))
-        infoLabel.attributedText = attributedInfoText
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addAlbumsButtonTapped))
         addAlbumsButton.addGestureRecognizer(tapGesture)
-        addAlbumsButton.backgroundColor = Style.Colours.spotifyGreen
-        addAlbumsButton.layer.cornerRadius = 30
+        
+        var musicService = ""
         
         if viewingAppleMusic {
             spotifyButton.isHidden = true
@@ -131,10 +120,6 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             appleButton.addGestureRecognizer(appleButtonTap)
             appleButton.isUserInteractionEnabled = true
             
-            logoImageView.isHidden = true
-            addAlbumsLabel.text = "Add albums to Apple Music"
-            addAlbumsButton.backgroundColor = .clear
-            
             colourSets = createColorSets()
 
             gradientLayer.frame = CGRect(x: 0, y: 0, width: addAlbumsButton.frame.width - 38, height: addAlbumsButton.frame.height)
@@ -143,7 +128,13 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
             gradientLayer.colors = colourSets[currentColourSet]
             addAlbumsButton.layer.addSublayer(gradientLayer)
-            addAlbumsButton.bringSubviewToFront(addAlbumsLabel)
+            addAlbumsButton.bringSubviewToFront(addAlbumsStackView)
+            addAlbumsLabel.textColor = .white
+            musicService = "Apple Music"
+            
+            logoImageView.isHidden = true
+            addAlbumsLabel.text = "Add albums to Apple Music"
+            addAlbumsButton.backgroundColor = .clear
 
             if traitCollection.userInterfaceStyle == .dark {
                 appleButton.image = UIImage(named: "Apple_Music_Icon")
@@ -151,12 +142,29 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             } else {
                 appleButton.image = UIImage(named: "Apple_Music_Icon_blk")
             }
+                        
         } else {
+            addAlbumsButton.backgroundColor = Style.Colours.spotifyGreen
+            addAlbumsButton.layer.cornerRadius = 30
             appleButton.isHidden = true
             infoButton.layer.cornerRadius = 30
             deleteButton.layer.cornerRadius = 30
+            musicService = "Spotify"
         }
+        
+        let attributedInfoText = NSMutableAttributedString(string: """
+            - Tap + button to choose from alternative options
+            - Tap albums to delete
+            - Tap \(musicService) button to add albums to library
+            """)
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 8
+        paragraphStyle.alignment = .left
+        attributedInfoText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: 60))
+        infoLabel.attributedText = attributedInfoText
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -168,7 +176,9 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        colourTimer.invalidate()
+        if viewingAppleMusic {
+            colourTimer.invalidate()
+        }
     }
     
     
@@ -329,10 +339,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
     
-    @objc func addAlbumsButtonTapped() {
-        showBlurredFXView(true)
-        blurredEffect.isUserInteractionEnabled = false
-        
+    fileprivate func addAlbumsToSpotifyLibrary() {
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         
         var index = 0
@@ -372,7 +379,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
                             index += 1
                         }
                     }
-                    print(index)
+                    
                     if index == totalAlbums {
                         print("Completion")
                         self.performSegue(withIdentifier: "addAlbumsCompletion", sender: self)
@@ -380,6 +387,36 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
                 }
             }
         }
+    }
+    
+    
+    func addAlbumsToAppleMusicLibrary() {
+        let userToken = Auth.Apple.userToken
+        
+        
+        for albumCollection in appleAlbumResults {
+            if let album = albumCollection.first {
+                let addAlbumsURL = "https://api.music.apple.com/v1/me/library?ids[albums]=\(album.id)"
+                
+                AF.request(addAlbumsURL, method: .post, parameters: ["ids[albums]": album.id], encoding: URLEncoding.default, headers: ["Music-User-Token": userToken, "Authorization": "Bearer " + Auth.Apple.developerToken]).response { response in
+                    
+                    print(response.response)                 
+                    
+                    if response.response?.statusCode == 202 {
+                        print("Album added")
+                    }
+                }
+            }
+        }
+        
+        
+    }
+    
+    @objc func addAlbumsButtonTapped() {
+        showBlurredFXView(true)
+        blurredEffect.isUserInteractionEnabled = false
+        
+        viewingAppleMusic ? addAlbumsToAppleMusicLibrary() : addAlbumsToSpotifyLibrary()
     }
     
     
@@ -436,8 +473,13 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
+        
         for indexPath in selectedAlbums.sorted().reversed() {
-            spotifyAlbumResults.remove(at: indexPath.item)
+            if viewingAppleMusic {
+                appleAlbumResults.remove(at: indexPath.item)
+            } else {
+                spotifyAlbumResults.remove(at: indexPath.item)
+            }
         }
         
         self.collectionView.performBatchUpdates({
