@@ -48,7 +48,6 @@ class AlbumSearchClient {
         var i = 0
         
         for CD in albumTitles {
-            
             AF.request(searchURL, method: .get, parameters: ["term": CD, "types": "albums"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer " + Auth.Apple.developerToken]).responseJSON { (response) in
                 
                 switch response.result {
@@ -60,7 +59,8 @@ class AlbumSearchClient {
                         
                             if var appleMusicAlbumGroup = appleMusic?.results.albums.data {
                                 if !appleMusicAlbumGroup.isEmpty {
-                                    print(appleMusicAlbumGroup.first?.attributes.name)
+                                    print(appleMusicAlbumGroup.first?.attributes.name as Any)
+                                    
                                     for album in appleMusicAlbumGroup {
                                         if albumIDs.contains(album.id) {
                                             // if album already exists in previous group remove album from new group
@@ -72,13 +72,22 @@ class AlbumSearchClient {
 
                                     if !appleMusicAlbumGroup.isEmpty {
                                         appleMusicAlbums.append(appleMusicAlbumGroup)
-                                        print(appleMusicAlbums.count)
                                     }
+                                    
 
+                                } else {
+                                    print("applemusicgroup is empty")
+//                                    i += 1
                                 }
-                            }
-
+                            } else {
+                                print("AppleMusicAlbumGroup parse fail")
+                                print(CD)
+                                print(response)
                         }
+
+                    } else {
+                        print("could not unwrap reponse data")
+                    }
                     
                 case .failure(let error):
                     print(error.localizedDescription as Any)
@@ -90,18 +99,6 @@ class AlbumSearchClient {
                     print("Search complete")
                     searchCompletion(appleMusicAlbums)
                 }
-//
-////                print(i)
-//                if i == albumTitles.count {
-////                    self.viewingAppleMusic = true
-//                    print("Search Complete")
-////                    searchCompletion(appleMusicAlbums)
-////                    self.performSegue(withIdentifier: "showSpotifyAlbums", sender: self)
-//
-////                    self.dismiss(animated: true) {
-////                        self.performSegue(withIdentifier: "showAlbums", sender: self)
-////                    }
-//                }
             }
         }
     }
