@@ -14,6 +14,7 @@ class AddToSpotifyVC: UIViewController {
     
     var failedAlbums: [String] = []
     var numberOfAlbumsAdded: Int!
+    var viewingAppleMusic: Bool!
     
     
     override func viewDidLoad() {
@@ -55,13 +56,27 @@ class AddToSpotifyVC: UIViewController {
         
 //        failedAlbums = ["The Killing", "Slipknot"]
         
-        resultsTextLabel.text = """
-        All Done.
+        let albums = numberOfAlbumsAdded > 1 ? "albums" : "album"
+        var resultsText = ""
         
-        \(numberOfAlbumsAdded!) albums added to your Spotify library
+        if viewingAppleMusic {
+            resultsText = """
+            \(numberOfAlbumsAdded!) \(albums) added to your Apple Music library
+            
+            The Apple Music app doesn't sync new additions immediately. To sync on a Mac, File menu -> Library -> Update iCloud Music Library.
+            
+            On iPhone add a new track or album / amend a playlist manually in the Music app and your albums added from MediaSwitch will appear.
+            
+            """
+        } else {
+            resultsText = """
+            \(numberOfAlbumsAdded!) \(albums) added to your Spotify library
+            
+            
+            """
+        }
         
-        
-        """
+        resultsTextLabel.text = resultsText
         
         if failedAlbums.count != 0 {
             resultsTextLabel.text?.append("\n\(failedAlbums.count) failed to add:")

@@ -115,6 +115,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
             spotifyButton.isHidden = true
             infoButton.layer.cornerRadius = 12
             deleteButton.layer.cornerRadius = 12
+            infoButton.tintColor = .systemPink
             
             let appleButtonTap = UITapGestureRecognizer(target: self, action: #selector(openCloseDropDownView))
             appleButton.addGestureRecognizer(appleButtonTap)
@@ -393,6 +394,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     func addAlbumsToAppleMusicLibrary() {
         let userToken = Auth.Apple.userToken
         
+        var index = 0
         
         for albumCollection in appleAlbumResults {
             if let album = albumCollection.first {
@@ -400,16 +402,26 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
                 
                 AF.request(addAlbumsURL, method: .post, parameters: ["ids[albums]": album.id], encoding: URLEncoding.default, headers: ["Music-User-Token": userToken, "Authorization": "Bearer " + Auth.Apple.developerToken]).response { response in
                     
-                    print(response.response)                 
+                    print(response.response as Any)
                     
                     if response.response?.statusCode == 202 {
-                        print("Album added")
+                        print("\(album.attributes.name) added to Apple Music library")
+                        self.numberOfAlbumsAdded += 1
+                        index += 1
+                    } else {
+                        print("\(album.attributes.name) failed to add")
+                        self.failedAlbums.append("\(album.attributes.artistName) - \(album.attributes.name)")
+                        
+                        index += 1
+                    }
+                    
+                    if index == self.appleAlbumResults.count {
+                        print("Completion")
+                        self.performSegue(withIdentifier: "addAlbumsCompletion", sender: self)
                     }
                 }
             }
         }
-        
-        
     }
     
     @objc func addAlbumsButtonTapped() {
@@ -496,6 +508,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         let vc = segue.destination as! AddToSpotifyVC
         vc.failedAlbums = self.failedAlbums
         vc.numberOfAlbumsAdded = self.numberOfAlbumsAdded
+        vc.viewingAppleMusic = viewingAppleMusic
     }
     
     
@@ -570,8 +583,8 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
         {
             result in
             switch result {
-            case .success(let value):
-                print("Task done for: \(value.source.url?.absoluteString ?? "")")
+            case .success:
+//                print("Task done for: \(value.source.url?.absoluteString ?? "")")
                 print("")
             case .failure(let error):
                 print("Job failed: \(error.localizedDescription)")

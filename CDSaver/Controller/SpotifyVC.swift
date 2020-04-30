@@ -50,6 +50,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     var currentColourSet = 0
     var gradientLayer = CAGradientLayer()
     var colourTimer = Timer()
+    var viewingAppleMusic = false
 
     
     // MARK: - Life Cycle
@@ -146,7 +147,31 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         performSegue(withIdentifier: "showImageReader", sender: self)
     }
     
+    fileprivate func requestAppleUserToken() {
+        let controller = SKCloudServiceController()
+        controller.requestUserToken(forDeveloperToken: Auth.Apple.developerToken) { (userToken, error) in
+            guard error == nil else {
+                print(error?.localizedDescription as Any)
+                return
+            }
+            if let userToken = userToken {
+                Auth.Apple.userToken = userToken
+                print("USER TOKEN: " + userToken as Any)
+            } else {
+                print("Did not get user token")
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! ImageReaderVC
+        vc.viewingAppleMusic = viewingAppleMusic
+    }
+    
     // MARK: - Action Methods
+    
+    
+    // TODO: - check capabilties <<<<<<<<<<<<<<<<<<<<<<<
     
     
     @IBAction func appleMusicButtonTapped(_ sender: Any) {
@@ -159,7 +184,9 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
                 
             case .authorized:
                 print("Apple Music Authorized")
-                
+                self.viewingAppleMusic = true
+                self.requestAppleUserToken()
+
                 let cotroller = SKCloudServiceController()
                 cotroller.requestCapabilities { (capabilities, error) in
                     print(capabilities.contains(.addToCloudMusicLibrary))

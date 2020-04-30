@@ -128,11 +128,11 @@
 			isa = PBXGroup;
 			children = (
 				CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */,
-				CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */,
 				CE5794AD2448846700793C15 /* RoundButton.swift */,
 				CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */,
 				CE3D57792451BA6C003E1061 /* Style.swift */,
 				CEC567C0243C80CA009C8CB2 /* Auth.swift */,
+				CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */,
 				CEFC3B3124546F5B00F74F48 /* AppleMusic.swift */,
 			);
 			path = Model;

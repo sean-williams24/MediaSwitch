@@ -45,7 +45,6 @@ class AlbumTitlesVC: UITableViewController {
             }
         }
         
-        requestAppleUserToken()
         
     }
     
@@ -60,55 +59,38 @@ class AlbumTitlesVC: UITableViewController {
     
     // MARK: - Private Methods
     
-    fileprivate func requestAppleUserToken() {
-        let controller = SKCloudServiceController()
-        controller.requestUserToken(forDeveloperToken: Auth.Apple.developerToken) { (userToken, error) in
-            guard error == nil else {
-                print(error?.localizedDescription as Any)
-                return
-            }
-            if let userToken = userToken {
-                Auth.Apple.userToken = userToken
-                print("USER TOKEN: " + userToken as Any)
-            } else {
-                print("Did not get user token")
-            }
-        }
-    }
     
     func appleMusicAlbumSearch() {
         appleMusicAlbums.removeAll()
         let searchURL = "https://api.music.apple.com/v1/catalog/\(storefront)/search?"
+        var i = 0
         
-        AF.request(searchURL, method: .get, parameters: ["term": "slipknot", "types": "albums"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer " + Auth.Apple.developerToken]).responseJSON { (response) in
+        for CD in albumTitles {
+            AF.request(searchURL, method: .get, parameters: ["term": CD, "types": "albums"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer " + Auth.Apple.developerToken]).responseJSON { (response) in
 
-            switch response.result {
-            case .success:
-                
-                let decoder = JSONDecoder()
-                if let data = response.data {
-                    do {
-                        let appleMusic = try decoder.decode(AppleMusic.self, from: data)
-                        let albumsData = appleMusic.results.albums.data
-                        
-                        print(albumsData)
-                        
-                        if !albumsData.isEmpty {
-                            
-                            self.appleMusicAlbums.append(albumsData)
-                            print(self.appleMusicAlbums.count)
-                            
-                            self.viewingAppleMusic = true
-                            self.performSegue(withIdentifier: "showSpotifyAlbums", sender: self)
-
+                switch response.result {
+                case .success:
+                    
+                    let decoder = JSONDecoder()
+                    if let data = response.data {
+                            let appleMusic = try? decoder.decode(AppleMusic.self, from: data)
+                            if let albumsData = appleMusic?.results.albums.data {
+                                if !albumsData.isEmpty {
+                                    self.appleMusicAlbums.append(albumsData)
+                                }
+                            }
                         }
-                    } catch {
-                        print(error.localizedDescription)
-                    }
+                    
+                case .failure(let error):
+                    print(error.localizedDescription as Any)
                 }
-
-            case .failure(let error):
-                print(error.localizedDescription as Any)
+                
+                i += 1
+                if i == self.albumTitles.count {
+                    self.viewingAppleMusic = true
+                    print("Search Complete")
+                    self.performSegue(withIdentifier: "showSpotifyAlbums", sender: self)
+                }
             }
         }
     }
@@ -118,8 +100,8 @@ class AlbumTitlesVC: UITableViewController {
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         let searchURL = "https://api.spotify.com/v1/search?"
         var i = 0
+        
         for CD in albumTitles {
-            
             AF.request(searchURL, method: .get, parameters: ["q": CD, "type":"album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { response in
 
                 switch response.result {
@@ -128,7 +110,6 @@ class AlbumTitlesVC: UITableViewController {
                     let spotify = try? decoder.decode(Spotify.self, from: response.data!)
                     if let albumResults = spotify?.albums.items {
                         if !albumResults.isEmpty {
-                            
                             self.spotifyAlbums.append(albumResults)
                         }
                     }

@@ -34,7 +34,7 @@ struct AppleResults: Codable {
 // MARK: - Albums
 struct Albums: Codable {
     let data: [AppleMusicAlbum]
-    let href, next: String
+//    let href, next: String
 }
 
 // MARK: - AlbumsData

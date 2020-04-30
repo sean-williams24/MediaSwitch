@@ -31,6 +31,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     let processor = ScaledElementProcessor()
     var albumTitles = [String]()
     let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
+    var viewingAppleMusic: Bool!
     
     
     // MARK: - Life Cycle
@@ -49,10 +50,13 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         albumStackView.layer.cornerRadius = 30
         blurredEffectView.isHidden = true
         
-        cameraButton.tintColor = Style.Colours.spotifyGreen
-        imageLibraryButton.tintColor = Style.Colours.spotifyGreen
-        stackButton.tintColor = Style.Colours.spotifyGreen
-        coverButton.tintColor = Style.Colours.spotifyGreen
+        let buttonTint = viewingAppleMusic ? UIColor.systemPink : Style.Colours.spotifyGreen
+        
+        cameraButton.tintColor = buttonTint
+        imageLibraryButton.tintColor = buttonTint
+        stackButton.tintColor = buttonTint
+        coverButton.tintColor = buttonTint
+        navigationController?.navigationBar.tintColor = buttonTint
     }
     
     override func viewDidDisappear(_ animated: Bool) {
