@@ -435,8 +435,9 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: - Action Methods
     
     @IBAction func alternativeAlbumsButtonTapped(_ sender: UIButton) {
-        
+        pagerView.selectItem(at: 0, animated: true)
         showBlurredFXView(true)
+        
         if viewingAppleMusic {
             appleAlbumGroup = appleAlbumResults[sender.tag]
         } else {

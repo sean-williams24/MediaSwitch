@@ -32,7 +32,9 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     var albumTitles = [String]()
     let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
     var viewingAppleMusic: Bool!
-    
+    var spotifyAlbums: [[SpotifyAlbum]] = []
+    var appleMusicAlbums: [[AppleMusicAlbum]] = []
+
     
     // MARK: - Life Cycle
     
@@ -100,7 +102,12 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
                     self.albumTitles.append(albumName)
                 }
             }
-            self.performSegue(withIdentifier: "showAlbumTitles", sender: self)
+//            self.performSegue(withIdentifier: "showAlbumTitles", sender: self)
+            
+            AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates()) { (appleMusicAlbumResults) in
+                self.appleMusicAlbums = appleMusicAlbumResults
+                self.performSegue(withIdentifier: "showAlbums", sender: self)
+            }
         }
     }
     
@@ -167,7 +174,12 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             self.albumTitles += tempAlbumArray
             print("Extraction complete")
             
-            self.performSegue(withIdentifier: "showAlbumTitles", sender: self)
+            AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates()) { (appleMusicAlbumResults) in
+                self.appleMusicAlbums = appleMusicAlbumResults
+                self.performSegue(withIdentifier: "showAlbums", sender: self)
+            }
+            
+//            self.performSegue(withIdentifier: "showAlbumTitles", sender: self)
             
         }
     }
@@ -176,8 +188,16 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! AlbumTitlesVC
-        vc.albumTitles = self.albumTitles.removingDuplicates()
+        let vc = segue.destination as! SpotifyAlbumResultsCVC
+//        vc.albumTitles = self.albumTitles.removingDuplicates()
+        if viewingAppleMusic {
+            vc.appleAlbumResults = appleMusicAlbums
+            vc.viewingAppleMusic = true
+        } else {
+            vc.spotifyAlbumResults = spotifyAlbums
+            vc.viewingAppleMusic = false
+        }
+        
     }
     
     // MARK: - Image Picker Delegate

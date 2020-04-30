@@ -342,17 +342,18 @@
                         <outlet property="imageLibraryButton" destination="lfx-UZ-T2E" id="hCm-9E-IKO"/>
                         <outlet property="imageView" destination="XPo-my-Yio" id="3aR-LZ-hhv"/>
                         <outlet property="stackButton" destination="jjc-aK-lec" id="baC-Ne-Nns"/>
-                        <segue destination="Mee-wS-Mul" kind="show" identifier="showAlbumTitles" id="1hw-oN-FRg"/>
+                        <segue destination="9xL-Os-02h" kind="presentation" identifier="showAlbumTitles" id="rc7-2X-O8C"/>
+                        <segue destination="hui-SB-PUx" kind="show" identifier="showAlbums" id="47G-tB-DSG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6tg-WZ-Esp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1860.8695652173915" y="137.94642857142856"/>
         </scene>
-        <!--Album TitlesVC-->
+        <!--Album Search Client-->
         <scene sceneID="fot-pd-RoF">
             <objects>
-                <tableViewController storyboardIdentifier="AlbumTitles" id="Mee-wS-Mul" customClass="AlbumTitlesVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AlbumTitles" id="Mee-wS-Mul" customClass="AlbumSearchClient" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8gJ-jF-gAa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -384,13 +385,25 @@
                     <navigationItem key="navigationItem" id="8Nr-gg-HGw">
                         <barButtonItem key="backBarButtonItem" title="-" id="uMP-3y-2dk"/>
                     </navigationItem>
-                    <connections>
-                        <segue destination="hui-SB-PUx" kind="show" identifier="showSpotifyAlbums" id="yXF-cC-1Cm"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YOa-mH-uVg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2754" y="138"/>
+            <point key="canvasLocation" x="2799" y="-214"/>
+        </scene>
+        <!--Album Search Client-->
+        <scene sceneID="4CQ-Mx-9i0">
+            <objects>
+                <viewController id="9xL-Os-02h" customClass="AlbumSearchClient" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Zyk-Gf-uPS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Fue-vc-dpX"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rG9-Xw-Ynb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2799" y="540"/>
         </scene>
         <!--Spotify Album Results VC-->
         <scene sceneID="eox-e7-jYz">

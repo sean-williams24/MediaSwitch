@@ -163,6 +163,22 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         }
     }
     
+    func requestAppleStorefront() {
+        let controller = SKCloudServiceController()
+        controller.requestStorefrontCountryCode { (code, error) in
+            if error != nil {
+                print(error?.localizedDescription as Any)
+            } else {
+                if let code = code {
+                    Auth.Apple.storefront = code
+                    print("Got store code: \(code)")
+                } else {
+                    print("Did not get store code")
+                }
+            }
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! ImageReaderVC
         vc.viewingAppleMusic = viewingAppleMusic
@@ -186,6 +202,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
                 print("Apple Music Authorized")
                 self.viewingAppleMusic = true
                 self.requestAppleUserToken()
+                self.requestAppleStorefront()
 
                 let cotroller = SKCloudServiceController()
                 cotroller.requestCapabilities { (capabilities, error) in
