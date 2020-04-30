@@ -63,6 +63,7 @@ class AlbumTitlesVC: UITableViewController {
     func appleMusicAlbumSearch() {
         appleMusicAlbums.removeAll()
         let searchURL = "https://api.music.apple.com/v1/catalog/\(storefront)/search?"
+        var albumIDs: [String] = []
         var i = 0
         
         for CD in albumTitles {
@@ -74,9 +75,21 @@ class AlbumTitlesVC: UITableViewController {
                     let decoder = JSONDecoder()
                     if let data = response.data {
                             let appleMusic = try? decoder.decode(AppleMusic.self, from: data)
-                            if let albumsData = appleMusic?.results.albums.data {
-                                if !albumsData.isEmpty {
-                                    self.appleMusicAlbums.append(albumsData)
+                            if var appleMusicAlbumGroup = appleMusic?.results.albums.data {
+                                if !appleMusicAlbumGroup.isEmpty {
+
+                                    for album in appleMusicAlbumGroup {
+                                        if albumIDs.contains(album.id) {
+                                            // if album already exists in previous group remove album from new group
+                                            appleMusicAlbumGroup.removeAll(where: {$0.id == album.id})
+                                        } else {
+                                            albumIDs.append(album.id)
+                                        }
+                                    }
+
+                                    if !appleMusicAlbumGroup.isEmpty {
+                                        self.appleMusicAlbums.append(appleMusicAlbumGroup)
+                                    }
                                 }
                             }
                         }
