@@ -12,37 +12,10 @@ import UIKit
 
 class AlbumSearchClient {
     
-    
-    // MARK: - Properties
-
-    var albumTitles = [String]()
-    var spotifyAlbums: [[SpotifyAlbum]] = []
-    var viewingAppleMusic = false
-    
-    // MARK: - Lifecycle
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search Spotify", style: .done, target: self, action: #selector(albumSearch(_:)))
-//
-//        if viewingAppleMusic {
-//            appleMusicAlbumSearch()
-//        } else {
-//            spotifyAlbumSearch()
-//        }
-//
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//    }
-    
     // MARK: - Apple Music Methods
     
     class func appleMusicAlbumSearch(with albumTitles: [String], searchCompletion: @escaping ([[AppleMusicAlbum]]) -> ()) {
-//        appleMusicAlbums.removeAll()
         var appleMusicAlbums: [[AppleMusicAlbum]] = []
-        
         let searchURL = "https://api.music.apple.com/v1/catalog/\(Auth.Apple.storefront)/search?"
         var albumIDs: [String] = []
         var i = 0
@@ -73,20 +46,8 @@ class AlbumSearchClient {
                                     if !appleMusicAlbumGroup.isEmpty {
                                         appleMusicAlbums.append(appleMusicAlbumGroup)
                                     }
-                                    
-
-                                } else {
-                                    print("applemusicgroup is empty")
-//                                    i += 1
                                 }
-                            } else {
-                                print("AppleMusicAlbumGroup parse fail")
-                                print(CD)
-                                print(response)
-                        }
-
-                    } else {
-                        print("could not unwrap reponse data")
+                            }
                     }
                     
                 case .failure(let error):
@@ -94,7 +55,6 @@ class AlbumSearchClient {
                 }
                 
                 i += 1
-                print(i)
                 if i == albumTitles.count {
                     print("Search complete")
                     searchCompletion(appleMusicAlbums)
@@ -106,8 +66,8 @@ class AlbumSearchClient {
     
     // MARK: - Spotify Methods
     
-    func spotifyAlbumSearch() {
-        spotifyAlbums.removeAll()
+    func spotifyAlbumSearch(with albumTitles: [String], searchCompletion: @escaping ([[SpotifyAlbum]]) -> ()) {
+        var spotifyAlbums: [[SpotifyAlbum]] = []
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         let searchURL = "https://api.spotify.com/v1/search?"
         var albumIDs: [String] = []
@@ -133,7 +93,7 @@ class AlbumSearchClient {
                             }
                             
                             if !albumResults.isEmpty {
-                                self.spotifyAlbums.append(albumResults)
+                                spotifyAlbums.append(albumResults)
                             }
                         }
                     }
@@ -143,10 +103,9 @@ class AlbumSearchClient {
                 }
                 
                 i += 1
-                if i == self.albumTitles.count {
+                if i == albumTitles.count {
                     print("Search complete")
-                    self.viewingAppleMusic = false
-//                    self.performSegue(withIdentifier: "showSpotifyAlbums", sender: self)
+                    searchCompletion(spotifyAlbums)
                 }
             }
         }

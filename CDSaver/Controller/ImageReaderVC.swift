@@ -102,12 +102,19 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
                     self.albumTitles.append(albumName)
                 }
             }
-//            self.performSegue(withIdentifier: "showAlbumTitles", sender: self)
             
-            AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates()) { (appleMusicAlbumResults) in
-                self.appleMusicAlbums = appleMusicAlbumResults
-                self.performSegue(withIdentifier: "showAlbums", sender: self)
-            }
+            if self.viewingAppleMusic {
+                  AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates()) { (appleMusicAlbumResults) in
+                      self.appleMusicAlbums = appleMusicAlbumResults
+                      self.performSegue(withIdentifier: "showAlbums", sender: self)
+                  }
+              } else {
+                  let albumSearcher = AlbumSearchClient()
+                     albumSearcher.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates()) { (spotifyAlbumResults) in
+                         self.spotifyAlbums = spotifyAlbumResults
+                         self.performSegue(withIdentifier: "showAlbums", sender: self)
+                     }
+              }
         }
     }
     
@@ -174,13 +181,19 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             self.albumTitles += tempAlbumArray
             print("Extraction complete")
             
-            AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates()) { (appleMusicAlbumResults) in
-                self.appleMusicAlbums = appleMusicAlbumResults
-                self.performSegue(withIdentifier: "showAlbums", sender: self)
+            if self.viewingAppleMusic {
+                AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates()) { (appleMusicAlbumResults) in
+                    self.appleMusicAlbums = appleMusicAlbumResults
+                    self.performSegue(withIdentifier: "showAlbums", sender: self)
+                }
+            } else {
+                let albumSearcher = AlbumSearchClient()
+                albumSearcher.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates()) { (spotifyAlbumResults) in
+                    self.spotifyAlbums = spotifyAlbumResults
+                    self.performSegue(withIdentifier: "showAlbums", sender: self)
+                }
             }
-            
-//            self.performSegue(withIdentifier: "showAlbumTitles", sender: self)
-            
+
         }
     }
     
