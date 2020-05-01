@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GWR-e4-ZQk">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -230,7 +230,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="gGW-M3-lx0">
                                             <rect key="frame" x="40.5" y="342.5" width="333" height="191.5"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="tkm-Tc-zhU">
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="tkm-Tc-zhU">
                                                     <rect key="frame" x="0.0" y="0.0" width="333" height="160"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Vr-Ek-Mde">
@@ -250,10 +250,24 @@
                                                                 <constraint firstItem="Z6Z-p5-iEo" firstAttribute="top" secondItem="3Vr-Ek-Mde" secondAttribute="top" constant="20" id="EBN-5F-Mbw"/>
                                                                 <constraint firstItem="Z6Z-p5-iEo" firstAttribute="leading" secondItem="3Vr-Ek-Mde" secondAttribute="leading" constant="20" id="H2S-UJ-Bb9"/>
                                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="160" id="YdC-f2-PBt"/>
-                                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="160" id="clM-Xo-ngf"/>
+                                                                <constraint firstAttribute="height" constant="160" id="clM-Xo-ngf"/>
                                                                 <constraint firstAttribute="trailing" secondItem="Z6Z-p5-iEo" secondAttribute="trailing" constant="20" id="gyl-Ah-PWa"/>
                                                                 <constraint firstAttribute="bottom" secondItem="Z6Z-p5-iEo" secondAttribute="bottom" constant="20" id="lIg-6W-grP"/>
                                                             </constraints>
+                                                        </view>
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="roc-PX-seo" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                                            <rect key="frame" x="166.5" y="40" width="80" height="80"/>
+                                                            <color key="backgroundColor" red="0.26051741839999998" green="0.2605243921" blue="0.260520637" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="80" id="QsD-n4-XXX"/>
+                                                                <constraint firstAttribute="height" constant="80" id="tA8-rX-W5a"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballPulse"/>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                                    <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSQ-EA-UwJ">
                                                             <rect key="frame" x="173" y="0.0" width="160" height="160"/>
@@ -273,7 +287,7 @@
                                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="160" id="C9M-TJ-wdk"/>
                                                                 <constraint firstAttribute="trailing" secondItem="jjc-aK-lec" secondAttribute="trailing" constant="20" id="F4g-8d-K1D"/>
                                                                 <constraint firstAttribute="bottom" secondItem="jjc-aK-lec" secondAttribute="bottom" constant="20" id="JBT-NT-nIa"/>
-                                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="160" id="ZdP-0e-ixb"/>
+                                                                <constraint firstAttribute="height" constant="160" id="ZdP-0e-ixb"/>
                                                                 <constraint firstItem="jjc-aK-lec" firstAttribute="leading" secondItem="RSQ-EA-UwJ" secondAttribute="leading" constant="20" id="in7-2m-J0s"/>
                                                             </constraints>
                                                         </view>
@@ -285,7 +299,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Covers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="160" translatesAutoresizingMaskIntoConstraints="NO" id="Edc-Uf-57Y">
                                                             <rect key="frame" x="0.0" y="0.0" width="160" height="22.5"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="160" id="GOy-oc-7Lo"/>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="GOy-oc-7Lo"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -294,7 +308,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stack" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEo-8W-eHR">
                                                             <rect key="frame" x="173" y="0.0" width="160" height="22.5"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="160" id="Agv-6B-huY"/>
+                                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="Agv-6B-huY"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -333,6 +347,7 @@
                         <barButtonItem key="backBarButtonItem" title="-" id="Ivy-pU-eNt"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityView" destination="roc-PX-seo" id="OjK-VQ-ED4"/>
                         <outlet property="albumStackView" destination="RSQ-EA-UwJ" id="gFe-kk-qnm"/>
                         <outlet property="blurredEffectView" destination="8fW-iv-608" id="rQN-p5-gBV"/>
                         <outlet property="buttonStack" destination="tkm-Tc-zhU" id="AHv-rd-bs7"/>
@@ -341,6 +356,7 @@
                         <outlet property="coverButtonView" destination="3Vr-Ek-Mde" id="SI9-KA-azB"/>
                         <outlet property="imageLibraryButton" destination="lfx-UZ-T2E" id="hCm-9E-IKO"/>
                         <outlet property="imageView" destination="XPo-my-Yio" id="3aR-LZ-hhv"/>
+                        <outlet property="labelsStackView" destination="7gH-lV-BKG" id="W3I-Tt-EMY"/>
                         <outlet property="stackButton" destination="jjc-aK-lec" id="baC-Ne-Nns"/>
                         <segue destination="9xL-Os-02h" kind="presentation" identifier="showAlbumTitles" id="rc7-2X-O8C"/>
                         <segue destination="hui-SB-PUx" kind="show" identifier="showAlbums" id="47G-tB-DSG"/>
@@ -430,7 +446,6 @@
 Tap albums to delete
 Once you’re happy with the options - add albums to your Spotify account by tapping GO</string>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iXX-bh-2cX">
@@ -846,9 +861,9 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Done. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="F3A-R6-TQ0">
-                                <rect key="frame" x="10" y="444.5" width="394" height="17.5"/>
+                                <rect key="frame" x="10" y="443.5" width="394" height="19"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>

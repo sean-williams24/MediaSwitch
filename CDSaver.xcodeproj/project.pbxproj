@@ -141,9 +141,9 @@
 		CEC567C3243C811B009C8CB2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				CE6896DF243E042500B37A90 /* AlbumSearchClient.swift */,
 				CEB98F4E243B95630028FED3 /* SpotifyVC.swift */,
 				CEB98F62243C64530028FED3 /* ImageReaderVC.swift */,
-				CE6896DF243E042500B37A90 /* AlbumSearchClient.swift */,
 				CE6896E1243E276D00B37A90 /* SpotifyAlbumResultsCVC.swift */,
 				CEDA2F01244DAA8B0013CCB8 /* AddToSpotifyVC.swift */,
 				CEDA2F03244EF2930013CCB8 /* ViewController.swift */,

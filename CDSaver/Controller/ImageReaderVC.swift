@@ -7,6 +7,7 @@
 //
 
 import Firebase
+import NVActivityIndicatorView
 import UIKit
 import QCropper
 
@@ -24,6 +25,8 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     @IBOutlet weak var buttonStack: UIStackView!
     @IBOutlet weak var albumStackView: UIView!
     @IBOutlet weak var stackButton: UIButton!
+    @IBOutlet weak var activityView: NVActivityIndicatorView!
+    @IBOutlet weak var labelsStackView: UIStackView!
     
     
     // MARK: - Properties
@@ -63,9 +66,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        blurredEffectView.effect = nil
-        blurredEffectView.isHidden = true
-        blurredEffectView.isUserInteractionEnabled = true
+        showLoadingActivity(false)
     }
 
     // MARK: - Private Methods
@@ -79,8 +80,45 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         }
     }
     
+    fileprivate func showLoadingActivity(_ loading: Bool) {
+
+        if loading {
+            blurredEffectView.isUserInteractionEnabled = false
+
+            UIView.animate(withDuration: 0.5, animations: {
+                self.coverButtonView.alpha = 0
+                self.albumStackView.alpha = 0
+                self.labelsStackView.alpha = 0
+            }) { _ in
+                self.coverButtonView.isHidden = true
+                self.albumStackView.isHidden = true
+                self.labelsStackView.isHidden = true
+                self.activityView.alpha = 0
+                self.activityView.isHidden = false
+                self.activityView.startAnimating()
+                UIView.animate(withDuration: 1.1, animations: {
+                    self.activityView.alpha = 1
+                }) { _ in
+                    
+                }
+            }
+        } else {
+            blurredEffectView.effect = nil
+            blurredEffectView.isHidden = true
+            blurredEffectView.isUserInteractionEnabled = true
+            self.coverButtonView.alpha = 1
+            self.albumStackView.alpha = 1
+            self.labelsStackView.alpha = 1
+            self.coverButtonView.isHidden = false
+            self.albumStackView.isHidden = false
+            self.labelsStackView.isHidden = false
+            self.activityView.alpha = 0
+            self.activityView.isHidden = true
+        }
+    }
+    
     @IBAction func albumCoverExtraction() {
-        blurredEffectView.isUserInteractionEnabled = false
+        showLoadingActivity(true)
         albumTitles.removeAll()
         
         processor.process(in: imageView) { (text, result) in
@@ -120,7 +158,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     
     @IBAction func albumStackExtraction() {
-        blurredEffectView.isUserInteractionEnabled = false
+        showLoadingActivity(true)
         albumTitles.removeAll()
         
         var tempAlbumArray: [String] = []
@@ -129,7 +167,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         processor.process(in: imageView) { (text, result) in
             guard let result = result else {
                 print("No titles?")
-                // SHOW ALERT
+                // TODO: - SHOW ALERT
                 return
             }
             
@@ -252,10 +290,10 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     
     @IBAction func extractAlbumsTapped(_ sender: Any) {
-//        blurredEffectView.alpha = 1
+
         blurredEffectView.isHidden = false
         UIView.animate(withDuration: 0.4) {
-//            self.blurredEffectView.alpha = 1
+
             self.blurredEffectView.effect = self.blurEffect
             self.buttonStack.alpha = 1
         }

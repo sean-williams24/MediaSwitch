@@ -144,6 +144,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     
     
     func connectionEstablished() {
+        viewingAppleMusic = false
         performSegue(withIdentifier: "showImageReader", sender: self)
     }
     
@@ -191,6 +192,13 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     
     
     @IBAction func appleMusicButtonTapped(_ sender: Any) {
+        
+        
+//        switch SKCloudServiceController.authorizationStatus() {
+//        case .authorized
+//        }
+        
+        
         SKCloudServiceController.requestAuthorization { (status) in
             switch status {
             case .denied, .restricted:
@@ -261,6 +269,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
 //                                    // Use on iOS versions < 11 to use SFSafariViewController
 //                                    self.sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
 //                                }
+                        self.viewingAppleMusic = false
                         self.performSegue(withIdentifier: "showImageReader", sender: self)
                     }
                 }

@@ -63,9 +63,11 @@ class AddToSpotifyVC: UIViewController {
             resultsText = """
             \(numberOfAlbumsAdded!) \(albums) added to your Apple Music library
             
-            The Apple Music app doesn't sync new additions immediately. To sync on a Mac, File menu -> Library -> Update iCloud Music Library.
+            The Apple Music app doesn't sync new additions immediately. To sync now:
             
-            On iPhone add a new track or album / amend a playlist manually in the Music app and your albums added from MediaSwitch will appear.
+            Mac: File menu -> Library -> Update iCloud Music Library.
+            
+            iPhone: add a new track or album / amend a playlist manually in the Music app and your albums added from MediaSwitch will appear.
             
             """
         } else {

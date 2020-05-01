@@ -12,7 +12,7 @@ import UIKit
 
 class AlbumSearchClient {
     
-    // MARK: - Apple Music Methods
+    // MARK: - Apple Music
     
     class func appleMusicAlbumSearch(with albumTitles: [String], searchCompletion: @escaping ([[AppleMusicAlbum]]) -> ()) {
         var appleMusicAlbums: [[AppleMusicAlbum]] = []
@@ -64,7 +64,7 @@ class AlbumSearchClient {
     }
     
     
-    // MARK: - Spotify Methods
+    // MARK: - Spotify
     
     func spotifyAlbumSearch(with albumTitles: [String], searchCompletion: @escaping ([[SpotifyAlbum]]) -> ()) {
         var spotifyAlbums: [[SpotifyAlbum]] = []
