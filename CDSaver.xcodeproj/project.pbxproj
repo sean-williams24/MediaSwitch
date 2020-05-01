@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B3428F760640D75BFECECFC6 /* Pods_CDSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */; };
 		CE3D577A2451BA6C003E1061 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D57792451BA6C003E1061 /* Style.swift */; };
-		CE4E4310245877BB00E10BAB /* AnimatedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E430F245877BB00E10BAB /* AnimatedButton.swift */; };
+		CE4E4310245877BB00E10BAB /* UIViewController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E430F245877BB00E10BAB /* UIViewController Extension.swift */; };
 		CE5794AC2445D2F900793C15 /* PagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5794AB2445D2F900793C15 /* PagerViewCell.swift */; };
 		CE5794AE2448846800793C15 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5794AD2448846700793C15 /* RoundButton.swift */; };
 		CE6896E0243E042500B37A90 /* AlbumSearchClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6896DF243E042500B37A90 /* AlbumSearchClient.swift */; };
@@ -37,7 +37,7 @@
 		15D9F9DF64BF008A1BC2680D /* Pods-CDSaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.release.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.release.xcconfig"; sourceTree = "<group>"; };
 		8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CDSaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE3D57792451BA6C003E1061 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
-		CE4E430F245877BB00E10BAB /* AnimatedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedButton.swift; sourceTree = "<group>"; };
+		CE4E430F245877BB00E10BAB /* UIViewController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController Extension.swift"; sourceTree = "<group>"; };
 		CE5794AB2445D2F900793C15 /* PagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewCell.swift; sourceTree = "<group>"; };
 		CE5794AD2448846700793C15 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		CE6896DF243E042500B37A90 /* AlbumSearchClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSearchClient.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 				CE6896E1243E276D00B37A90 /* SpotifyAlbumResultsCVC.swift */,
 				CEDA2F01244DAA8B0013CCB8 /* AddToSpotifyVC.swift */,
 				CEDA2F03244EF2930013CCB8 /* ViewController.swift */,
-				CE4E430F245877BB00E10BAB /* AnimatedButton.swift */,
+				CE4E430F245877BB00E10BAB /* UIViewController Extension.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -305,7 +305,7 @@
 				CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */,
 				CEB98F4B243B95630028FED3 /* AppDelegate.swift in Sources */,
 				CEC567C5243C90F1009C8CB2 /* SpotifyAlbum.swift in Sources */,
-				CE4E4310245877BB00E10BAB /* AnimatedButton.swift in Sources */,
+				CE4E4310245877BB00E10BAB /* UIViewController Extension.swift in Sources */,
 				CE3D577A2451BA6C003E1061 /* Style.swift in Sources */,
 				CE5794AE2448846800793C15 /* RoundButton.swift in Sources */,
 				CE6896E0243E042500B37A90 /* AlbumSearchClient.swift in Sources */,

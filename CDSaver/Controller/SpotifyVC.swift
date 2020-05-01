@@ -7,6 +7,7 @@
 //
 
 import Alamofire
+import Firebase
 import StoreKit
 import SwiftyJSON
 import UIKit
@@ -51,12 +52,14 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     var gradientLayer = CAGradientLayer()
     var colourTimer = Timer()
     var viewingAppleMusic = false
+    var ref: DatabaseReference!
 
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(connectToSpotifyTapped))
         spotifyButton.isUserInteractionEnabled = true
@@ -77,6 +80,8 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         
         downArrow.blink(duration: 1, delay: 3, alpha: 0.05)
         upArrow.blink(duration: 1, delay: 3, alpha: 0.05)
+        
+//        UserDefaults.standard.set("123", forKey: "access-token-key")
         
     //        let teamId = Auth.Apple.teamId
     //        let keyId = Auth.Apple.keyId
@@ -185,6 +190,16 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         vc.viewingAppleMusic = viewingAppleMusic
     }
     
+    func obtainDeveloperToken() {
+        ref.child("tokens").observeSingleEvent(of: .value) { (snapshot) in
+            let dict = snapshot.value as? NSDictionary
+            Auth.Apple.developerToken = dict?["developerToken"] as? String ?? ""
+            print("Got developer token")
+            
+            self.requestAppleUserToken()
+        }
+    }
+    
     // MARK: - Action Methods
     
     
@@ -209,7 +224,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
             case .authorized:
                 print("Apple Music Authorized")
                 self.viewingAppleMusic = true
-                self.requestAppleUserToken()
+                self.obtainDeveloperToken()
                 self.requestAppleStorefront()
 
                 let cotroller = SKCloudServiceController()
@@ -228,6 +243,25 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     
     
     
+    fileprivate func initiateSpotifyConnectionSession() {
+        let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
+        
+        ref.child("tokens").observeSingleEvent(of: .value) { snapshot in
+            let tokens = snapshot.value as? NSDictionary
+            Auth.spotifyClientID = tokens?["spotifyClientID"] as? String ?? ""
+            Auth.spotifyClientSecret = tokens?["spotifyClientSecret"] as? String ?? ""
+            
+            if #available(iOS 11, *) {
+                // Use to take advantage of SFAuthenticationSession
+                self.sessionManager.initiateSession(with: scope, options: .clientOnly)
+            } else {
+                // Use on iOS versions < 11 to use SFSafariViewController
+                self.sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
+            }
+        }
+
+    }
+    
     @objc func connectToSpotifyTapped() {
         
         UIView.animate(withDuration: 0.1, animations: {
@@ -239,60 +273,26 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         }
         
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
-        let searchURL = "https://api.spotify.com/v1/search?"
-
-        AF.request(searchURL, method: .get, parameters: ["q": "stevelukather", "type": "album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { (response) in
+        let userURL = "https://api.spotify.com/v1/me"
+        
+        AF.request(userURL, method: .get, parameters: [:], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "  + accessToken]).responseJSON { (response) in
             
             switch response.result {
-            case .success(let value):
-//                print(response.result)
-                if let dict = value as? NSDictionary {
-                    if let errorCode = dict["error"] as? NSDictionary {
-                        if errorCode["status"] as! Int == 401 {
-                            print("Token Has Expired")
-                            
-                            let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
-                            if #available(iOS 11, *) {
-                                // Use to take advantage of SFAuthenticationSession
-                                self.sessionManager.initiateSession(with: scope, options: .clientOnly)
-                            } else {
-                                // Use on iOS versions < 11 to use SFSafariViewController
-                                self.sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
-                            }
-                        }
-                    } else {
-//                        let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
-//                                if #available(iOS 11, *) {
-//                                    // Use to take advantage of SFAuthenticationSession
-//                                    self.sessionManager.initiateSession(with: scope, options: .clientOnly)
-//                                } else {
-//                                    // Use on iOS versions < 11 to use SFSafariViewController
-//                                    self.sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
-//                                }
-                        self.viewingAppleMusic = false
-                        self.performSegue(withIdentifier: "showImageReader", sender: self)
-                    }
+            case .success:
+                
+                if response.response?.statusCode == 200 {
+                    self.viewingAppleMusic = false
+                     self.performSegue(withIdentifier: "showImageReader", sender: self)
+                } else {
+                    print("Token Has Expired or invalid")
+                    // Connect to Spotify to authorise
+                    self.initiateSpotifyConnectionSession()
                 }
-                
+
             case .failure(let error):
-                print("Fail")
-                print(error)
-                
+                print(error.localizedDescription as Any)
+                self.initiateSpotifyConnectionSession()
             }
-            
-            //            if response.response?.statusCode == 200 {
-            //                self.performSegue(withIdentifier: "showImageReader", sender: self)
-            //            } else {
-            ////                print(response)
-            //            let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
-            //                    if #available(iOS 11, *) {
-            //                        // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
-            //                        self.sessionManager.initiateSession(with: scope, options: .clientOnly)
-            //                    } else {
-            //                        // Use this on iOS versions < 11 to use SFSafariViewController
-            //                        self.sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
-            //                    }
-            //            }
         }
     }
 }
@@ -349,3 +349,16 @@ extension UIView {
         })
     }
 }
+
+
+// if let errorCode = dict["error"] as? NSDictionary {
+//        if errorCode["status"] as? Int == 201 {
+//            self.viewingAppleMusic = false
+//            self.performSegue(withIdentifier: "showImageReader", sender: self)
+//        } else {
+//            print("Token Has Expired or invalid")
+//            // Connect to Spotify to authorise
+//            self.initiateSpotifyConnectionSession()
+//        }
+//    }
+//}
