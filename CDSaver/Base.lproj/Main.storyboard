@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GWR-e4-ZQk">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -145,7 +145,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMG_3738" translatesAutoresizingMaskIntoConstraints="NO" id="XPo-my-Yio">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cds" translatesAutoresizingMaskIntoConstraints="NO" id="XPo-my-Yio">
                                 <rect key="frame" x="0.0" y="44" width="414" height="693"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </imageView>
@@ -302,7 +302,6 @@
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="GOy-oc-7Lo"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stack" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEo-8W-eHR">
@@ -311,7 +310,6 @@
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="Agv-6B-huY"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -324,7 +322,56 @@
                                         <constraint firstItem="gGW-M3-lx0" firstAttribute="centerY" secondItem="byn-xI-Yzp" secondAttribute="centerY" id="VEq-oC-dOe"/>
                                     </constraints>
                                 </view>
-                                <blurEffect style="regular"/>
+                                <blurEffect style="systemThinMaterialDark"/>
+                            </visualEffectView>
+                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGA-Rt-AAO">
+                                <rect key="frame" x="10" y="358" width="394" height="180"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pco-vl-1m8">
+                                    <rect key="frame" x="0.0" y="0.0" width="394" height="180"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAT-Yr-5IW">
+                                            <rect key="frame" x="0.0" y="0.0" width="394" height="180"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ri5-Ul-sl8">
+                                                <rect key="frame" x="0.0" y="0.0" width="394" height="180"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pM-yA-aWc">
+                                                        <rect key="frame" x="10" y="10" width="374" height="160"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <string key="text">Take a photo or upload an image of your albums (max 50)
+
+Image can be single stack of albums or album covers
+
+Ensure stack is as straight as possible</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="8pM-yA-aWc" firstAttribute="leading" secondItem="ri5-Ul-sl8" secondAttribute="leading" constant="10" id="aON-h6-z6Y"/>
+                                                    <constraint firstAttribute="trailing" secondItem="8pM-yA-aWc" secondAttribute="trailing" constant="10" id="apl-pm-YBZ"/>
+                                                    <constraint firstItem="8pM-yA-aWc" firstAttribute="top" secondItem="ri5-Ul-sl8" secondAttribute="top" constant="10" id="fl4-HO-5Om"/>
+                                                    <constraint firstAttribute="bottom" secondItem="8pM-yA-aWc" secondAttribute="bottom" constant="10" id="hJV-oi-cmu"/>
+                                                </constraints>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="systemUltraThinMaterialDark"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="uAT-Yr-5IW" firstAttribute="leading" secondItem="pco-vl-1m8" secondAttribute="leading" id="0Br-gq-rV6"/>
+                                        <constraint firstAttribute="trailing" secondItem="uAT-Yr-5IW" secondAttribute="trailing" id="8JA-Xz-VXn"/>
+                                        <constraint firstItem="uAT-Yr-5IW" firstAttribute="top" secondItem="pco-vl-1m8" secondAttribute="top" id="Eob-zd-0ge"/>
+                                        <constraint firstAttribute="bottom" secondItem="uAT-Yr-5IW" secondAttribute="bottom" id="MXi-2j-ZZd"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="lyv-r9-1Zo"/>
+                                </constraints>
+                                <blurEffect style="systemUltraThinMaterialDark"/>
                             </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -338,7 +385,10 @@
                             <constraint firstItem="XPo-my-Yio" firstAttribute="trailing" secondItem="QHe-uj-oa6" secondAttribute="trailing" id="Wai-Pz-wFe"/>
                             <constraint firstItem="8fW-iv-608" firstAttribute="trailing" secondItem="QHe-uj-oa6" secondAttribute="trailing" id="XNJ-MM-5WQ"/>
                             <constraint firstItem="9dx-Mt-y8o" firstAttribute="bottom" secondItem="QHe-uj-oa6" secondAttribute="bottom" constant="-10" id="Xlz-HB-SER"/>
+                            <constraint firstItem="hGA-Rt-AAO" firstAttribute="leading" secondItem="QHe-uj-oa6" secondAttribute="leading" constant="10" id="fNx-RC-sIo"/>
                             <constraint firstItem="9dx-Mt-y8o" firstAttribute="trailing" secondItem="QHe-uj-oa6" secondAttribute="trailing" constant="-10" id="g2O-hQ-jbT"/>
+                            <constraint firstItem="hGA-Rt-AAO" firstAttribute="centerY" secondItem="VgP-cG-E33" secondAttribute="centerY" id="h5g-1d-Sdw"/>
+                            <constraint firstItem="QHe-uj-oa6" firstAttribute="trailing" secondItem="hGA-Rt-AAO" secondAttribute="trailing" constant="10" id="nvt-ME-1YH"/>
                             <constraint firstItem="8fW-iv-608" firstAttribute="top" secondItem="VgP-cG-E33" secondAttribute="top" constant="20" symbolic="YES" id="s7T-44-ph0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QHe-uj-oa6"/>
@@ -354,8 +404,11 @@
                         <outlet property="cameraButton" destination="bqa-Ou-V8X" id="kkd-lR-4C2"/>
                         <outlet property="coverButton" destination="Z6Z-p5-iEo" id="izN-Ai-EoY"/>
                         <outlet property="coverButtonView" destination="3Vr-Ek-Mde" id="SI9-KA-azB"/>
+                        <outlet property="extractAlbumsButton" destination="ZRf-Y7-VQr" id="TB6-z4-60Z"/>
                         <outlet property="imageLibraryButton" destination="lfx-UZ-T2E" id="hCm-9E-IKO"/>
                         <outlet property="imageView" destination="XPo-my-Yio" id="3aR-LZ-hhv"/>
+                        <outlet property="infoEffectsView" destination="hGA-Rt-AAO" id="vMi-H3-h1Q"/>
+                        <outlet property="infoVibrancyContentView" destination="ri5-Ul-sl8" id="6S8-6i-twe"/>
                         <outlet property="labelsStackView" destination="7gH-lV-BKG" id="W3I-Tt-EMY"/>
                         <outlet property="stackButton" destination="jjc-aK-lec" id="baC-Ne-Nns"/>
                         <segue destination="9xL-Os-02h" kind="presentation" identifier="showAlbumTitles" id="rc7-2X-O8C"/>
@@ -909,7 +962,6 @@ Once you’re happy with the options - add albums to your Spotify account by tap
     </scenes>
     <resources>
         <image name="Apple_Music_Icon" width="200" height="200"/>
-        <image name="IMG_3738" width="3024" height="4032"/>
         <image name="Spotify_Icon_RGB_Black 2" width="80" height="80"/>
         <image name="Spotify_Icon_RGB_Green 2" width="80" height="80"/>
         <image name="Spotify_Logo_RGB_Green-1" width="640" height="192"/>
@@ -918,6 +970,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
         <image name="arrow.up" catalog="system" width="60" height="64"/>
         <image name="bakkos" width="500" height="500"/>
         <image name="camera" catalog="system" width="64" height="48"/>
+        <image name="cds" width="1920" height="1280"/>
         <image name="chevron.compact.down" catalog="system" width="64" height="20"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
         <image name="photo" catalog="system" width="64" height="46"/>

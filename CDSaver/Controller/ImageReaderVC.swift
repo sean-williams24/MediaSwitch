@@ -27,13 +27,16 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     @IBOutlet weak var stackButton: UIButton!
     @IBOutlet weak var activityView: NVActivityIndicatorView!
     @IBOutlet weak var labelsStackView: UIStackView!
+    @IBOutlet weak var extractAlbumsButton: RoundButton!
+    @IBOutlet weak var infoEffectsView: UIVisualEffectView!
+    @IBOutlet weak var infoVibrancyContentView: UIView!
     
     
     // MARK: - Properties
     
     let processor = ScaledElementProcessor()
     var albumTitles = [String]()
-    let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
+    let blurEffect = UIBlurEffect(style: .prominent)
     var viewingAppleMusic: Bool!
     var spotifyAlbums: [[SpotifyAlbum]] = []
     var appleMusicAlbums: [[AppleMusicAlbum]] = []
@@ -62,6 +65,18 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         stackButton.tintColor = buttonTint
         coverButton.tintColor = buttonTint
         navigationController?.navigationBar.tintColor = buttonTint
+        
+        extractAlbumsButton.isEnabled = false
+        extractAlbumsButton.setTitleColor(.darkGray, for: .disabled)
+        extractAlbumsButton.setTitleColor(.white, for: .normal)
+        
+        infoEffectsView.layer.cornerRadius = 5
+        infoVibrancyContentView.layer.cornerRadius = 5
+        infoEffectsView.effect = nil       
+        
+        UIView.animate(withDuration: 3) {
+            self.infoEffectsView.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -112,8 +127,8 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             self.coverButtonView.isHidden = false
             self.albumStackView.isHidden = false
             self.labelsStackView.isHidden = false
-            self.activityView.alpha = 0
             self.activityView.isHidden = true
+            self.activityView.alpha = 0
         }
     }
     
@@ -124,6 +139,9 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         processor.process(in: imageView) { (text, result) in
             guard let result = result else {
                 // Show alert
+                print("No albums")
+                self.showAlert(title: "No Albums Found", message: "Please make sure the image is clear and the albums are aligned horizontally straight.")
+                self.showLoadingActivity(false)
                 return
             }
             
@@ -167,7 +185,8 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         processor.process(in: imageView) { (text, result) in
             guard let result = result else {
                 print("No titles?")
-                // TODO: - SHOW ALERT
+                self.showAlert(title: "No Albums Found", message: "Please make sure the image is clear and the albums are aligned horizontally straight.")
+                self.showLoadingActivity(false)
                 return
             }
             
@@ -263,7 +282,9 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             self.present(cropper, animated:  true)
         }
         
+        infoEffectsView.isHidden = true
         imageView.image = image
+        extractAlbumsButton.isEnabled = true
     }
     
     // MARK: - Action Methods
@@ -290,7 +311,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     
     @IBAction func extractAlbumsTapped(_ sender: Any) {
-
+        showLoadingActivity(false)
         blurredEffectView.isHidden = false
         UIView.animate(withDuration: 0.4) {
 

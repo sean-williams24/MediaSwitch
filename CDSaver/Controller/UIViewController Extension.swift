@@ -19,5 +19,14 @@ extension UIViewController {
          return colourSets
      }
     
+    //MARK: - Universal Alert Controller
+     
+     func showAlert(title: String, message: String?) {
+         DispatchQueue.main.async {
+             let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+             ac.addAction(UIAlertAction(title: "OK", style: .default))
+             self.present(ac, animated: true)
+         }
+     }
     
 }
