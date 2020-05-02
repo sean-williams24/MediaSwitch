@@ -227,8 +227,8 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
                 self.obtainDeveloperToken()
                 self.requestAppleStorefront()
 
-                let cotroller = SKCloudServiceController()
-                cotroller.requestCapabilities { (capabilities, error) in
+                let controller = SKCloudServiceController()
+                controller.requestCapabilities { (capabilities, error) in
                     print(capabilities.contains(.addToCloudMusicLibrary))
                 }
                 
@@ -276,7 +276,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         let userURL = "https://api.spotify.com/v1/me"
         
         AF.request(userURL, method: .get, parameters: [:], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "  + accessToken]).responseJSON { (response) in
-            
+            print(response)
             switch response.result {
             case .success:
                 
@@ -291,7 +291,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
 
             case .failure(let error):
                 print(error.localizedDescription as Any)
-                self.initiateSpotifyConnectionSession()
+                self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.")
             }
         }
     }

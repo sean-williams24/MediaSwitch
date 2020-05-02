@@ -138,10 +138,9 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         
         processor.process(in: imageView) { (text, result) in
             guard let result = result else {
-                // Show alert
-                print("No albums")
-                self.showAlert(title: "No Albums Found", message: "Please make sure the image is clear and the albums are aligned horizontally straight.")
-                self.showLoadingActivity(false)
+                self.showAlertWithCompletion(title: "No Text Found In Image", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
+                    self.showLoadingActivity(false)
+                }
                 return
             }
             
@@ -158,12 +157,11 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
                     self.albumTitles.append(albumName)
                 }
             }
-            
+
             if self.viewingAppleMusic {
-                  AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates()) { (appleMusicAlbumResults) in
-                      self.appleMusicAlbums = appleMusicAlbumResults
-                      self.performSegue(withIdentifier: "showAlbums", sender: self)
-                  }
+                
+                AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleAppleMusicSearchResponse(appleMusicAlbumResults:error:))
+                
               } else {
                   let albumSearcher = AlbumSearchClient()
                      albumSearcher.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates()) { (spotifyAlbumResults) in
@@ -184,9 +182,9 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         
         processor.process(in: imageView) { (text, result) in
             guard let result = result else {
-                print("No titles?")
-                self.showAlert(title: "No Albums Found", message: "Please make sure the image is clear and the albums are aligned horizontally straight.")
-                self.showLoadingActivity(false)
+                self.showAlertWithCompletion(title: "No Text Found In Image", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
+                    self.showLoadingActivity(false)
+                }
                 return
             }
             
@@ -237,12 +235,11 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             }
             self.albumTitles += tempAlbumArray
             print("Extraction complete")
-            
+
             if self.viewingAppleMusic {
-                AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates()) { (appleMusicAlbumResults) in
-                    self.appleMusicAlbums = appleMusicAlbumResults
-                    self.performSegue(withIdentifier: "showAlbums", sender: self)
-                }
+                
+                AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleAppleMusicSearchResponse(appleMusicAlbumResults:error:))
+                
             } else {
                 let albumSearcher = AlbumSearchClient()
                 albumSearcher.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates()) { (spotifyAlbumResults) in
@@ -251,6 +248,26 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
                 }
             }
 
+        }
+    }
+    
+    func handleAppleMusicSearchResponse(appleMusicAlbumResults: [[AppleMusicAlbum]], error: Error?) {
+        guard error == nil else {
+            self.showAlertWithCompletion(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.") {
+                self.showLoadingActivity(false)
+                return
+            }
+            return
+        }
+        
+        if !appleMusicAlbumResults.isEmpty {
+            self.appleMusicAlbums = appleMusicAlbumResults
+            self.performSegue(withIdentifier: "showAlbums", sender: self)
+        } else {
+            self.showAlertWithCompletion(title: "Albums not found in Apple Music catalog", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
+                self.showLoadingActivity(false)
+                return
+            }
         }
     }
     
