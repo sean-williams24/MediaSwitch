@@ -66,6 +66,8 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         coverButton.tintColor = buttonTint
         navigationController?.navigationBar.tintColor = buttonTint
         
+        activityView.color = traitCollection.userInterfaceStyle == .dark ? .white : .black
+        
         extractAlbumsButton.isEnabled = false
         extractAlbumsButton.setTitleColor(.darkGray, for: .disabled)
         extractAlbumsButton.setTitleColor(.white, for: .normal)
@@ -96,7 +98,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     }
     
     fileprivate func showLoadingActivity(_ loading: Bool) {
-
+        print("Show loading: \(loading)")
         if loading {
             blurredEffectView.isUserInteractionEnabled = false
 
@@ -118,17 +120,22 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
                 }
             }
         } else {
-            blurredEffectView.effect = nil
-            blurredEffectView.isHidden = true
-            blurredEffectView.isUserInteractionEnabled = true
-            self.coverButtonView.alpha = 1
-            self.albumStackView.alpha = 1
-            self.labelsStackView.alpha = 1
-            self.coverButtonView.isHidden = false
-            self.albumStackView.isHidden = false
-            self.labelsStackView.isHidden = false
-            self.activityView.isHidden = true
-            self.activityView.alpha = 0
+            UIView.animate(withDuration: 0.3, animations: {
+                self.coverButtonView.alpha = 1
+                self.albumStackView.alpha = 1
+                self.labelsStackView.alpha = 1
+                self.blurredEffectView.effect = nil
+                self.activityView.alpha = 0
+
+            }) { _ in
+                self.blurredEffectView.isHidden = true
+                self.blurredEffectView.isUserInteractionEnabled = true
+                self.coverButtonView.isHidden = false
+                self.albumStackView.isHidden = false
+                self.labelsStackView.isHidden = false
+                self.activityView.isHidden = true
+            }
+
         }
     }
     
@@ -157,17 +164,12 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
                     self.albumTitles.append(albumName)
                 }
             }
-
+//            self.albumTitles = ["axxhxhxhhxhjhxjjx"]
             if self.viewingAppleMusic {
-                
                 AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleAppleMusicSearchResponse(appleMusicAlbumResults:error:))
                 
               } else {
-                  let albumSearcher = AlbumSearchClient()
-                     albumSearcher.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates()) { (spotifyAlbumResults) in
-                         self.spotifyAlbums = spotifyAlbumResults
-                         self.performSegue(withIdentifier: "showAlbums", sender: self)
-                     }
+                  AlbumSearchClient.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleSpotifySearchResponse(spotifyAlbumResults:error:))
               }
         }
     }
@@ -236,16 +238,20 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             self.albumTitles += tempAlbumArray
             print("Extraction complete")
 
+//            self.albumTitles = ["\axxhxhxhhxhjhxjjx"]
+
             if self.viewingAppleMusic {
                 
                 AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleAppleMusicSearchResponse(appleMusicAlbumResults:error:))
                 
             } else {
-                let albumSearcher = AlbumSearchClient()
-                albumSearcher.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates()) { (spotifyAlbumResults) in
-                    self.spotifyAlbums = spotifyAlbumResults
-                    self.performSegue(withIdentifier: "showAlbums", sender: self)
-                }
+//                let albumSearcher = AlbumSearchClient()
+//                albumSearcher.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates()) { (spotifyAlbumResults) in
+//                    self.spotifyAlbums = spotifyAlbumResults
+//                    self.performSegue(withIdentifier: "showAlbums", sender: self)
+//                }
+                
+                AlbumSearchClient.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleSpotifySearchResponse(spotifyAlbumResults:error:))
             }
 
         }
@@ -265,6 +271,26 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             self.performSegue(withIdentifier: "showAlbums", sender: self)
         } else {
             self.showAlertWithCompletion(title: "Albums not found in Apple Music catalog", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
+                self.showLoadingActivity(false)
+                return
+            }
+        }
+    }
+    
+    func handleSpotifySearchResponse(spotifyAlbumResults: [[SpotifyAlbum]], error: Error?) {
+        guard error == nil else {
+            self.showAlertWithCompletion(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.") {
+                self.showLoadingActivity(false)
+                return
+            }
+            return
+        }
+        
+        if !spotifyAlbumResults.isEmpty {
+            self.spotifyAlbums = spotifyAlbumResults
+            self.performSegue(withIdentifier: "showAlbums", sender: self)
+        } else {
+            self.showAlertWithCompletion(title: "Albums not found in Spotify catalog", message: "Please make sure the image is clear, the albums are aligned horizontally straight and you're connected to the Internet.") {
                 self.showLoadingActivity(false)
                 return
             }
@@ -328,7 +354,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     
     @IBAction func extractAlbumsTapped(_ sender: Any) {
-        showLoadingActivity(false)
+//        showLoadingActivity(false)
         blurredEffectView.isHidden = false
         UIView.animate(withDuration: 0.4) {
 
