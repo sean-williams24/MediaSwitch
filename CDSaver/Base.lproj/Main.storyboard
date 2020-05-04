@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GWR-e4-ZQk">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -15,19 +15,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MediaSwitch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1p-w2-kFu">
-                                <rect key="frame" x="96.5" y="57" width="221.5" height="47.5"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="40"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YBR-wH-CmA">
-                                <rect key="frame" x="0.0" y="112" width="414" height="2"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="bcD-5k-XBH"/>
-                                </constraints>
-                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mick-haupt-_kXXlLPnKEc-unsplash" translatesAutoresizingMaskIntoConstraints="NO" id="jFn-jN-jSi">
+                                <rect key="frame" x="0.0" y="20" width="414" height="876"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONNECT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S86-45-ic9">
                                 <rect key="frame" x="147" y="428" width="120" height="50"/>
                                 <constraints>
@@ -84,23 +74,22 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="jFn-jN-jSi" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="4ds-Qo-eVj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YQS-wt-YzZ" secondAttribute="trailing" constant="20" id="51g-XO-a9J"/>
-                            <constraint firstItem="YBR-wH-CmA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9M9-5G-j0h"/>
                             <constraint firstItem="YQS-wt-YzZ" firstAttribute="top" secondItem="S86-45-ic9" secondAttribute="bottom" constant="30" id="Fhg-8A-REw"/>
                             <constraint firstItem="S86-45-ic9" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="PyW-E4-7d1"/>
                             <constraint firstItem="Br8-hN-9pn" firstAttribute="top" secondItem="S86-45-ic9" secondAttribute="bottom" constant="15" id="QOG-e5-KC1"/>
-                            <constraint firstItem="S1p-w2-kFu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="13" id="RSC-WN-OTF"/>
                             <constraint firstItem="PeZ-F7-oAI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="VgF-v7-CAx"/>
-                            <constraint firstItem="YBR-wH-CmA" firstAttribute="top" secondItem="S1p-w2-kFu" secondAttribute="bottom" constant="7.5" id="Ybc-Yo-gpL"/>
+                            <constraint firstAttribute="bottom" secondItem="jFn-jN-jSi" secondAttribute="bottom" id="Zzt-6h-0rn"/>
                             <constraint firstItem="gs9-Fl-HTJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bma-fU-ML1"/>
                             <constraint firstItem="Br8-hN-9pn" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ca4-hc-p2M"/>
                             <constraint firstItem="S86-45-ic9" firstAttribute="top" secondItem="gs9-Fl-HTJ" secondAttribute="bottom" constant="120" id="d5A-eb-Ce2"/>
-                            <constraint firstItem="YBR-wH-CmA" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kjU-Y8-vjE"/>
                             <constraint firstItem="S86-45-ic9" firstAttribute="top" secondItem="PeZ-F7-oAI" secondAttribute="bottom" constant="15" id="ljg-qF-ik7"/>
                             <constraint firstItem="YQS-wt-YzZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="osk-Rz-GeD"/>
-                            <constraint firstItem="S1p-w2-kFu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="rfi-0Z-ewM"/>
                             <constraint firstItem="S86-45-ic9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="u1G-1S-OZW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gs9-Fl-HTJ" secondAttribute="trailing" constant="20" id="ucj-gI-sh8"/>
+                            <constraint firstItem="jFn-jN-jSi" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" symbolic="YES" id="uqf-sn-1mn"/>
+                            <constraint firstItem="jFn-jN-jSi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yW5-Pk-xwy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -110,6 +99,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="appleMusicButton" destination="gs9-Fl-HTJ" id="poM-HL-m3s"/>
+                        <outlet property="backgroundImageView" destination="jFn-jN-jSi" id="LrV-wD-MPJ"/>
                         <outlet property="connectLabel" destination="S86-45-ic9" id="Gkv-hH-N5G"/>
                         <outlet property="downArrow" destination="Br8-hN-9pn" id="scL-aU-3nY"/>
                         <outlet property="spotifyButton" destination="YQS-wt-YzZ" id="XfC-wz-Di7"/>
@@ -973,6 +963,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
         <image name="cds" width="1920" height="1280"/>
         <image name="chevron.compact.down" catalog="system" width="64" height="20"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
+        <image name="mick-haupt-_kXXlLPnKEc-unsplash" width="1920" height="1280"/>
         <image name="photo" catalog="system" width="64" height="46"/>
         <image name="plus" catalog="system" width="64" height="56"/>
         <image name="trash" catalog="system" width="60" height="64"/>

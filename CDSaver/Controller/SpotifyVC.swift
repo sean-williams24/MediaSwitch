@@ -23,6 +23,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
     @IBOutlet weak var downArrow: UIImageView!
     @IBOutlet weak var upArrow: UIImageView!
     @IBOutlet weak var connectLabel: UILabel!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     
     
     // MARK: - Properties
@@ -78,9 +79,6 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         connectLabel.layer.borderWidth = 1
         connectLabel.layer.cornerRadius = 25
         
-        downArrow.blink(duration: 1, delay: 3, alpha: 0.05)
-        upArrow.blink(duration: 1, delay: 3, alpha: 0.05)
-        
 //        UserDefaults.standard.set("123", forKey: "access-token-key")
         
     //        let teamId = Auth.Apple.teamId
@@ -105,6 +103,13 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
         
+        let i = Int.random(in: 1...2)
+        backgroundImageView.image = UIImage(named: "CDBG\(i)")
+        
+        downArrow.alpha = 0.2
+        upArrow.alpha = 0.2
+        downArrow.blink(duration: 1, delay: 3, alpha: 0.1)
+        upArrow.blink(duration: 1, delay: 3, alpha: 0.1)
         animateColours()
         colourTimer = Timer.scheduledTimer(timeInterval: 4.5, target: self, selector: #selector(animateColours), userInfo: nil, repeats: true)
 
