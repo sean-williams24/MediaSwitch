@@ -79,6 +79,9 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         UIView.animate(withDuration: 3) {
             self.infoEffectsView.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
         }
+        
+        extractAlbumsButton.isEnabled = true
+        infoEffectsView.isHidden = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -145,7 +148,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         
         processor.process(in: imageView) { (text, result) in
             guard let result = result else {
-                self.showAlertWithCompletion(title: "No Text Found In Image", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
+                self.showAlert(title: "No Text Found In Image", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
                     self.showLoadingActivity(false)
                 }
                 return
@@ -184,7 +187,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         
         processor.process(in: imageView) { (text, result) in
             guard let result = result else {
-                self.showAlertWithCompletion(title: "No Text Found In Image", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
+                self.showAlert(title: "No Text Found In Image", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
                     self.showLoadingActivity(false)
                 }
                 return
@@ -259,7 +262,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     func handleAppleMusicSearchResponse(appleMusicAlbumResults: [[AppleMusicAlbum]], error: Error?) {
         guard error == nil else {
-            self.showAlertWithCompletion(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.") {
+            self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.") {
                 self.showLoadingActivity(false)
                 return
             }
@@ -270,7 +273,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             self.appleMusicAlbums = appleMusicAlbumResults
             self.performSegue(withIdentifier: "showAlbums", sender: self)
         } else {
-            self.showAlertWithCompletion(title: "Albums not found in Apple Music catalog", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
+            self.showAlert(title: "Albums not found in Apple Music catalog", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
                 self.showLoadingActivity(false)
                 return
             }
@@ -279,7 +282,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     func handleSpotifySearchResponse(spotifyAlbumResults: [[SpotifyAlbum]], error: Error?) {
         guard error == nil else {
-            self.showAlertWithCompletion(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.") {
+            self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.") {
                 self.showLoadingActivity(false)
                 return
             }
@@ -290,7 +293,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             self.spotifyAlbums = spotifyAlbumResults
             self.performSegue(withIdentifier: "showAlbums", sender: self)
         } else {
-            self.showAlertWithCompletion(title: "Albums not found in Spotify catalog", message: "Please make sure the image is clear, the albums are aligned horizontally straight and you're connected to the Internet.") {
+            self.showAlert(title: "Albums not found in Spotify catalog", message: "Please make sure the image is clear, the albums are aligned horizontally straight and you're connected to the Internet.") {
                 self.showLoadingActivity(false)
                 return
             }
@@ -301,7 +304,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! SpotifyAlbumResultsCVC
+        let vc = segue.destination as! AlbumResultsVC
 //        vc.albumTitles = self.albumTitles.removingDuplicates()
         if viewingAppleMusic {
             vc.appleAlbumResults = appleMusicAlbums

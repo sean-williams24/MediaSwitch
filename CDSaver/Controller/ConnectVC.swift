@@ -13,7 +13,7 @@ import SwiftyJSON
 import UIKit
 import SwiftJWT
 
-class SpotifyVC: UIViewController, CAAnimationDelegate {
+class ConnectVC: UIViewController, CAAnimationDelegate {
     
     
     // MARK: - Outlets
@@ -305,7 +305,7 @@ class SpotifyVC: UIViewController, CAAnimationDelegate {
 
 // MARK: - Session Manager Delegates
 
-extension SpotifyVC: SPTSessionManagerDelegate {
+extension ConnectVC: SPTSessionManagerDelegate {
     
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
         print("session failed \(error.localizedDescription)")
@@ -326,7 +326,7 @@ extension SpotifyVC: SPTSessionManagerDelegate {
 
 // MARK: - AppRemoteDelegate
 
-extension SpotifyVC: SPTAppRemoteDelegate {
+extension ConnectVC: SPTAppRemoteDelegate {
     
     func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
         self.appRemote = appRemote

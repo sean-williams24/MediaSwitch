@@ -29,7 +29,7 @@ extension UIViewController {
          }
      }
     
-    func showAlertWithCompletion(title: String, message: String?, completion: @escaping () -> ()) {
+    func showAlert(title: String, message: String?, completion: @escaping () -> ()) {
         DispatchQueue.main.async {
             let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)            
             ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in

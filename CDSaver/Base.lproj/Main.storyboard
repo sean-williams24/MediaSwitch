@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--SpotifyVC-->
+        <!--ConnectVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SpotifyVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ConnectVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -135,7 +135,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cds" translatesAutoresizingMaskIntoConstraints="NO" id="XPo-my-Yio">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMG_3738" translatesAutoresizingMaskIntoConstraints="NO" id="XPo-my-Yio">
                                 <rect key="frame" x="0.0" y="44" width="414" height="693"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </imageView>
@@ -467,7 +467,7 @@ Ensure stack is as straight as possible</string>
         <!--Spotify Album Results VC-->
         <scene sceneID="eox-e7-jYz">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="hui-SB-PUx" userLabel="Spotify Album Results VC" customClass="SpotifyAlbumResultsCVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="hui-SB-PUx" userLabel="Spotify Album Results VC" customClass="AlbumResultsVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nCP-WZ-OLf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -875,10 +875,10 @@ Once you’re happy with the options - add albums to your Spotify account by tap
             </objects>
             <point key="canvasLocation" x="3728.985507246377" y="137.94642857142856"/>
         </scene>
-        <!--Add To SpotifyVC-->
+        <!--Albums AddedVC-->
         <scene sceneID="ewU-8r-Lj2">
             <objects>
-                <viewController id="Zuy-tT-gXd" customClass="AddToSpotifyVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Zuy-tT-gXd" customClass="AlbumsAddedVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EXu-BA-ljB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -952,6 +952,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
     </scenes>
     <resources>
         <image name="Apple_Music_Icon" width="200" height="200"/>
+        <image name="IMG_3738" width="3024" height="4032"/>
         <image name="Spotify_Icon_RGB_Black 2" width="80" height="80"/>
         <image name="Spotify_Icon_RGB_Green 2" width="80" height="80"/>
         <image name="Spotify_Logo_RGB_Green-1" width="640" height="192"/>
@@ -960,7 +961,6 @@ Once you’re happy with the options - add albums to your Spotify account by tap
         <image name="arrow.up" catalog="system" width="60" height="64"/>
         <image name="bakkos" width="500" height="500"/>
         <image name="camera" catalog="system" width="64" height="48"/>
-        <image name="cds" width="1920" height="1280"/>
         <image name="chevron.compact.down" catalog="system" width="64" height="20"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
         <image name="mick-haupt-_kXXlLPnKEc-unsplash" width="1920" height="1280"/>

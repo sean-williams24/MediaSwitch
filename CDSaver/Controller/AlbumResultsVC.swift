@@ -12,7 +12,7 @@ import Kingfisher
 import StoreKit
 import UIKit
 
-class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CAAnimationDelegate {
+class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CAAnimationDelegate {
     
     // MARK: - Outlets
     
@@ -240,7 +240,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
                 self.blurredEffect.effect = blurFX
             }
         } else {
-            UIView.animate(withDuration: 0.4, animations: {
+            UIView.animate(withDuration: 0.2, animations: {
                 self.blurredEffect.effect = nil
             }) { _ in
                 self.blurredEffect.isHidden = true
@@ -351,33 +351,36 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
                 
                 AF.request(addAlbumsURL, method: .put, parameters: ["ids": album.id], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).response { (response) in
                     
-                    if let statusCode = response.response?.statusCode {
-                        if statusCode == 200 {
-                            print("\(album.name) Added to spotify")
-                            self.numberOfAlbumsAdded += 1
-                            //                            self.albumResults.removeAll { (albumArray) -> Bool in
-                            //                                return albumArray.first?.id == albumCollection.first?.id
-                            //                            }
-                            
-                            for (i, albumArray) in self.spotifyAlbumResults.enumerated() {
-                                if albumArray.first?.id == albumCollection.first?.id {
-                                    self.spotifyAlbumResults.remove(at: i)
-                                    self.collectionView.deleteItems(at: [IndexPath(item: i, section: 0)])
-                                    print("\(album.name) removed from results")
-                                    index += 1
+                    switch response.result {
+                    case .success:
+                        if let statusCode = response.response?.statusCode {
+                            if statusCode == 200 {
+                                print("\(album.name) Added to spotify")
+                                self.numberOfAlbumsAdded += 1
+
+                                for (i, albumArray) in self.spotifyAlbumResults.enumerated() {
+                                    if albumArray.first?.id == albumCollection.first?.id {
+                                        self.spotifyAlbumResults.remove(at: i)
+                                        self.collectionView.deleteItems(at: [IndexPath(item: i, section: 0)])
+                                        print("\(album.name) removed from results")
+                                        index += 1
+                                    }
                                 }
-                            }
-                            //                            self.blurredEffect.isUserInteractionEnabled = true
-                            //                             self.showBlurredFXView(false)
-                            
-                        } else {
-                            print("\(album.name) failed to add")
-                            if let artist = album.artists.first {
-                                self.failedAlbums.append("\(artist.name) - \(album.name)")
                             } else {
-                                self.failedAlbums.append(album.name)
+                                print("\(album.name) failed to add")
+                                if let artist = album.artists.first {
+                                    self.failedAlbums.append("\(artist.name) - \(album.name)")
+                                } else {
+                                    self.failedAlbums.append(album.name)
+                                }
+                                index += 1
                             }
-                            index += 1
+                        }
+                        
+                    case .failure:
+                        self.blurredEffect.isUserInteractionEnabled = true
+                        self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.") {
+                            self.showBlurredFXView(false)
                         }
                     }
                     
@@ -393,26 +396,31 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     
     func addAlbumsToAppleMusicLibrary() {
         let userToken = Auth.Apple.userToken
-        
         var index = 0
-        
+
         for albumCollection in appleAlbumResults {
             if let album = albumCollection.first {
                 let addAlbumsURL = "https://api.music.apple.com/v1/me/library?ids[albums]=\(album.id)"
                 
                 AF.request(addAlbumsURL, method: .post, parameters: ["ids[albums]": album.id], encoding: URLEncoding.default, headers: ["Music-User-Token": userToken, "Authorization": "Bearer " + Auth.Apple.developerToken]).response { response in
                     
-                    print(response.response as Any)
-                    
-                    if response.response?.statusCode == 202 {
-                        print("\(album.attributes.name) added to Apple Music library")
-                        self.numberOfAlbumsAdded += 1
-                        index += 1
-                    } else {
-                        print("\(album.attributes.name) failed to add")
-                        self.failedAlbums.append("\(album.attributes.artistName) - \(album.attributes.name)")
-                        
-                        index += 1
+                    switch response.result {
+                    case .success:
+                        if response.response?.statusCode == 202 {
+                                print("\(album.attributes.name) added to Apple Music library")
+                                self.numberOfAlbumsAdded += 1
+                                index += 1
+                            } else {
+                                print("\(album.attributes.name) failed to add")
+                                self.failedAlbums.append("\(album.attributes.artistName) - \(album.attributes.name)")
+                                
+                                index += 1
+                            }
+                    case .failure:
+                        self.blurredEffect.isUserInteractionEnabled = true
+                        self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.") {
+                            self.showBlurredFXView(false)
+                        }
                     }
                     
                     if index == self.appleAlbumResults.count {
@@ -506,7 +514,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! AddToSpotifyVC
+        let vc = segue.destination as! AlbumsAddedVC
         vc.failedAlbums = self.failedAlbums
         vc.numberOfAlbumsAdded = self.numberOfAlbumsAdded
         vc.viewingAppleMusic = viewingAppleMusic
@@ -630,7 +638,7 @@ class SpotifyAlbumResultsCVC: UIViewController, UICollectionViewDelegate, UIColl
 
 // MARK: - Alternative Albums Menu
 
-extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
+extension AlbumResultsVC: FSPagerViewDelegate, FSPagerViewDataSource {
     
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         return viewingAppleMusic ? appleAlbumGroup.count : spotifyAlbumGroup.count
@@ -710,7 +718,7 @@ extension SpotifyAlbumResultsCVC: FSPagerViewDelegate, FSPagerViewDataSource {
 
 // MARK: - ScrollView Delegates
 
-extension SpotifyAlbumResultsCVC: UIScrollViewDelegate {
+extension AlbumResultsVC: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y

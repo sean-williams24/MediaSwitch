@@ -91,10 +91,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
 
     
-    var SpotifyConnectVC: SpotifyVC? {
+    var SpotifyConnectVC: ConnectVC? {
         get {
             let spotifyViewController = self.window?.rootViewController?.children[0]
-            return spotifyViewController as? SpotifyVC
+            return spotifyViewController as? ConnectVC
         }
     }
 }

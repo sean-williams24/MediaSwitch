@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddToSpotifyVC: UIViewController {
+class AlbumsAddedVC: UIViewController {
 
     @IBOutlet weak var resultsTextLabel: UILabel!
     
