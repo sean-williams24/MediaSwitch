@@ -8,6 +8,7 @@
 
 import Alamofire
 import Firebase
+import Network
 import StoreKit
 import SwiftyJSON
 import UIKit
@@ -54,6 +55,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     var colourTimer = Timer()
     var viewingAppleMusic = false
     var ref: DatabaseReference!
+    var connected = false
 
     
     // MARK: - Life Cycle
@@ -79,24 +81,19 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
         connectLabel.layer.borderWidth = 1
         connectLabel.layer.cornerRadius = 25
         
-//        UserDefaults.standard.set("123", forKey: "access-token-key")
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                self.connected = true
+            } else {
+                self.connected = false
+                self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.")
+                return
+            }
+        }
         
-    //        let teamId = Auth.Apple.teamId
-    //        let keyId = Auth.Apple.keyId
-    //        let keyFileUrl = Bundle.main.url(forResource: "", withExtension: "p8")!
-    //
-    //        struct MyClaims: Claims {
-    //            let iss: String
-    //            let iat: Date?
-    //            let exp: Date?
-    //        }
-    //
-    //        let myHeader = Header(kid: keyId)
-    //        let myClaims = MyClaims(iss: teamId, iat: Date(), exp: Date() + 166 * 24 * 60 * 60)
-    //        var myJWT = SwiftJWT.JWT(header: myHeader, claims: myClaims)
-    //
-    //        let token = try! myJWT.sign(using: .es256(privateKey: try! String(contentsOf: keyFileUrl).data(using: .utf8)!))
-    //        print(token)
+        let queue = DispatchQueue(label: "Monitor")
+        monitor.start(queue: queue)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -205,7 +202,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     }
     
     
-    func appleMusicCheckIfDeviceCanPlayback() {
+    func checkAppleMusicCapabilities() {
         let serviceController = SKCloudServiceController()
         serviceController.requestCapabilities { (capability:SKCloudServiceCapability, err: Error?) in
             print(err as Any)
@@ -225,7 +222,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     
     @IBAction func appleMusicButtonTapped(_ sender: Any) {
         
-        appleMusicCheckIfDeviceCanPlayback()
+        checkAppleMusicCapabilities()
         
         SKCloudServiceController.requestAuthorization { (status) in
             switch status {
@@ -238,26 +235,24 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
             case .authorized:
                 print("Apple Music Authorized")
                 
-                AlbumSearchClient.appleMusicAlbumSearch(with: ["A Tribe Called Quest"]) { (results, error) in
-                    if error == nil {
-                        self.viewingAppleMusic = true
-                        self.obtainDeveloperToken()
-                        self.requestAppleStorefront()
-                        
-                        DispatchQueue.main.async {
-                            self.performSegue(withIdentifier: "showImageReader", sender: self)
-                        }
-                    } else {
-                        self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.")
-                        return
+                if self.connected {
+                    self.viewingAppleMusic = true
+                    self.obtainDeveloperToken()
+                    self.requestAppleStorefront()
+                    
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "showImageReader", sender: self)
                     }
+                } else {
+                    print("No Connectionn")
+                    self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.")
+                    return
                 }
                 
             default:
                 break
             }
         }
-        
     }
     
     
