@@ -9,6 +9,7 @@
 import Alamofire
 import FSPagerView
 import Kingfisher
+import NVActivityIndicatorView
 import StoreKit
 import UIKit
 
@@ -66,6 +67,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     var currentColourSet = 0
     var gradientLayer = CAGradientLayer()
     var colourTimer = Timer()
+    var activityView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
     
     // MARK: - Lifecycle
     
@@ -164,6 +166,12 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         paragraphStyle.alignment = .left
         attributedInfoText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: 60))
         infoLabel.attributedText = attributedInfoText
+        
+        
+        activityView.center = view.center
+        activityView.type = .ballPulse
+        activityView.tintColor = .white
+        blurredEffect.contentView.addSubview(activityView)
     }
     
     
@@ -426,9 +434,15 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     @objc func addAlbumsButtonTapped() {
+        if viewingAppleMusic {
+            guard !appleAlbumResults.isEmpty else { return }
+        } else {
+            guard !spotifyAlbumResults.isEmpty else { return }
+        }
+        
         showBlurredFXView(true)
         blurredEffect.isUserInteractionEnabled = false
-        
+        activityView.startAnimating()
         viewingAppleMusic ? addAlbumsToAppleMusicLibrary() : addAlbumsToSpotifyLibrary()
     }
     
@@ -659,6 +673,29 @@ extension AlbumResultsVC: FSPagerViewDelegate, FSPagerViewDataSource {
         cell.imageView?.kf.setImage(with: imageURL)
         cell.imageView?.contentMode = .scaleAspectFit
         cell.imageView?.layer.cornerRadius = 3
+        
+        let processor = DownsamplingImageProcessor(size: (cell.imageView?.bounds.size)!)
+             |> RoundCornerImageProcessor(cornerRadius: 3)
+        
+        cell.imageView?.kf.setImage(
+            with: imageURL,
+            placeholder: UIImage(named: "placeholderImage"),
+            options: [
+                .processor(processor),
+                .scaleFactor(UIScreen.main.scale),
+                .transition(.fade(0.5)),
+                .cacheOriginalImage
+            ])
+        {
+            result in
+            switch result {
+            case .success:
+//                print("Task done for: \(value.source.url?.absoluteString ?? "")")
+                print("")
+            case .failure(let error):
+                print("Job failed: \(error.localizedDescription)")
+            }
+        }
         
         return cell
     }

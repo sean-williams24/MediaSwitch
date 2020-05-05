@@ -29,7 +29,6 @@
 		CEC567C5243C90F1009C8CB2 /* SpotifyAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */; };
 		CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */; };
 		CEDA2F02244DAA8B0013CCB8 /* AlbumsAddedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2F01244DAA8B0013CCB8 /* AlbumsAddedVC.swift */; };
-		CEDA2F04244EF2930013CCB8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2F03244EF2930013CCB8 /* ViewController.swift */; };
 		CEFC3B3224546F5B00F74F48 /* AppleMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC3B3124546F5B00F74F48 /* AppleMusic.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,7 +59,6 @@
 		CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAlbum.swift; sourceTree = "<group>"; };
 		CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerExtension.swift; sourceTree = "<group>"; };
 		CEDA2F01244DAA8B0013CCB8 /* AlbumsAddedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumsAddedVC.swift; sourceTree = "<group>"; };
-		CEDA2F03244EF2930013CCB8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CEFC3B3124546F5B00F74F48 /* AppleMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusic.swift; sourceTree = "<group>"; };
 		E3A04432AB4F8BF8F02068C9 /* Pods-CDSaver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.debug.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,7 +144,6 @@
 				CEB98F62243C64530028FED3 /* ImageReaderVC.swift */,
 				CE6896E1243E276D00B37A90 /* AlbumResultsVC.swift */,
 				CEDA2F01244DAA8B0013CCB8 /* AlbumsAddedVC.swift */,
-				CEDA2F03244EF2930013CCB8 /* ViewController.swift */,
 				CE4E430F245877BB00E10BAB /* UIViewController Extension.swift */,
 			);
 			path = Controller;
@@ -295,7 +292,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEDA2F04244EF2930013CCB8 /* ViewController.swift in Sources */,
 				CEB98F63243C64530028FED3 /* ImageReaderVC.swift in Sources */,
 				CE5794AC2445D2F900793C15 /* PagerViewCell.swift in Sources */,
 				CEB98F4F243B95630028FED3 /* ConnectVC.swift in Sources */,

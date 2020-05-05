@@ -200,52 +200,65 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
             let dict = snapshot.value as? NSDictionary
             Auth.Apple.developerToken = dict?["developerToken"] as? String ?? ""
             print("Got developer token")
-            
             self.requestAppleUserToken()
+        }
+    }
+    
+    
+    func appleMusicCheckIfDeviceCanPlayback() {
+        let serviceController = SKCloudServiceController()
+        serviceController.requestCapabilities { (capability:SKCloudServiceCapability, err: Error?) in
+            print(err as Any)
+
+            if !capability.contains(.addToCloudMusicLibrary) {
+                self.showAlert(title: "Limited Access", message: "MediaSwitch has detected your Apple Music subscription but not permissions allowing us to add music to your library. Please check your settings with Apple Music.")
+            }
+            
+            if capability.contains(.musicCatalogSubscriptionEligible) {
+                print("user does not have subscription")
+                self.showAlert(title: "Apple Music Subscription Required", message: "Please subscribe to Apple Music if you wish to use MediaSwitch to add albums to your library.")
+            }
         }
     }
     
     // MARK: - Action Methods
     
-    
-    // TODO: - check capabilties <<<<<<<<<<<<<<<<<<<<<<<
-    
-    
     @IBAction func appleMusicButtonTapped(_ sender: Any) {
         
-        
-//        switch SKCloudServiceController.authorizationStatus() {
-//        case .authorized
-//        }
-        
+        appleMusicCheckIfDeviceCanPlayback()
         
         SKCloudServiceController.requestAuthorization { (status) in
             switch status {
             case .denied, .restricted:
                 print("Apple Music Denied")
-                //TODO: - SHOW ALERT
-                // CHECK to see what happens if user denies access
+                self.showAlert(title: "Apple Music Access Denied", message: "MediaSwitch needs permission to access your Apple Music library to add albums. \n\nPlease go to your device's settings, scroll down to MediaSwitch then allow access to Media & Apple Music.") {
+                    return
+                }
                 
             case .authorized:
                 print("Apple Music Authorized")
-                self.viewingAppleMusic = true
-                self.obtainDeveloperToken()
-                self.requestAppleStorefront()
-
-                let controller = SKCloudServiceController()
-                controller.requestCapabilities { (capabilities, error) in
-                    print(capabilities.contains(.addToCloudMusicLibrary))
+                
+                AlbumSearchClient.appleMusicAlbumSearch(with: ["A Tribe Called Quest"]) { (results, error) in
+                    if error == nil {
+                        self.viewingAppleMusic = true
+                        self.obtainDeveloperToken()
+                        self.requestAppleStorefront()
+                        
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: "showImageReader", sender: self)
+                        }
+                    } else {
+                        self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.")
+                        return
+                    }
                 }
                 
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: "showImageReader", sender: self)
-                }
-            default: break
+            default:
+                break
             }
         }
         
     }
-    
     
     
     fileprivate func initiateSpotifyConnectionSession() {
