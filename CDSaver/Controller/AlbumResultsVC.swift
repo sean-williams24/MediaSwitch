@@ -357,15 +357,8 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                             if statusCode == 200 {
                                 print("\(album.name) Added to spotify")
                                 self.numberOfAlbumsAdded += 1
-
-                                for (i, albumArray) in self.spotifyAlbumResults.enumerated() {
-                                    if albumArray.first?.id == albumCollection.first?.id {
-                                        self.spotifyAlbumResults.remove(at: i)
-                                        self.collectionView.deleteItems(at: [IndexPath(item: i, section: 0)])
-                                        print("\(album.name) removed from results")
-                                        index += 1
-                                    }
-                                }
+                                index += 1
+                                
                             } else {
                                 print("\(album.name) failed to add")
                                 if let artist = album.artists.first {
