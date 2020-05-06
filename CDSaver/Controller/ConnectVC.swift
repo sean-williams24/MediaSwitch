@@ -19,7 +19,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var spotifyButton: UIImageView!
+    @IBOutlet weak var spotifyButtonImageView: UIImageView!
     @IBOutlet weak var appleMusicButton: RoundButton!
     @IBOutlet weak var downArrow: UIImageView!
     @IBOutlet weak var upArrow: UIImageView!
@@ -65,18 +65,11 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
         ref = Database.database().reference()
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(connectToSpotifyTapped))
-        spotifyButton.isUserInteractionEnabled = true
-        spotifyButton.addGestureRecognizer(tapGesture)
+        spotifyButtonImageView.isUserInteractionEnabled = true
+        spotifyButtonImageView.addGestureRecognizer(tapGesture)
         
         colourSets = createColorSets()
 
-        gradientLayer.frame = CGRect(x: 0, y: 0, width: appleMusicButton.frame.width - 40, height: appleMusicButton.frame.height)
-        gradientLayer.cornerRadius = 25
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-        gradientLayer.colors = colourSets[currentColourSet]
-        appleMusicButton.layer.addSublayer(gradientLayer)
-        
         connectLabel.layer.borderColor = UIColor.label.cgColor
         connectLabel.layer.borderWidth = 1
         connectLabel.layer.cornerRadius = 25
@@ -99,7 +92,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
-        
+ 
         let i = Int.random(in: 1...2)
         backgroundImageView.image = UIImage(named: "CDBG\(i)")
         
@@ -109,6 +102,27 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
         upArrow.blink(duration: 1, delay: 3, alpha: 0.1)
         animateColours()
         colourTimer = Timer.scheduledTimer(timeInterval: 4.5, target: self, selector: #selector(animateColours), userInfo: nil, repeats: true)
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        var spotifyImageWidth = spotifyButtonImageView.image?.size.width ?? view.frame.size.width - 40
+        
+        if spotifyImageWidth > view.frame.width {
+            spotifyImageWidth = spotifyButtonImageView.frame.width
+        }
+        
+        appleMusicButton.widthAnchor.constraint(equalToConstant: spotifyImageWidth).isActive = true
+
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: spotifyImageWidth, height: appleMusicButton.frame.height)
+        gradientLayer.cornerRadius = 25
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        gradientLayer.colors = colourSets[currentColourSet]
+        appleMusicButton.layer.addSublayer(gradientLayer)
+        appleMusicButton.bringSubviewToFront(appleMusicButton.titleLabel!)
 
     }
     
@@ -276,12 +290,13 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     }
     
     @objc func connectToSpotifyTapped() {
-        
+        self.performSegue(withIdentifier: "showImageReader", sender: self)
+
         UIView.animate(withDuration: 0.1, animations: {
-            self.spotifyButton.transform = CGAffineTransform(scaleX: 0.97, y: 0.97)
+            self.spotifyButtonImageView.transform = CGAffineTransform(scaleX: 0.97, y: 0.97)
         }) { _ in
             UIView.animate(withDuration: 0.1) {
-                self.spotifyButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.spotifyButtonImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
         }
         

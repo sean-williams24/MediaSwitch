@@ -36,6 +36,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var appleButton: UIImageView!
     @IBOutlet weak var addAlbumsLabel: UILabel!
     @IBOutlet weak var addAlbumsStackView: UIStackView!
+    @IBOutlet weak var topButtonsStackview: UIStackView!
     
     
     // MARK: - Properties
@@ -82,13 +83,12 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         infoView.layer.borderWidth = 0.8
         
         pagerView.transformer = FSPagerViewTransformer(type: .linear)
-        let width = view.frame.width / 2
+//        let width = view.frame.width / 2
+        let width = albumsViewHeight - 60
         pagerView.itemSize = CGSize(width: width, height: width)
         pagerView.isUserInteractionEnabled = true
         pagerView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         pagerView.interitemSpacing = 60
-        //        pagerView.layer.cornerRadius = 10
-        //        pagerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         let dismissSwipe = UIPanGestureRecognizer(target: self, action: #selector(handleAltAlbumsViewSwipe))
         alternativeAlbumsView.addGestureRecognizer(dismissSwipe)
@@ -172,6 +172,15 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         activityView.type = .ballPulse
         activityView.tintColor = .white
         blurredEffect.contentView.addSubview(activityView)
+        
+        itemsPerRow = UIDevice.current.userInterfaceIdiom == .pad ? 3 : 2
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let constant = view.frame.width / 5
+            topButtonsStackview.translatesAutoresizingMaskIntoConstraints = false
+            topButtonsStackview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: constant).isActive = true
+            topButtonsStackview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constant).isActive = true
+        }
     }
     
     

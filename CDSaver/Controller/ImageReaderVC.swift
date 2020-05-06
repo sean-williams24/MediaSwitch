@@ -80,8 +80,26 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             self.infoEffectsView.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
         }
         
+        infoEffectsView.translatesAutoresizingMaskIntoConstraints = false
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            infoEffectsView.widthAnchor.constraint(equalToConstant: 450).isActive = true
+        } else {
+            infoEffectsView.widthAnchor.constraint(equalToConstant: view.frame.width - 20).isActive = true
+        }
+        
+        
         extractAlbumsButton.isEnabled = true
         infoEffectsView.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+      
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -345,6 +363,11 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     }
     
     @IBAction func cameraButtonTapped(_ sender: Any) {
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            self.showAlert(title: "No Camera Detected", message: "Please use a device with a camera or add an image from your library.")
+            return
+        }
+        
         let vc = UIImagePickerController()
         vc.sourceType = .camera
         vc.delegate = self

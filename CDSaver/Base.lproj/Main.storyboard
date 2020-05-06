@@ -16,12 +16,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.14999999999999999" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mick-haupt-_kXXlLPnKEc-unsplash" translatesAutoresizingMaskIntoConstraints="NO" id="jFn-jN-jSi">
-                                <rect key="frame" x="0.0" y="20" width="414" height="876"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONNECT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S86-45-ic9">
                                 <rect key="frame" x="147" y="428" width="120" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="hjw-lF-YQS"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="hjw-lF-YQS"/>
                                     <constraint firstAttribute="height" constant="50" id="tNt-Pw-Top"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
@@ -30,6 +30,7 @@
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="728" image="Spotify_Logo_RGB_Green-1" translatesAutoresizingMaskIntoConstraints="NO" id="YQS-wt-YzZ">
                                 <rect key="frame" x="20" y="508" width="374" height="192"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Br8-hN-9pn">
                                 <rect key="frame" x="165.5" y="494" width="83" height="70"/>
@@ -50,7 +51,7 @@
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="light"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs9-Fl-HTJ" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
-                                <rect key="frame" x="20" y="258" width="374" height="50"/>
+                                <rect key="frame" x="149.5" y="258" width="115" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="yyy-xY-sZt"/>
@@ -81,14 +82,13 @@
                             <constraint firstItem="Br8-hN-9pn" firstAttribute="top" secondItem="S86-45-ic9" secondAttribute="bottom" constant="15" id="QOG-e5-KC1"/>
                             <constraint firstItem="PeZ-F7-oAI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="VgF-v7-CAx"/>
                             <constraint firstAttribute="bottom" secondItem="jFn-jN-jSi" secondAttribute="bottom" id="Zzt-6h-0rn"/>
-                            <constraint firstItem="gs9-Fl-HTJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="bma-fU-ML1"/>
                             <constraint firstItem="Br8-hN-9pn" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ca4-hc-p2M"/>
                             <constraint firstItem="S86-45-ic9" firstAttribute="top" secondItem="gs9-Fl-HTJ" secondAttribute="bottom" constant="120" id="d5A-eb-Ce2"/>
                             <constraint firstItem="S86-45-ic9" firstAttribute="top" secondItem="PeZ-F7-oAI" secondAttribute="bottom" constant="15" id="ljg-qF-ik7"/>
                             <constraint firstItem="YQS-wt-YzZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="osk-Rz-GeD"/>
+                            <constraint firstItem="gs9-Fl-HTJ" firstAttribute="centerX" secondItem="jFn-jN-jSi" secondAttribute="centerX" id="r6O-tp-3Aw"/>
                             <constraint firstItem="S86-45-ic9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="u1G-1S-OZW"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gs9-Fl-HTJ" secondAttribute="trailing" constant="20" id="ucj-gI-sh8"/>
-                            <constraint firstItem="jFn-jN-jSi" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" symbolic="YES" id="uqf-sn-1mn"/>
+                            <constraint firstItem="jFn-jN-jSi" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="uqf-sn-1mn"/>
                             <constraint firstItem="jFn-jN-jSi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yW5-Pk-xwy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -102,7 +102,7 @@
                         <outlet property="backgroundImageView" destination="jFn-jN-jSi" id="LrV-wD-MPJ"/>
                         <outlet property="connectLabel" destination="S86-45-ic9" id="Gkv-hH-N5G"/>
                         <outlet property="downArrow" destination="Br8-hN-9pn" id="scL-aU-3nY"/>
-                        <outlet property="spotifyButton" destination="YQS-wt-YzZ" id="XfC-wz-Di7"/>
+                        <outlet property="spotifyButtonImageView" destination="YQS-wt-YzZ" id="XfC-wz-Di7"/>
                         <outlet property="upArrow" destination="PeZ-F7-oAI" id="cYd-yK-3zi"/>
                         <segue destination="TLL-Tk-L24" kind="show" identifier="showImageReader" id="xQP-69-y3r"/>
                     </connections>
@@ -110,22 +110,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="sOQ-WV-pFX">
-            <objects>
-                <viewController id="6bT-Gy-6tp" customClass="ViewController" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="I3b-lR-1is">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="7vz-A4-L2p"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="lXb-ed-TNp"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pHX-am-wHg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1417" y="858"/>
         </scene>
         <!--Image ReaderVC-->
         <scene sceneID="57N-jd-0zc">
@@ -315,25 +299,27 @@
                                 <blurEffect style="systemThinMaterialDark"/>
                             </visualEffectView>
                             <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGA-Rt-AAO">
-                                <rect key="frame" x="10" y="358" width="394" height="180"/>
+                                <rect key="frame" x="-1.5" y="348" width="417" height="200"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pco-vl-1m8">
-                                    <rect key="frame" x="0.0" y="0.0" width="394" height="180"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="417" height="200"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAT-Yr-5IW">
-                                            <rect key="frame" x="0.0" y="0.0" width="394" height="180"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="417" height="200"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ri5-Ul-sl8">
-                                                <rect key="frame" x="0.0" y="0.0" width="394" height="180"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="417" height="200"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pM-yA-aWc">
-                                                        <rect key="frame" x="10" y="10" width="374" height="160"/>
+                                                        <rect key="frame" x="10" y="10" width="397" height="180"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <string key="text">Take a photo or upload an image of your albums (max 50)
 
 Image can be single stack of albums or album covers
 
-Ensure stack is as straight as possible</string>
+Ensure stack is as straight as possible
+
+Crop out irrelevant text if possible</string>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -359,7 +345,7 @@ Ensure stack is as straight as possible</string>
                                     </constraints>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="lyv-r9-1Zo"/>
+                                    <constraint firstAttribute="height" constant="200" id="lyv-r9-1Zo"/>
                                 </constraints>
                                 <blurEffect style="systemUltraThinMaterialDark"/>
                             </visualEffectView>
@@ -370,15 +356,14 @@ Ensure stack is as straight as possible</string>
                             <constraint firstItem="XPo-my-Yio" firstAttribute="top" secondItem="QHe-uj-oa6" secondAttribute="top" id="7Tw-wf-Hxi"/>
                             <constraint firstAttribute="bottom" secondItem="8fW-iv-608" secondAttribute="bottom" id="GVJ-2a-wMH"/>
                             <constraint firstItem="8fW-iv-608" firstAttribute="leading" secondItem="QHe-uj-oa6" secondAttribute="leading" id="NkZ-pg-vNI"/>
+                            <constraint firstItem="hGA-Rt-AAO" firstAttribute="centerX" secondItem="VgP-cG-E33" secondAttribute="centerX" id="Pao-wZ-XYx"/>
                             <constraint firstItem="XPo-my-Yio" firstAttribute="bottom" secondItem="9dx-Mt-y8o" secondAttribute="top" constant="-10" id="QbK-gw-2Mo"/>
                             <constraint firstItem="9dx-Mt-y8o" firstAttribute="leading" secondItem="QHe-uj-oa6" secondAttribute="leading" constant="10" id="Ufd-g4-ZVf"/>
                             <constraint firstItem="XPo-my-Yio" firstAttribute="trailing" secondItem="QHe-uj-oa6" secondAttribute="trailing" id="Wai-Pz-wFe"/>
                             <constraint firstItem="8fW-iv-608" firstAttribute="trailing" secondItem="QHe-uj-oa6" secondAttribute="trailing" id="XNJ-MM-5WQ"/>
                             <constraint firstItem="9dx-Mt-y8o" firstAttribute="bottom" secondItem="QHe-uj-oa6" secondAttribute="bottom" constant="-10" id="Xlz-HB-SER"/>
-                            <constraint firstItem="hGA-Rt-AAO" firstAttribute="leading" secondItem="QHe-uj-oa6" secondAttribute="leading" constant="10" id="fNx-RC-sIo"/>
                             <constraint firstItem="9dx-Mt-y8o" firstAttribute="trailing" secondItem="QHe-uj-oa6" secondAttribute="trailing" constant="-10" id="g2O-hQ-jbT"/>
                             <constraint firstItem="hGA-Rt-AAO" firstAttribute="centerY" secondItem="VgP-cG-E33" secondAttribute="centerY" id="h5g-1d-Sdw"/>
-                            <constraint firstItem="QHe-uj-oa6" firstAttribute="trailing" secondItem="hGA-Rt-AAO" secondAttribute="trailing" constant="10" id="nvt-ME-1YH"/>
                             <constraint firstItem="8fW-iv-608" firstAttribute="top" secondItem="VgP-cG-E33" secondAttribute="top" constant="20" symbolic="YES" id="s7T-44-ph0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QHe-uj-oa6"/>
@@ -483,7 +468,7 @@ Ensure stack is as straight as possible</string>
                                 <rect key="frame" x="0.0" y="133" width="414" height="110"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="W1m-bS-YSB">
-                                        <rect key="frame" x="10" y="0.0" width="394" height="110"/>
+                                        <rect key="frame" x="-71" y="0.0" width="556" height="110"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <string key="text">Tap + button to choose from alternative options
 Tap albums to delete
@@ -526,13 +511,12 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="W1m-bS-YSB" firstAttribute="top" secondItem="bQN-yZ-iEt" secondAttribute="top" id="1tx-BV-dgR"/>
-                                    <constraint firstItem="W1m-bS-YSB" firstAttribute="leading" secondItem="bQN-yZ-iEt" secondAttribute="leading" constant="10" id="B0o-sg-KDo"/>
                                     <constraint firstAttribute="bottom" secondItem="iXX-bh-2cX" secondAttribute="bottom" constant="25" id="POC-bn-vG8"/>
                                     <constraint firstAttribute="bottom" secondItem="W1m-bS-YSB" secondAttribute="bottom" id="RnW-Vv-phh"/>
                                     <constraint firstAttribute="trailing" secondItem="iXX-bh-2cX" secondAttribute="trailing" constant="20" id="cHp-DB-bXE"/>
                                     <constraint firstItem="iXX-bh-2cX" firstAttribute="top" secondItem="bQN-yZ-iEt" secondAttribute="top" constant="25" id="cUP-bW-n98"/>
                                     <constraint firstItem="iXX-bh-2cX" firstAttribute="leading" secondItem="bQN-yZ-iEt" secondAttribute="leading" constant="20" id="nLz-Bs-go5"/>
-                                    <constraint firstAttribute="trailing" secondItem="W1m-bS-YSB" secondAttribute="trailing" constant="10" id="nvZ-55-2b7"/>
+                                    <constraint firstItem="W1m-bS-YSB" firstAttribute="centerX" secondItem="bQN-yZ-iEt" secondAttribute="centerX" id="sB0-Y5-4Nf"/>
                                     <constraint firstAttribute="height" constant="110" id="zgz-8a-5P3"/>
                                 </constraints>
                             </view>
@@ -839,12 +823,12 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                             <constraint firstItem="m9Q-Kj-teB" firstAttribute="top" secondItem="ZI6-xM-kMe" secondAttribute="top" constant="10" id="MFt-2L-hNw"/>
                             <constraint firstItem="luZ-EC-Fxb" firstAttribute="bottom" secondItem="ZI6-xM-kMe" secondAttribute="bottom" id="Oak-2q-3zy"/>
                             <constraint firstItem="1bT-6t-4fA" firstAttribute="top" secondItem="m9Q-Kj-teB" secondAttribute="bottom" constant="8" id="PCj-RU-Ycu"/>
-                            <constraint firstItem="m9Q-Kj-teB" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" constant="30" id="XxA-kr-Ibf"/>
+                            <constraint firstItem="m9Q-Kj-teB" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" constant="30" identifier="stackLeading" id="XxA-kr-Ibf"/>
                             <constraint firstItem="bQN-yZ-iEt" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" id="bjw-S4-wtf"/>
                             <constraint firstItem="1bT-6t-4fA" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" id="g5n-fk-l95"/>
                             <constraint firstItem="1bT-6t-4fA" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" id="rdE-uc-7bU"/>
                             <constraint firstItem="luZ-EC-Fxb" firstAttribute="leading" secondItem="ZI6-xM-kMe" secondAttribute="leading" id="uG4-rF-XgN"/>
-                            <constraint firstItem="m9Q-Kj-teB" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" constant="-30" id="v1Q-3k-Tme"/>
+                            <constraint firstItem="m9Q-Kj-teB" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" constant="-30" identifier="stackTrailing" id="v1Q-3k-Tme"/>
                             <constraint firstItem="luZ-EC-Fxb" firstAttribute="trailing" secondItem="ZI6-xM-kMe" secondAttribute="trailing" id="zh9-4v-vIq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZI6-xM-kMe"/>
@@ -868,6 +852,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                         <outlet property="logoImageView" destination="ome-Pa-0r5" id="wIZ-Zh-Wv4"/>
                         <outlet property="pagerView" destination="nL4-oQ-5sC" id="Usx-OV-ddQ"/>
                         <outlet property="spotifyButton" destination="Dz9-9f-lov" id="doT-OG-Pko"/>
+                        <outlet property="topButtonsStackview" destination="m9Q-Kj-teB" id="D4h-nI-p1h"/>
                         <segue destination="Zuy-tT-gXd" kind="presentation" identifier="addAlbumsCompletion" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="CIE-of-a0r"/>
                     </connections>
                 </viewController>
@@ -889,19 +874,20 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OSn-fZ-ybm">
                                         <rect key="frame" x="-10" y="10" width="434" height="200"/>
                                         <subviews>
-                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tick" translatesAutoresizingMaskIntoConstraints="NO" id="ecl-aT-8HS">
-                                                <rect key="frame" x="167" y="50" width="100" height="100"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tick" translatesAutoresizingMaskIntoConstraints="NO" id="ecl-aT-8HS">
+                                                <rect key="frame" x="192" y="75" width="50" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="100" id="6EV-kr-z2L"/>
-                                                    <constraint firstAttribute="width" constant="100" id="6qK-jB-cgH"/>
+                                                    <constraint firstAttribute="height" constant="50" id="6EV-kr-z2L"/>
+                                                    <constraint firstAttribute="width" constant="50" id="6qK-jB-cgH"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="ecl-aT-8HS" firstAttribute="centerY" secondItem="OSn-fZ-ybm" secondAttribute="centerY" id="9Yg-nT-guV"/>
+                                            <constraint firstItem="ecl-aT-8HS" firstAttribute="centerX" secondItem="OSn-fZ-ybm" secondAttribute="centerX" id="BGy-3f-F5h"/>
                                             <constraint firstAttribute="height" constant="200" id="Wc7-rR-IJZ"/>
-                                            <constraint firstItem="ecl-aT-8HS" firstAttribute="centerX" secondItem="OSn-fZ-ybm" secondAttribute="centerX" id="ZWi-Vx-UvE"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dU-FC-Aye">
@@ -919,7 +905,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ExQ-If-R0G">
                                                 <rect key="frame" x="10" y="5" width="394" height="234"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <mutableString key="text">i officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                <string key="text">i officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -944,7 +930,6 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                     <constraint firstItem="OSn-fZ-ybm" firstAttribute="leading" secondItem="704-nb-C1R" secondAttribute="leading" constant="-10" id="LC7-kS-XVQ"/>
                                     <constraint firstAttribute="trailing" secondItem="Tib-im-uQL" secondAttribute="trailing" id="NFb-cr-u46"/>
                                     <constraint firstItem="4dU-FC-Aye" firstAttribute="leading" secondItem="JVv-Cz-Syd" secondAttribute="leading" constant="10" id="eSr-cV-RME"/>
-                                    <constraint firstItem="OSn-fZ-ybm" firstAttribute="width" secondItem="704-nb-C1R" secondAttribute="width" multiplier="1.04831" id="frJ-s3-qPw"/>
                                     <constraint firstItem="OSn-fZ-ybm" firstAttribute="top" secondItem="704-nb-C1R" secondAttribute="top" constant="10" id="ml2-cl-azr"/>
                                     <constraint firstItem="Tib-im-uQL" firstAttribute="top" secondItem="4dU-FC-Aye" secondAttribute="top" constant="20" id="mle-JD-X7i"/>
                                     <constraint firstItem="JVv-Cz-Syd" firstAttribute="trailing" secondItem="4dU-FC-Aye" secondAttribute="trailing" constant="10" id="qdZ-Mq-Xc7"/>
@@ -954,7 +939,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                 <viewLayoutGuide key="frameLayoutGuide" id="JVv-Cz-Syd"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Toc-Ny-nhD">
-                                <rect key="frame" x="0.0" y="816" width="414" height="80"/>
+                                <rect key="frame" x="0.0" y="782" width="414" height="80"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p0d-PT-aEZ">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -1037,7 +1022,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                             <constraint firstItem="Toc-Ny-nhD" firstAttribute="trailing" secondItem="W9P-kQ-PbD" secondAttribute="trailing" id="GCs-xe-AaQ"/>
                             <constraint firstItem="704-nb-C1R" firstAttribute="leading" secondItem="W9P-kQ-PbD" secondAttribute="leading" id="LLe-86-3qH"/>
                             <constraint firstItem="W9P-kQ-PbD" firstAttribute="bottom" secondItem="704-nb-C1R" secondAttribute="bottom" id="Phw-Nc-Dp0"/>
-                            <constraint firstAttribute="bottom" secondItem="Toc-Ny-nhD" secondAttribute="bottom" id="ZVT-Kh-9KZ"/>
+                            <constraint firstItem="W9P-kQ-PbD" firstAttribute="bottom" secondItem="Toc-Ny-nhD" secondAttribute="bottom" id="ZVT-Kh-9KZ"/>
                             <constraint firstItem="Toc-Ny-nhD" firstAttribute="leading" secondItem="W9P-kQ-PbD" secondAttribute="leading" id="sKS-mI-fVl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="W9P-kQ-PbD"/>

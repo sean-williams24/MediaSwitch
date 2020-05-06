@@ -27,20 +27,25 @@ class AlbumsAddedVC: UIViewController {
         let circleBorderColour = viewingAppleMusic ? .systemPink : Style.Colours.spotifyGreen
         let tickTint1 = viewingAppleMusic ? .systemPurple : Style.Colours.spotifyGreen
 
-        circle = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-        circle.center = animationView.center
+        circle = UIView()
         circle.layer.borderWidth = 15
         circle.layer.cornerRadius = 40
         circle.layer.borderColor = circleBorderColour.cgColor
         circle.backgroundColor = .white
+        circle.translatesAutoresizingMaskIntoConstraints = false
+ 
+        circle.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        circle.widthAnchor.constraint(equalToConstant: 80).isActive = true
         animationView.addSubview(circle)
-        
+        circle.centerXAnchor.constraint(equalTo: imageView!.centerXAnchor).isActive = true
+        circle.centerYAnchor.constraint(equalTo: imageView!.centerYAnchor).isActive = true
+
         let tick = UIImage(named: "tick")
-        tickImage = UIImageView(image: tick)
-        tickImage.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        tickImage.center = animationView.center
-        tickImage.tintColor = tickTint1
-        animationView.addSubview(tickImage)
+        let cross = UIImage(named: "cross")
+        
+        imageView.image = numberOfAlbumsAdded == 0 ? cross : tick
+        imageView.tintColor = tickTint1
+        animationView.bringSubviewToFront(imageView)
         
         let albums = numberOfAlbumsAdded == 1 ? "album" : "albums"
         var resultsText = ""
@@ -97,8 +102,8 @@ class AlbumsAddedVC: UIViewController {
             self.circle.transform = CGAffineTransform(scaleX: 2, y: 2)
             self.circle.backgroundColor = .black
             self.circle.layer.borderWidth = 4
-            self.tickImage.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-            self.tickImage.tintColor = .white
+            self.imageView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            self.imageView.tintColor = .white
         })
     }
 
