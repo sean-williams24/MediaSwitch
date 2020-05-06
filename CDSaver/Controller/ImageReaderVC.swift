@@ -75,6 +75,8 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         infoEffectsView.layer.cornerRadius = 5
         infoVibrancyContentView.layer.cornerRadius = 5
         infoEffectsView.effect = nil       
+        imageView.contentMode = .scaleAspectFill
+
         
         UIView.animate(withDuration: 3) {
             self.infoEffectsView.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
@@ -88,8 +90,8 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         }
         
         
-        extractAlbumsButton.isEnabled = true
-        infoEffectsView.isHidden = true
+//        extractAlbumsButton.isEnabled = true
+//        infoEffectsView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -347,6 +349,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         }
         
         infoEffectsView.isHidden = true
+        imageView.contentMode = .scaleAspectFit
         imageView.image = image
         extractAlbumsButton.isEnabled = true
     }

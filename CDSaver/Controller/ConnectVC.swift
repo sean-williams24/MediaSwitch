@@ -34,7 +34,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: Auth.spotifyClientID, redirectURL: redirectUri)
-        configuration.playURI = ""
+        configuration.playURI = nil
         return configuration
     }()
     
@@ -290,8 +290,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     }
     
     @objc func connectToSpotifyTapped() {
-        self.performSegue(withIdentifier: "showImageReader", sender: self)
-
+        
         UIView.animate(withDuration: 0.1, animations: {
             self.spotifyButtonImageView.transform = CGAffineTransform(scaleX: 0.97, y: 0.97)
         }) { _ in

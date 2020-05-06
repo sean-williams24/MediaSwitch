@@ -74,7 +74,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+ 
         collectionView.contentInsetAdjustmentBehavior = .never
         alternativeAlbumsView.backgroundColor = .clear
         alternativeAlbumsViewHeightConstraint.constant = 0
@@ -125,23 +125,24 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             colourSets = createColorSets()
 
-            gradientLayer.frame = CGRect(x: 0, y: 0, width: addAlbumsButton.frame.width - 38, height: addAlbumsButton.frame.height)
+            gradientLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width - 40, height: addAlbumsButton.frame.height)
             gradientLayer.cornerRadius = 30
             gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
             gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
             gradientLayer.colors = colourSets[currentColourSet]
+            
             addAlbumsButton.layer.addSublayer(gradientLayer)
             addAlbumsButton.bringSubviewToFront(addAlbumsStackView)
             addAlbumsLabel.textColor = .white
-            musicService = "Apple Music"
             
             logoImageView.isHidden = true
             addAlbumsLabel.text = "Add albums to Apple Music"
             addAlbumsButton.backgroundColor = .clear
-
+            
+            musicService = "Apple Music"
+        
             if traitCollection.userInterfaceStyle == .dark {
                 appleButton.image = UIImage(named: "Apple_Music_Icon")
-                
             } else {
                 appleButton.image = UIImage(named: "Apple_Music_Icon_blk")
             }
@@ -189,8 +190,10 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         if viewingAppleMusic {
             animateColours()
             colourTimer = Timer.scheduledTimer(timeInterval: 4.5, target: self, selector: #selector(animateColours), userInfo: nil, repeats: true)
+            
         }
     }
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

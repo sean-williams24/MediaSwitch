@@ -54,15 +54,17 @@ class AlbumsAddedVC: UIViewController {
             
             headerLabel.text = "\(numberOfAlbumsAdded!) \(albums) added to your Apple Music library"
             
-            resultsText = """
-            
-            The Apple Music app doesn't sync new additions immediately. To sync now:
-            
-            Mac: File menu -> Library -> Update Cloud Library.
-            
-            iPhone: add a new track or album / amend a playlist manually in the Music app and your albums added from MediaSwitch will appear.
-            
-            """
+            if numberOfAlbumsAdded > 0 {
+                resultsText = """
+                
+                The Apple Music app doesn't sync new additions immediately. To sync now:
+                
+                Mac: File menu -> Library -> Update Cloud Library.
+                
+                iPhone: add a new track or album / amend a playlist manually in the Music app and your albums added from MediaSwitch will appear.
+                
+                """
+            }
         } else {
             headerLabel.text = "\(numberOfAlbumsAdded!) \(albums) added to your Spotify library"
             
