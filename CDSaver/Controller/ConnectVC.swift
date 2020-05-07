@@ -202,8 +202,12 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! ImageReaderVC
-        vc.viewingAppleMusic = viewingAppleMusic
+        
+        if segue.identifier == "showImageReader" {
+            let vc = segue.destination as! ImageReaderVC
+            vc.viewingAppleMusic = viewingAppleMusic
+        }
+
     }
     
     func obtainDeveloperToken() {

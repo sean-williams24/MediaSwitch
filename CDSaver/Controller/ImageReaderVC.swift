@@ -335,15 +335,18 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let vc = segue.destination as! AlbumResultsVC
-//        vc.albumTitles = self.albumTitles.removingDuplicates()
-        if viewingAppleMusic {
-            vc.appleAlbumResults = appleMusicAlbums
-            vc.viewingAppleMusic = true
-        } else {
-            vc.spotifyAlbumResults = spotifyAlbums
-            vc.viewingAppleMusic = false
+        
+        if segue.identifier == "showAlbums" {
+            let vc = segue.destination as! AlbumResultsVC
+            if viewingAppleMusic {
+                vc.appleAlbumResults = appleMusicAlbums
+                vc.viewingAppleMusic = true
+            } else {
+                vc.spotifyAlbumResults = spotifyAlbums
+                vc.viewingAppleMusic = false
+            }
         }
+
         
     }
     

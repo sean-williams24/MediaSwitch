@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B3428F760640D75BFECECFC6 /* Pods_CDSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */; };
+		CE0433242464385800323B3C /* SettingsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0433232464385800323B3C /* SettingsTableVC.swift */; };
+		CE04332624643AD600323B3C /* SettingsDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE04332524643AD600323B3C /* SettingsDetailVC.swift */; };
+		CE04332824644F1B00323B3C /* Legal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE04332724644F1B00323B3C /* Legal.swift */; };
 		CE3D577A2451BA6C003E1061 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3D57792451BA6C003E1061 /* Style.swift */; };
 		CE4E4310245877BB00E10BAB /* UIViewController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E430F245877BB00E10BAB /* UIViewController Extension.swift */; };
 		CE5794AC2445D2F900793C15 /* PagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5794AB2445D2F900793C15 /* PagerViewCell.swift */; };
@@ -35,6 +38,9 @@
 /* Begin PBXFileReference section */
 		15D9F9DF64BF008A1BC2680D /* Pods-CDSaver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CDSaver.release.xcconfig"; path = "Target Support Files/Pods-CDSaver/Pods-CDSaver.release.xcconfig"; sourceTree = "<group>"; };
 		8674F941B3EB1BA1D737B4C1 /* Pods_CDSaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CDSaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE0433232464385800323B3C /* SettingsTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableVC.swift; sourceTree = "<group>"; };
+		CE04332524643AD600323B3C /* SettingsDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailVC.swift; sourceTree = "<group>"; };
+		CE04332724644F1B00323B3C /* Legal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Legal.swift; sourceTree = "<group>"; };
 		CE3D57792451BA6C003E1061 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		CE4E430F245877BB00E10BAB /* UIViewController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController Extension.swift"; sourceTree = "<group>"; };
 		CE5794AB2445D2F900793C15 /* PagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerViewCell.swift; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 				CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */,
 				CEFC3B3124546F5B00F74F48 /* AppleMusic.swift */,
 				CE6896DF243E042500B37A90 /* AlbumSearchClient.swift */,
+				CE04332724644F1B00323B3C /* Legal.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -145,6 +152,8 @@
 				CE6896E1243E276D00B37A90 /* AlbumResultsVC.swift */,
 				CEDA2F01244DAA8B0013CCB8 /* AlbumsAddedVC.swift */,
 				CE4E430F245877BB00E10BAB /* UIViewController Extension.swift */,
+				CE0433232464385800323B3C /* SettingsTableVC.swift */,
+				CE04332524643AD600323B3C /* SettingsDetailVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -292,10 +301,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE04332624643AD600323B3C /* SettingsDetailVC.swift in Sources */,
 				CEB98F63243C64530028FED3 /* ImageReaderVC.swift in Sources */,
 				CE5794AC2445D2F900793C15 /* PagerViewCell.swift in Sources */,
 				CEB98F4F243B95630028FED3 /* ConnectVC.swift in Sources */,
 				CE6896E4243E2BE000B37A90 /* AlbumCVCell.swift in Sources */,
+				CE0433242464385800323B3C /* SettingsTableVC.swift in Sources */,
 				CE6896E2243E276D00B37A90 /* AlbumResultsVC.swift in Sources */,
 				CEB98F61243C63AB0028FED3 /* ScaledElementProcessor.swift in Sources */,
 				CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */,
@@ -305,6 +316,7 @@
 				CE3D577A2451BA6C003E1061 /* Style.swift in Sources */,
 				CE5794AE2448846800793C15 /* RoundButton.swift in Sources */,
 				CE6896E0243E042500B37A90 /* AlbumSearchClient.swift in Sources */,
+				CE04332824644F1B00323B3C /* Legal.swift in Sources */,
 				CEB98F4D243B95630028FED3 /* SceneDelegate.swift in Sources */,
 				CEDA2F02244DAA8B0013CCB8 /* AlbumsAddedVC.swift in Sources */,
 				CEC567C1243C80CA009C8CB2 /* Auth.swift in Sources */,
