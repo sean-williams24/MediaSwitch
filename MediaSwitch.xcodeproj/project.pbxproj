@@ -205,7 +205,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CEB98F42243B95630028FED3 /* Build configuration list for PBXProject "CDSaver" */;
+			buildConfigurationList = CEB98F42243B95630028FED3 /* Build configuration list for PBXProject "MediaSwitch" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -513,7 +513,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CEB98F42243B95630028FED3 /* Build configuration list for PBXProject "CDSaver" */ = {
+		CEB98F42243B95630028FED3 /* Build configuration list for PBXProject "MediaSwitch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CEB98F59243B95650028FED3 /* Debug */,

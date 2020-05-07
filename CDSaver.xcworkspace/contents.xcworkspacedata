@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:CDSaver.xcodeproj">
+      location = "group:/Users/Sean Williams/Documents/iOS Development/Apps/CDSaver/MediaSwitch.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
