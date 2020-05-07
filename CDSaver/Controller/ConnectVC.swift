@@ -235,8 +235,10 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     // MARK: - Action Methods
     
     @IBAction func appleMusicButtonTapped(_ sender: Any) {
-        
-        checkAppleMusicCapabilities()
+        viewingAppleMusic = true
+        self.performSegue(withIdentifier: "showImageReader", sender: self)
+
+//        checkAppleMusicCapabilities()
         
         SKCloudServiceController.requestAuthorization { (status) in
             switch status {

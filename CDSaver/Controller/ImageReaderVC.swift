@@ -37,7 +37,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     
     let processor = ScaledElementProcessor()
     var albumTitles = [String]()
-    let blurEffect = UIBlurEffect(style: .prominent)
+    let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
     var viewingAppleMusic: Bool!
     var spotifyAlbums: [[SpotifyAlbum]] = []
     var appleMusicAlbums: [[AppleMusicAlbum]] = []
