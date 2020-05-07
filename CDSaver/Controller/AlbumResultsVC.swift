@@ -682,18 +682,18 @@ extension AlbumResultsVC: FSPagerViewDelegate, FSPagerViewDataSource {
         
         // Download and cache album cover image
         let imageURL = URL(string: albumCoverString)
-        cell.imageView?.kf.setImage(with: imageURL)
+//        cell.imageView?.kf.setImage(with: imageURL)
         cell.imageView?.contentMode = .scaleAspectFit
         cell.imageView?.layer.cornerRadius = 3
         
-        let processor = DownsamplingImageProcessor(size: (cell.imageView?.bounds.size)!)
-             |> RoundCornerImageProcessor(cornerRadius: 3)
+//        let processor = DownsamplingImageProcessor(size: (cell.imageView?.bounds.size)!)
+//             |> RoundCornerImageProcessor(cornerRadius: 3)
         
         cell.imageView?.kf.setImage(
             with: imageURL,
             placeholder: UIImage(named: "placeholderImage"),
             options: [
-                .processor(processor),
+//                .processor(processor),
                 .scaleFactor(UIScreen.main.scale),
                 .transition(.fade(0.5)),
                 .cacheOriginalImage

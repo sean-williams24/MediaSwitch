@@ -30,6 +30,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     @IBOutlet weak var extractAlbumsButton: RoundButton!
     @IBOutlet weak var infoEffectsView: UIVisualEffectView!
     @IBOutlet weak var infoVibrancyContentView: UIView!
+    @IBOutlet weak var parentStackView: UIStackView!
     
     
     // MARK: - Properties
@@ -77,7 +78,6 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         infoEffectsView.effect = nil       
         imageView.contentMode = .scaleAspectFill
 
-        
         UIView.animate(withDuration: 3) {
             self.infoEffectsView.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
         }
@@ -89,6 +89,17 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             infoEffectsView.widthAnchor.constraint(equalToConstant: view.frame.width - 20).isActive = true
         }
         
+//        print(parentStackView.frame.width)
+//        print(view.frame.width)
+//        blurredEffectView.isHidden = false
+//        blurredEffectView.effect = blurEffect
+        if parentStackView.frame.width > view.frame.width {
+            buttonStack.spacing = 5
+            labelsStackView.spacing = 5
+            parentStackView.widthAnchor.constraint(equalToConstant: view.frame.width - 10).isActive = true
+            buttonStack.heightAnchor.constraint(equalToConstant: (view.frame.width - 10) / 2).isActive = true
+            
+        }
         
 //        extractAlbumsButton.isEnabled = true
 //        infoEffectsView.isHidden = true
