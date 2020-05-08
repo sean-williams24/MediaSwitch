@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>&quot;Please link your Apple Music account to add your albums&quot;</string>
+	<string>&quot;Please allow MediaSwitch to link your Apple Music account to add your albums&quot;</string>
 	<key>kTCCServiceMediaLibrary</key>
-	<string>&quot;Please link your Apple Music account to add your albums&quot;</string>
+	<string>&quot;Please allow MediaSwitch to link your Apple Music account to add your albums&quot;</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

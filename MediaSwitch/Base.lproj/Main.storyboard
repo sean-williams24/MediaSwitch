@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GWR-e4-ZQk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GWR-e4-ZQk">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,7 +10,7 @@
         <!--ConnectVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ConnectVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ConnectVC" customModule="MediaSwitch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -50,7 +50,7 @@
                                 </constraints>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="light"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs9-Fl-HTJ" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs9-Fl-HTJ" customClass="RoundButton" customModule="MediaSwitch" customModuleProvider="target">
                                 <rect key="frame" x="149.5" y="258" width="115" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -114,7 +114,7 @@
         <!--Settings TableVC-->
         <scene sceneID="ZoX-RT-c5u">
             <objects>
-                <tableViewController id="lPF-H1-qjL" customClass="SettingsTableVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="lPF-H1-qjL" customClass="SettingsTableVC" customModule="MediaSwitch" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="55" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="MNz-91-jIZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -132,7 +132,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Terms &amp; Conditions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OCy-hF-giB">
                                                     <rect key="frame" x="20" y="0.0" width="355" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -149,7 +149,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pZv-RV-osa">
                                                     <rect key="frame" x="20" y="0.0" width="355" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -166,7 +166,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Legal Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dn0-V1-G0L">
                                                     <rect key="frame" x="20" y="0.0" width="355" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -183,7 +183,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rLj-nz-OeC">
                                                     <rect key="frame" x="20" y="0.0" width="355" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -215,7 +215,7 @@
         <!--Settings DetailVC-->
         <scene sceneID="gGu-8D-imt">
             <objects>
-                <viewController storyboardIdentifier="SettingsDetailVC" id="x4R-Gd-2qv" customClass="SettingsDetailVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsDetailVC" id="x4R-Gd-2qv" customClass="SettingsDetailVC" customModule="MediaSwitch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W0y-3x-dVD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -250,7 +250,7 @@
         <!--Image ReaderVC-->
         <scene sceneID="57N-jd-0zc">
             <objects>
-                <viewController id="TLL-Tk-L24" customClass="ImageReaderVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="TLL-Tk-L24" customClass="ImageReaderVC" customModule="MediaSwitch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VgP-cG-E33">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -265,7 +265,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9dd-x4-2Hg">
                                         <rect key="frame" x="0.0" y="0.0" width="394" height="50"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqa-Ou-V8X" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqa-Ou-V8X" customClass="RoundButton" customModule="MediaSwitch" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="194.5" height="50"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                 <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -281,7 +281,7 @@
                                                     <action selector="cameraButtonTapped:" destination="TLL-Tk-L24" eventType="touchUpInside" id="IgH-WU-fNg"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfx-UZ-T2E" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfx-UZ-T2E" customClass="RoundButton" customModule="MediaSwitch" customModuleProvider="target">
                                                 <rect key="frame" x="199.5" y="0.0" width="194.5" height="50"/>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                 <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -303,7 +303,7 @@
                                             <constraint firstAttribute="height" constant="50" id="13f-qh-LWy"/>
                                         </constraints>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRf-Y7-VQr" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRf-Y7-VQr" customClass="RoundButton" customModule="MediaSwitch" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55" width="394" height="50"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <constraints>
@@ -434,7 +434,7 @@ Crop out irrelevant text if possible</string>
                                                             <rect key="frame" x="173" y="0.0" width="160" height="160"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjc-aK-lec">
-                                                                    <rect key="frame" x="14" y="11" width="132" height="138"/>
+                                                                    <rect key="frame" x="14" y="7" width="132" height="146"/>
                                                                     <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <state key="normal" image="stackIcon 2D"/>
                                                                     <connections>
@@ -444,10 +444,10 @@ Crop out irrelevant text if possible</string>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                             <constraints>
-                                                                <constraint firstItem="jjc-aK-lec" firstAttribute="top" secondItem="RSQ-EA-UwJ" secondAttribute="top" constant="11" id="17b-Mo-Un4"/>
+                                                                <constraint firstItem="jjc-aK-lec" firstAttribute="top" secondItem="RSQ-EA-UwJ" secondAttribute="top" constant="7" id="17b-Mo-Un4"/>
                                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="160" id="C9M-TJ-wdk"/>
                                                                 <constraint firstAttribute="trailing" secondItem="jjc-aK-lec" secondAttribute="trailing" constant="14" id="F4g-8d-K1D"/>
-                                                                <constraint firstAttribute="bottom" secondItem="jjc-aK-lec" secondAttribute="bottom" constant="11" id="JBT-NT-nIa"/>
+                                                                <constraint firstAttribute="bottom" secondItem="jjc-aK-lec" secondAttribute="bottom" constant="7" id="JBT-NT-nIa"/>
                                                                 <constraint firstAttribute="height" relation="lessThanOrEqual" constant="160" id="ZdP-0e-ixb"/>
                                                                 <constraint firstItem="jjc-aK-lec" firstAttribute="leading" secondItem="RSQ-EA-UwJ" secondAttribute="leading" constant="14" id="in7-2m-J0s"/>
                                                             </constraints>
@@ -508,8 +508,9 @@ Crop out irrelevant text if possible</string>
                     </view>
                     <navigationItem key="navigationItem" id="LPS-Hh-5e8">
                         <barButtonItem key="backBarButtonItem" title="-" id="Ivy-pU-eNt"/>
-                        <barButtonItem key="rightBarButtonItem" image="info" catalog="system" id="EQr-3a-aFJ">
-                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <barButtonItem key="rightBarButtonItem" image="info" catalog="system" width="4" id="EQr-3a-aFJ">
+                            <inset key="imageInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                            <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="lPF-H1-qjL" kind="show" id="GwW-uG-VP7"/>
                             </connections>
@@ -543,7 +544,7 @@ Crop out irrelevant text if possible</string>
         <!--Album Search Client-->
         <scene sceneID="fot-pd-RoF">
             <objects>
-                <tableViewController storyboardIdentifier="AlbumTitles" id="Mee-wS-Mul" customClass="AlbumSearchClient" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AlbumTitles" id="Mee-wS-Mul" customClass="AlbumSearchClient" customModule="MediaSwitch" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8gJ-jF-gAa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -583,7 +584,7 @@ Crop out irrelevant text if possible</string>
         <!--Album Search Client-->
         <scene sceneID="4CQ-Mx-9i0">
             <objects>
-                <viewController id="9xL-Os-02h" customClass="AlbumSearchClient" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9xL-Os-02h" customClass="AlbumSearchClient" customModule="MediaSwitch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zyk-Gf-uPS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -598,7 +599,7 @@ Crop out irrelevant text if possible</string>
         <!--Spotify Album Results VC-->
         <scene sceneID="eox-e7-jYz">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="hui-SB-PUx" userLabel="Spotify Album Results VC" customClass="AlbumResultsVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="hui-SB-PUx" userLabel="Spotify Album Results VC" customClass="AlbumResultsVC" customModule="MediaSwitch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nCP-WZ-OLf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -711,7 +712,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                             <action selector="infoButtonTapped:" destination="hui-SB-PUx" eventType="touchUpInside" id="CU0-8A-z70"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dz9-9f-lov" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dz9-9f-lov" customClass="RoundButton" customModule="MediaSwitch" customModuleProvider="target">
                                         <rect key="frame" x="98" y="5" width="60" height="60"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         <constraints>
@@ -818,7 +819,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="albumCell" id="X3l-b8-Xm6" customClass="AlbumCVCell" customModule="CDSaver" customModuleProvider="target">
+                                    <collectionViewCell autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="albumCell" id="X3l-b8-Xm6" customClass="AlbumCVCell" customModule="MediaSwitch" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="190" height="232"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -1009,7 +1010,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
         <!--Albums AddedVC-->
         <scene sceneID="ewU-8r-Lj2">
             <objects>
-                <viewController id="Zuy-tT-gXd" customClass="AlbumsAddedVC" customModule="CDSaver" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Zuy-tT-gXd" customClass="AlbumsAddedVC" customModule="MediaSwitch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EXu-BA-ljB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1099,7 +1100,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xXx-vX-dQy" customClass="RoundButton" customModule="CDSaver" customModuleProvider="target">
+                                                            <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xXx-vX-dQy" customClass="RoundButton" customModule="MediaSwitch" customModuleProvider="target">
                                                                 <rect key="frame" x="20" y="10" width="374" height="60"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -1211,19 +1212,19 @@ Once you’re happy with the options - add albums to your Spotify account by tap
         <image name="Spotify_Icon_RGB_Green 2" width="80" height="80"/>
         <image name="Spotify_Logo_RGB_Green-1" width="640" height="192"/>
         <image name="albumCover" width="512" height="512"/>
-        <image name="arrow.down" catalog="system" width="60" height="64"/>
-        <image name="arrow.up" catalog="system" width="60" height="64"/>
+        <image name="arrow.down" catalog="system" width="120" height="128"/>
+        <image name="arrow.up" catalog="system" width="120" height="128"/>
         <image name="bakkos" width="500" height="500"/>
-        <image name="camera" catalog="system" width="64" height="48"/>
+        <image name="camera" catalog="system" width="128" height="96"/>
         <image name="cds" width="1920" height="1280"/>
-        <image name="chevron.compact.down" catalog="system" width="64" height="20"/>
-        <image name="info" catalog="system" width="46" height="64"/>
-        <image name="info.circle" catalog="system" width="64" height="60"/>
+        <image name="chevron.compact.down" catalog="system" width="128" height="43"/>
+        <image name="info" catalog="system" width="93" height="128"/>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="mick-haupt-_kXXlLPnKEc-unsplash" width="1920" height="1280"/>
-        <image name="photo" catalog="system" width="64" height="46"/>
-        <image name="plus" catalog="system" width="64" height="56"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="stackIcon 2D" width="512" height="512"/>
         <image name="tick" width="256" height="256"/>
-        <image name="trash" catalog="system" width="60" height="64"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
     </resources>
 </document>

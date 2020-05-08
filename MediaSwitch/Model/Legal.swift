@@ -32,13 +32,6 @@ enum LegalContent: String {
     Derivative Data
     Information our servers automatically collect when you access the Application, such as your native actions that are integral to the Application, including liking, re-blogging, or replying to a post, as well as other interactions with the Application and other users via server log files.
 
-
-    Facebook Permissions
-    The Application may by default access your Facebook basic account information, including your name, email and profile picture URL, as well as other information that you choose to make public. We may also request access to other permissions related to your account, such as friends, checkins, and likes, and you may choose to grant or deny us access to each individual permission. For more information regarding Facebook permissions, refer to the Facebook Permissions Reference page.
-
-    Data from Social Networks
-    User information from social networking sites, such as [Apple’s Game Center, Facebook, Google+ Instagram, Pinterest, Twitter], including your name, your social network username, location, gender, birth date, email address, profile picture, and public data for contacts, if you connect your account to such social networks. This information may also include the contact information of anyone you invite to use and/or join the Application.
-
     Geo-Location Information
     We may request access or permission to and track location-based information from your mobile device, either continuously or while you are using the Application, to provide location-based services. If you wish to change our access or permissions, you may do so in your device’s settings.
 
@@ -180,7 +173,7 @@ enum LegalContent: String {
     
     
     CONTACT US
-    If you have questions or comments about this Privacy Policy or any other issues regarding the app, please contact us by email at wilmslo@gmail.com.
+    If you have questions or comments about this Privacy Policy or any other issues regarding the app, please contact us by email at MediaSwitch.team@gmail.com.
                                                                                                                                  
     """
     
@@ -244,7 +237,7 @@ enum LegalContent: String {
 
     CONTACT US
     
-    If you have questions or comments about MediaSwitch or any other issues regarding the app, please contact us by email at wilmslo@gmail.com.
+    If you have questions or comments about MediaSwitch or any other issues regarding the app, please contact us by email at MediaSwitch.team@gmail.com.
                                                                                                                                
     """
 }

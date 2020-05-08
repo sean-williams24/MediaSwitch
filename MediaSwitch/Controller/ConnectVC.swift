@@ -30,7 +30,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     // MARK: - Properties
     
     let redirectUri = URL(string:"media-switch://spotify-login-callback")!
-    let albumURI = "4fdfPogS4fhaCtC9lmgzqR"
+//    let albumURI = "4fdfPogS4fhaCtC9lmgzqR"
     
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: Auth.spotifyClientID, redirectURL: redirectUri)
@@ -224,10 +224,6 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
         let serviceController = SKCloudServiceController()
         serviceController.requestCapabilities { (capability:SKCloudServiceCapability, err: Error?) in
             print(err as Any)
-
-            if !capability.contains(.addToCloudMusicLibrary) {
-                self.showAlert(title: "Limited Access", message: "MediaSwitch has detected your Apple Music subscription but not permissions allowing us to add music to your library. Please check your settings with Apple Music.")
-            }
             
             if capability.contains(.musicCatalogSubscriptionEligible) {
                 print("user does not have subscription")
@@ -239,10 +235,8 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     // MARK: - Action Methods
     
     @IBAction func appleMusicButtonTapped(_ sender: Any) {
-        viewingAppleMusic = true
-        self.performSegue(withIdentifier: "showImageReader", sender: self)
 
-//        checkAppleMusicCapabilities()
+        checkAppleMusicCapabilities()
         
         SKCloudServiceController.requestAuthorization { (status) in
             switch status {
@@ -256,6 +250,11 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
                 print("Apple Music Authorized")
                 
                 if self.connected {
+//                    let serviceController = SKCloudServiceCapability()
+//                    if serviceController.contains(.addToCloudMusicLibrary) {
+//                        self.showAlert(title: "Limited Access", message: "MediaSwitch has detected your Apple Music subscription but not permissions allowing us to add music to your library. Please check your settings with Apple Music.")
+//                    }
+                    
                     self.viewingAppleMusic = true
                     self.obtainDeveloperToken()
                     self.requestAppleStorefront()
