@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CEB98F46243B95630028FED3"
-               BuildableName = "CDSaver.app"
-               BlueprintName = "CDSaver"
+               BuildableName = "MediaSwitch.app"
+               BlueprintName = "MediaSwitch"
                ReferencedContainer = "container:MediaSwitch.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CEB98F46243B95630028FED3"
-            BuildableName = "CDSaver.app"
-            BlueprintName = "CDSaver"
+            BuildableName = "MediaSwitch.app"
+            BlueprintName = "MediaSwitch"
             ReferencedContainer = "container:MediaSwitch.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CEB98F46243B95630028FED3"
-            BuildableName = "CDSaver.app"
-            BlueprintName = "CDSaver"
+            BuildableName = "MediaSwitch.app"
+            BlueprintName = "MediaSwitch"
             ReferencedContainer = "container:MediaSwitch.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
