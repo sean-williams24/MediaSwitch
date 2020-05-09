@@ -1,6 +1,6 @@
 //
 //  AddToSpotifyVC.swift
-//  CDSaver
+//  MediaSwitch
 //
 //  Created by Sean Williams on 17/04/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
@@ -67,11 +67,6 @@ class AlbumsAddedVC: UIViewController {
             }
         } else {
             headerLabel.text = "\(numberOfAlbumsAdded!) \(albums) added to your Spotify library"
-            
-//            resultsText = """
-//
-//
-//            """
         }
         
         resultsTextView.text = resultsText
@@ -82,18 +77,7 @@ class AlbumsAddedVC: UIViewController {
             for album in failedAlbums {
                 resultsTextView.text?.append("\n\n\(album)")
             }
-            
         }
-//
-//        resultsTextView.text?.append("\n\n Slipknot = Iowa.")
-//        resultsTextView.text?.append("\n\n Slipknot = Iowa.")
-//        resultsTextView.text?.append("\n\n Slipknot = Iowa.")
-//        resultsTextView.text?.append("\n\n Slipknot = Iowa.")
-//        resultsTextView.text?.append("\n\n Slipknot = Iowa.")
-//        resultsTextView.text?.append("\n\n Slipknot = Iowa.")
-//        resultsTextView.text?.append("\n\n Slipknot = Iowa.")
-//        resultsTextView.text?.append("\n\n Slipknot = Iowa.")
-
     }
     
     
@@ -108,5 +92,4 @@ class AlbumsAddedVC: UIViewController {
             self.imageView.tintColor = .white
         })
     }
-
 }

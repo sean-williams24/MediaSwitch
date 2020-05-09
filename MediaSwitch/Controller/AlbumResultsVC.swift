@@ -1,6 +1,6 @@
 //
 //  SpotifyAlbumResultsCVC.swift
-//  CDSaver
+//  MediaSwitch
 //
 //  Created by Sean Williams on 08/04/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
@@ -83,7 +83,6 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         infoView.layer.borderWidth = 0.8
         
         pagerView.transformer = FSPagerViewTransformer(type: .linear)
-//        let width = view.frame.width / 2
         let width = albumsViewHeight - 60
         pagerView.itemSize = CGSize(width: width, height: width)
         pagerView.isUserInteractionEnabled = true
@@ -157,9 +156,9 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
         let attributedInfoText = NSMutableAttributedString(string: """
-            - Tap + button to choose from alternative options
-            - Tap albums to delete
-            - Tap \(musicService) button to add albums to library
+            • Tap + button to choose from alternative options
+            • Tap albums to delete
+            • Tap \(musicService) button to add albums to library
             """)
         
         let paragraphStyle = NSMutableParagraphStyle()
@@ -190,7 +189,6 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         if viewingAppleMusic {
             animateColours()
             colourTimer = Timer.scheduledTimer(timeInterval: 4.5, target: self, selector: #selector(animateColours), userInfo: nil, repeats: true)
-            
         }
     }
     
@@ -762,41 +760,7 @@ extension AlbumResultsVC: FSPagerViewDelegate, FSPagerViewDataSource {
 
 extension AlbumResultsVC: UIScrollViewDelegate {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.y
-        let newInfoViewHeight = infoViewHeightConstraint.constant - offset
-        
-        //        if newInfoViewHeight < newInfoViewMinHeight {
-        //            infoViewHeightConstraint.constant = newInfoViewMinHeight
-        //        } else if newInfoViewHeight > newInfoViewMaxHeight {
-        //            infoViewHeightConstraint.constant = newInfoViewMaxHeight
-        //        } else {
-        //            infoViewHeightConstraint.constant = newInfoViewHeight
-        //            scrollView.contentOffset.y = 0.0
-        //        }
-    }
-    
-    //     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-    //
-    //     if(velocity.y>0) {
-    //        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
-    //             self.navigationController?.setNavigationBarHidden(true, animated: true)
-    //         }, completion: nil)
-    //
-    //     } else {
-    //        UIView.animate(withDuration: 0.5, delay: 0, options: UIView.AnimationOptions(), animations: {
-    //            self.navigationController?.setNavigationBarHidden(false, animated: true)
-    //        }, completion: nil)
-    //        }
-    //    }
-    
-    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        //        if infoViewHeightConstraint.constant < (newInfoViewMaxHeight / 2) {
-        //            self.infoViewHeightConstraint.constant = self.newInfoViewMinHeight
-        //        } else {
-        //            self.infoViewHeightConstraint.constant = self.newInfoViewMaxHeight
-        //        }
         if infoViewHeightConstraint.constant != newInfoViewMinHeight {
             infoViewHeightConstraint.constant = newInfoViewMinHeight
         }
@@ -804,10 +768,8 @@ extension AlbumResultsVC: UIScrollViewDelegate {
         UIView.animate(withDuration: 0.4, animations: {
             self.logoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
             self.addAlbumsButton.alpha = 0
-            self.view.layoutIfNeeded()
-            
-        }) { _ in
-        }
+            self.view.layoutIfNeeded()  
+        })
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -820,13 +782,7 @@ extension AlbumResultsVC: UIScrollViewDelegate {
             self.addAlbumsButton.alpha = 0
             self.view.layoutIfNeeded()
             
-        }) { _ in
-            
-        }
+        })
     }
-    
 }
 
-extension String {
-    
-}

@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  CDSaver
+//  MediaSwitch
 //
 //  Created by Sean Williams on 06/04/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         FirebaseApp.configure()
         return true
     }
@@ -30,7 +29,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
 
     }
-
-
 }
 

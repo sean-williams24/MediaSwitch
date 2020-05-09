@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  CDSaver
+//  MediaSwitch
 //
 //  Created by Sean Williams on 06/04/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
@@ -28,7 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let configuration = SPTConfiguration(clientID: Auth.spotifyClientID, redirectURL: self.redirectUri)
         let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
         appRemote.connectionParameters.accessToken = self.accessToken
-//        appRemote.delegate = self
         return appRemote
     }()
     
@@ -49,19 +48,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
                 do {
                     let readableJSON = try JSONSerialization.jsonObject(with: response.data!, options: .mutableContainers) as! [String: AnyObject]
-                    
                     let accessToken = readableJSON["access_token"] as! String
-                    print(accessToken)
                     self.accessToken = accessToken
-                    
                     self.SpotifyConnectVC?.connectionEstablished()
-                    print(accessToken)
                 } catch {
                     print(error)
                 }
             }
         }
-
     }
     
     
@@ -70,27 +64,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
     }
     
-    func sceneDidDisconnect(_ scene: UIScene) {
-        
-    }
-    
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        
-    }
-    
-    func sceneWillResignActive(_ scene: UIScene) {
-        
-    }
-    
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        
-    }
-    
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        
-    }
-    
-
     
     var SpotifyConnectVC: ConnectVC? {
         get {

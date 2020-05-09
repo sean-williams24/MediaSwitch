@@ -1,6 +1,6 @@
 //
 //  ImageReaderVC.swift
-//  CDSaver
+//  MediaSwitch
 //
 //  Created by Sean Williams on 12/02/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
@@ -94,9 +94,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         } else {
             infoEffectsView.widthAnchor.constraint(equalToConstant: view.frame.width - 20).isActive = true
         }
-        
-//        print(parentStackView.frame.width)
-//        print(view.frame.width)
+
 //        blurredEffectView.isHidden = false
 //        blurredEffectView.effect = blurEffect
         if parentStackView.frame.width > view.frame.width {
@@ -109,16 +107,6 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         
         extractAlbumsButton.isEnabled = true
 //        infoEffectsView.isHidden = true
-
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-      
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
 
     }
     
@@ -406,9 +394,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         albumCoverExtraction()
     }
     
-    @IBAction func unwindAction(unwindSegue: UIStoryboardSegue) {
-        
-    }
+    @IBAction func unwindAction(unwindSegue: UIStoryboardSegue) {}
 }
 
 
@@ -421,7 +407,6 @@ extension ImageReaderVC: CropperViewControllerDelegate {
 
             if let state = state,
                 let image = cropper.originalImage.cropped(withCropperState: state) {
-    //            cropperState = state
                 imageView.image = image
             }
         }

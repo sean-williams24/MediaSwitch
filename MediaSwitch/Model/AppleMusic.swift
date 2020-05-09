@@ -1,6 +1,6 @@
 //
 //  AppleMusic.swift
-//  CDSaver
+//  MediaSwitch
 //
 //  Created by Sean Williams on 25/04/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
@@ -43,7 +43,7 @@ struct AppleMusicAlbum: Codable {
     let href, id, type: String
 }
 
-// MARK: - PurpleAttributes
+// MARK: - Attributes
 struct Attributes: Codable {
     let artistName: String
     let artwork: Artwork

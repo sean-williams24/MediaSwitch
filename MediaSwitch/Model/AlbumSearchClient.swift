@@ -69,14 +69,14 @@ class AlbumSearchClient {
     
     class func spotifyAlbumSearch(with albumTitles: [String], searchCompletion: @escaping ([[SpotifyAlbum]], Error?) -> ()) {
         var spotifyAlbums: [[SpotifyAlbum]] = []
-        var accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
+        let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
         let searchURL = "https://api.spotify.com/v1/search?"
         var albumIDs: [String] = []
         var i = 0
  
         for CD in albumTitles {
             AF.request(searchURL, method: .get, parameters: ["q": CD, "type":"album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { response in
-                print(response)
+                
                 switch response.result {
                 case .success:
                     let decoder = JSONDecoder()

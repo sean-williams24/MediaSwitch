@@ -1,6 +1,6 @@
 //
 //  SpotifyAlbum.swift
-//  CDSaver
+//  MediaSwitch
 //
 //  Created by Sean Williams on 07/04/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
@@ -8,9 +8,6 @@
 
 import Foundation
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
 
 // MARK: - Spotify
 struct Spotify: Codable {
@@ -87,10 +84,14 @@ class JSONNull: Codable, Hashable {
         return true
     }
 
-    public var hashValue: Int {
-        return 0
-    }
+//    public var hashValue: Int {
+//        return 0
+//    }
 
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(0)
+    }
+    
     public init() {}
 
     public required init(from decoder: Decoder) throws {
@@ -105,46 +106,3 @@ class JSONNull: Codable, Hashable {
         try container.encodeNil()
     }
 }
-
-
-
-//struct SpotifyAlbum: Codable {
-//    let name: String
-//    let artists: [SpotifyArtist]
-//    let id: String
-//    let images: [SpotifyAlbumImage]
-//    let type: String
-//
-//    init(name: String, artists: [SpotifyArtist], id: String, images: [SpotifyAlbumImage], type: String) {
-//        self.name = name
-//        self.artists = artists
-//        self.id = id
-//        self.images = images
-//        self.type = type
-//    }
-//
-//    init?(_ album: [String: Any]) {
-//        self.name = album["name"] as! String
-//        self.artists = album["artists"] as! [SpotifyArtist]
-//        self.id = album["id"] as! String
-//        self.images = album["images"] as! [SpotifyAlbumImage]
-//        self.type = album["type"] as!  String
-//    }
-//}
-//
-////struct Artists: Codable {
-////    let artist: SpotifyArtist
-////}
-//
-//struct SpotifyArtist: Codable {
-//    let name: String
-//
-//    init(name: String) {
-//        self.name = name
-//    }
-//
-//}
-//
-//struct SpotifyAlbumImage: Codable {
-//    let url: String
-//}

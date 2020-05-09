@@ -1,6 +1,6 @@
 //
 //  SpotifyVC.swift
-//  CDSaver
+//  MediaSwitch
 //
 //  Created by Sean Williams on 06/04/2020.
 //  Copyright © 2020 Sean Williams. All rights reserved.
@@ -30,8 +30,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     // MARK: - Properties
     
     let redirectUri = URL(string:"media-switch://spotify-login-callback")!
-//    let albumURI = "4fdfPogS4fhaCtC9lmgzqR"
-    
+                
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: Auth.spotifyClientID, redirectURL: redirectUri)
         configuration.playURI = nil
@@ -109,7 +108,6 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
         super.viewDidAppear(animated)
         
         var spotifyImageWidth = spotifyButtonImageView.image?.size.width ?? view.frame.size.width - 40
-        
         if spotifyImageWidth > view.frame.width {
             spotifyImageWidth = spotifyButtonImageView.frame.width
         }
@@ -202,12 +200,10 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "showImageReader" {
             let vc = segue.destination as! ImageReaderVC
             vc.viewingAppleMusic = viewingAppleMusic
         }
-
     }
     
     func obtainDeveloperToken() {
@@ -381,16 +377,3 @@ extension UIView {
         })
     }
 }
-
-
-// if let errorCode = dict["error"] as? NSDictionary {
-//        if errorCode["status"] as? Int == 201 {
-//            self.viewingAppleMusic = false
-//            self.performSegue(withIdentifier: "showImageReader", sender: self)
-//        } else {
-//            print("Token Has Expired or invalid")
-//            // Connect to Spotify to authorise
-//            self.initiateSpotifyConnectionSession()
-//        }
-//    }
-//}
