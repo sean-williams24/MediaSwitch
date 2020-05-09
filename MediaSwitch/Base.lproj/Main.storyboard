@@ -332,25 +332,25 @@
                                 </subviews>
                             </stackView>
                             <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGA-Rt-AAO">
-                                <rect key="frame" x="-1.5" y="348" width="417" height="200"/>
+                                <rect key="frame" x="27.5" y="348" width="359.5" height="200"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pco-vl-1m8">
-                                    <rect key="frame" x="0.0" y="0.0" width="417" height="200"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="359.5" height="200"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAT-Yr-5IW">
-                                            <rect key="frame" x="0.0" y="0.0" width="417" height="200"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359.5" height="200"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ri5-Ul-sl8">
-                                                <rect key="frame" x="0.0" y="0.0" width="417" height="200"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="359.5" height="200"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pM-yA-aWc">
-                                                        <rect key="frame" x="10" y="10" width="397" height="180"/>
+                                                        <rect key="frame" x="10" y="10" width="339.5" height="180"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <string key="text">Take a photo or upload an image of your albums (max 50)
+                                                        <string key="text">Take a photo or upload an image of your albums
 
-Image can be single stack of albums or album covers
+Image should be single stack of up to 25 albums 
 
-Ensure stack is as straight as possible
+Ensure stack is straight
 
 Crop out irrelevant text if possible</string>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
@@ -678,7 +678,7 @@ Once you’re happy with the options - add albums to your Spotify account by tap
                                             <constraint firstAttribute="height" constant="60" id="YhI-Cy-UrC"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="info.circle" catalog="system">
+                                        <state key="normal" image="info" catalog="system">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="light"/>
                                         </state>
@@ -1219,7 +1219,6 @@ Once you’re happy with the options - add albums to your Spotify account by tap
         <image name="cds" width="1920" height="1280"/>
         <image name="chevron.compact.down" catalog="system" width="128" height="43"/>
         <image name="info" catalog="system" width="93" height="128"/>
-        <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="mick-haupt-_kXXlLPnKEc-unsplash" width="1920" height="1280"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <image name="plus" catalog="system" width="128" height="113"/>
