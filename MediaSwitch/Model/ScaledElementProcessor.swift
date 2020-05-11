@@ -18,7 +18,7 @@ class ScaledElementProcessor {
     var textRecognizer: VisionTextRecognizer!
     
     init() {
-        textRecognizer = vision.onDeviceTextRecognizer()
+        textRecognizer = vision.cloudTextRecognizer()
     }
     
     

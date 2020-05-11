@@ -8,13 +8,14 @@
 
 import Alamofire
 import Firebase
+import NVActivityIndicatorView
 import Network
 import StoreKit
 import SwiftyJSON
 import UIKit
 import SwiftJWT
 
-class ConnectVC: UIViewController, CAAnimationDelegate {
+class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewControllerDelegate {
     
     
     // MARK: - Outlets
@@ -55,6 +56,8 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
     var viewingAppleMusic = false
     var ref: DatabaseReference!
     var connected = false
+    var blurredEffect = UIVisualEffectView()
+    var activityView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
 
     
     // MARK: - Life Cycle
@@ -86,6 +89,23 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
         
         let queue = DispatchQueue(label: "Monitor")
         monitor.start(queue: queue)
+        
+        let dismissTap = UITapGestureRecognizer(target: self, action: #selector(showBlurredFXView))
+        blurredEffect.addGestureRecognizer(dismissTap)
+        blurredEffect.effect = nil
+        blurredEffect.alpha = 0.9
+        view.addSubview(blurredEffect)
+        blurredEffect.translatesAutoresizingMaskIntoConstraints = false
+        blurredEffect.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        blurredEffect.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        blurredEffect.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        blurredEffect.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        blurredEffect.isHidden = true
+        
+        activityView.type = .ballPulse
+        activityView.tintColor = .white
+        activityView.startAnimating()
+        blurredEffect.contentView.addSubview(activityView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -128,6 +148,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         colourTimer.invalidate()
+        showBlurredFXView(false)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -161,24 +182,89 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
         }
     }
     
+    @objc fileprivate func showBlurredFXView(_ showBlur: Bool) {
+        activityView.center = connectLabel.center
+
+        if showBlur {
+            blurredEffect.isHidden = false
+            self.activityView.startAnimating()
+
+            UIView.animate(withDuration: 0.4) {
+                self.connectLabel.alpha = 0
+                let blurFX = UIBlurEffect(style: .systemThickMaterialDark)
+                self.blurredEffect.effect = blurFX
+            }
+        } else {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.blurredEffect.effect = nil
+                self.connectLabel.alpha = 1
+
+            }) { _ in
+                self.blurredEffect.isHidden = true
+            }
+        }
+    }
     
     func connectionEstablished() {
         viewingAppleMusic = false
         performSegue(withIdentifier: "showImageReader", sender: self)
     }
     
+    fileprivate func showAppleMusicSubscriptionController() {
+        let controller = SKCloudServiceController()
+        controller.requestCapabilities { (capabilities: SKCloudServiceCapability, error: Error?) in
+            guard error == nil else { return }
+            
+            if capabilities.contains(.musicCatalogSubscriptionEligible) && !capabilities.contains(.musicCatalogPlayback) {
+                // Allows subscription to the Apple Music catalog.
+                
+                let options: [SKCloudServiceSetupOptionsKey: Any] = [.action: SKCloudServiceSetupAction.subscribe]
+                
+                DispatchQueue.main.async {
+                    
+                    let setupController = SKCloudServiceSetupViewController()
+                    setupController.delegate = self
+                    
+                    setupController.load(options: options) { [weak self] (result: Bool, error: Error?) in
+                        guard error == nil else { return }
+                        
+                        if result {
+                            self?.showBlurredFXView(false)
+                            self?.present(setupController, animated: true, completion: nil)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     fileprivate func requestAppleUserToken() {
         let controller = SKCloudServiceController()
-        controller.requestUserToken(forDeveloperToken: Auth.Apple.developerToken) { (userToken, error) in
+        controller.requestUserToken(forDeveloperToken: Auth.Apple.developerToken) { [weak self] (userToken, error) in
             guard error == nil else {
                 print(error?.localizedDescription as Any)
+                
+                DispatchQueue.main.async {
+                    let ac = UIAlertController(title: "Apple Music Subscription Required", message: "Please subscribe to Apple Music if you wish to use MediaSwitch to add albums to your library.", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "No Thanks", style: .default, handler: { _ in
+                        self?.showBlurredFXView(false)
+
+                    }))
+                    ac.addAction(UIAlertAction(title: "Subscribe", style: .default, handler: { _ in
+                        self?.showAppleMusicSubscriptionController()
+                    }))
+                    self?.present(ac, animated: true)
+                }
+                
                 return
             }
             if let userToken = userToken {
                 Auth.Apple.userToken = userToken
                 print("USER TOKEN: " + userToken as Any)
-            } else {
-                print("Did not get user token")
+                
+                DispatchQueue.main.async {
+                    self?.performSegue(withIdentifier: "showImageReader", sender: self)
+                }
             }
         }
     }
@@ -199,22 +285,15 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showImageReader" {
-            let vc = segue.destination as! ImageReaderVC
-            vc.viewingAppleMusic = viewingAppleMusic
-        }
-    }
-    
     func obtainDeveloperToken() {
         ref.child("tokens").observeSingleEvent(of: .value) { (snapshot) in
             let dict = snapshot.value as? NSDictionary
             Auth.Apple.developerToken = dict?["developerToken"] as? String ?? ""
             print("Got developer token")
+            
             self.requestAppleUserToken()
         }
     }
-    
     
     func checkAppleMusicCapabilities() {
         let serviceController = SKCloudServiceController()
@@ -223,22 +302,43 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
             
             if capability.contains(.musicCatalogSubscriptionEligible) {
                 print("user does not have subscription")
-                self.showAlert(title: "Apple Music Subscription Required", message: "Please subscribe to Apple Music if you wish to use MediaSwitch to add albums to your library.")
+                DispatchQueue.main.async {
+                    self.activityView.stopAnimating()
+                }
+                self.showAlert(title: "Apple Music Subscription Required", message: "Please subscribe to Apple Music if you wish to use MediaSwitch to add albums to your library.") {
+                    self.showBlurredFXView(false)
+                }
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showImageReader" {
+            let vc = segue.destination as! ImageReaderVC
+            vc.viewingAppleMusic = viewingAppleMusic
         }
     }
     
     // MARK: - Action Methods
     
     @IBAction func appleMusicButtonTapped(_ sender: Any) {
-
-        checkAppleMusicCapabilities()
+        showBlurredFXView(true)
+//        checkAppleMusicCapabilities()
+        
+//        self.viewingAppleMusic = true
+//        self.obtainDeveloperToken()
+//        Auth.Apple.storefront = "gb"
+        
+//        DispatchQueue.main.async {
+//            self.performSegue(withIdentifier: "showImageReader", sender: self)
+//        }
         
         SKCloudServiceController.requestAuthorization { (status) in
             switch status {
             case .denied, .restricted:
                 print("Apple Music Denied")
                 self.showAlert(title: "Apple Music Access Denied", message: "MediaSwitch needs permission to access your Apple Music library to add albums. \n\nPlease go to your device's settings, scroll down to MediaSwitch then allow access to Media & Apple Music.") {
+                    self.showBlurredFXView(false)
                     return
                 }
                 
@@ -255,9 +355,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate {
                     self.obtainDeveloperToken()
                     self.requestAppleStorefront()
                     
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "showImageReader", sender: self)
-                    }
+
                 } else {
                     print("No Connectionn")
                     self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.")

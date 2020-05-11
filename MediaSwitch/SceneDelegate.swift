@@ -46,14 +46,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             AF.request(baseURL, method: .post, parameters: ["grant_type": "authorization_code", "code": code, "redirect_uri": redirectUri, "client_id": Auth.spotifyClientID, "client_secret": Auth.spotifyClientSecret], encoding: URLEncoding.default, headers: nil).response { (response) in
                 
-                do {
-                    let readableJSON = try JSONSerialization.jsonObject(with: response.data!, options: .mutableContainers) as! [String: AnyObject]
-                    let accessToken = readableJSON["access_token"] as! String
-                    self.accessToken = accessToken
-                    self.SpotifyConnectVC?.connectionEstablished()
-                } catch {
-                    print(error)
+                if let data = response.data {
+                    do {
+                        let readableJSON = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String: AnyObject]
+                        let accessToken = readableJSON["access_token"] as! String
+                        self.accessToken = accessToken
+                        self.SpotifyConnectVC?.connectionEstablished()
+                    } catch {
+                        print(error)
+                    }
+                } else {
+                    self.SpotifyConnectVC?.showAlert(title: "Connection Failed", message: "Network connection was lost during Spotify authorisation, please try again.")
                 }
+
             }
         }
     }

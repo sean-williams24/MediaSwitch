@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>&quot;Please allow MediaSwitch to link your Apple Music account to add your albums&quot;</string>
-	<key>kTCCServiceMediaLibrary</key>
-	<string>&quot;Please allow MediaSwitch to link your Apple Music account to add your albums&quot;</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -32,7 +28,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FirebaseScreenReportingEnabled</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
@@ -41,10 +37,12 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>"Please allow MediaSwitch to link your Apple Music account to add your albums"</string>
 	<key>NSCameraUsageDescription</key>
-	<string>&quot;Camera access required to snap your music collection&quot;</string>
+	<string>"Camera access required to snap your music collection"</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>&quot;Photo library access required to import your music collection&quot;</string>
+	<string>"Photo library access required to import your music collection"</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -83,5 +81,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>"Please allow MediaSwitch to link your Apple Music account to add your albums"</string>
 </dict>
 </plist>

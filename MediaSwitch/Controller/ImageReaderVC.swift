@@ -105,7 +105,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
             
         }
         
-        extractAlbumsButton.isEnabled = true
+//        extractAlbumsButton.isEnabled = true
 //        infoEffectsView.isHidden = true
 
     }

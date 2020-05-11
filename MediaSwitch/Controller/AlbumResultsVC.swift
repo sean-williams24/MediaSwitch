@@ -408,7 +408,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     func addAlbumsToAppleMusicLibrary() {
         let userToken = Auth.Apple.userToken
         var index = 0
-
+        
         for albumCollection in appleAlbumResults {
             if let album = albumCollection.first {
                 let addAlbumsURL = "https://api.music.apple.com/v1/me/library?ids[albums]=\(album.id)"
