@@ -44,4 +44,4 @@ iPhone: add a new track or album / amend a playlist manually in the Music app an
 Watch demo video on [YouTube](https://youtu.be/Up6liYU-bpk)
 
 ## License
-RentSpace is Copyright © 2020 Sean Williams. It is free software, and may be redistributed under the terms specified in the LICENSE file.
+MediaSwitch is Copyright © 2020 Sean Williams. It is free software, and may be redistributed under the terms specified in the LICENSE file.
