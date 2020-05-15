@@ -1,6 +1,6 @@
 # MediaSwitch
 
-Inspired by a struggle to easily find an art studio to rent on a temporary basis, RentSpace lets users advertise and search for art, photography, music studio and desk spaces. It was designed with simplicity in mind, providing a tool to quickly find a creative space when on the move; as well as provide a new avenue for people to advertise their own spaces to share.
+After watching my Dad meticulously rip his entire CD collection onto his laptop with the goal of transferring them to his iTunes library, the idea for MediaSwitch was ignited. Similar to how Shazam finds songs through audio, MediaSwitch finds albums from images, enabling users to quickly transfer their entire CD collection to Spotify or Apple Music. Using Google’s ML Kit cloud text-recognition API, album titles are extracted from images of stacks of CDs; the app then searches Spotify or Apple Music catalogs for these albums, the results are displayed and the user can add them all to their library with one tap.
 
 <img align="center" src="gifs/gif1.gif" data-canonical-src="gifs/gif1.gif" width="400" height="800" />
 
