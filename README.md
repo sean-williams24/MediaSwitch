@@ -5,22 +5,36 @@ After watching my Dad meticulously rip his entire CD collection onto his laptop 
 <img align="center" src="gifs/gif1.gif" data-canonical-src="gifs/gif1.gif" width="400" height="800" />
 
 ## Pre-requisites
-SDK's included in repo:
-- Firebase
-- YPImagePicker
-- GoogleSignIn
-- Facebook login 
-- NVActivityIndicatorView
-- FSPagerView
+
+~ Paid Apple Music or Spotify subscription.
+~ CDs, cassettes or images of CD's or cassettes.
+
+Required SDK's:
+  pod 'Alamofire'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/MLVision'
+  pod 'Firebase/MLVisionTextModel'
+  pod 'FSPagerView'
+  pod 'Kingfisher', '~> 5.0'
+  pod 'NVActivityIndicatorView'
+  pod 'SwiftyJSON'
+  pod 'SwiftJWT'
+  pod 'QCropper'
 
 ## Getting Started
-Clone or download the project and run the xcworkspace file. Podfiles are included but if there are any issues the required pods are listed above. 
+Clone or download the project and run the xcworkspace file. Install the podfiles listed above. 
 
-On first launch the app will establish the users location and search for spaces within a 100 mile radius; these parameters can be adjusted byt tapping on the location displayed on the navigation bar, once a category has been selected. Spaces are ordered in distance from the user. When viewing a spaces' details, the user has various options of actions they can perform; add it to favourites, in-app message, call or email space owner, obtain directions via Apple maps.
+On first launch the app presents a choice of connecting to an Apple Music or Spotify account. If a paid Apple Music subscription is detected, a User Token is requested and stored for API calls. If no subscription is detected, the user is presented with an option to subscribe. Tapping the Spotify button will switch to the Spotify app and ask the user to authorise MediaSwitch. Once the user has successfully connected to either service, an image can be added from the users library or through taking a photo. The image should be of a stack of up to 25 CD’s (spines) where the album title and artist is visible. 
 
-Users can access full functionality by registering an email address and password or signing in with Facebook or Google. This will enable the user to post/advertise their own spaces. On successful post the adverts will immediately appear in the 'MySpaces' tab. By selecting a space in MySpaces, the user is able to edit or delete their advert. Chats appear in the 'Messages' tab and can be removed by swiping to delete. 
+Tapping the ‘Extract albums from image’ button will make multiple calls to the Spotify or Apple Music search API, parsing JSON album results into Album objects. The album results are displayed on the next view controller in a collection view using the album’s artwork and titles data. Searches that returned multiple results are indicated with a plus (+) button on the album cover. Tapping the plus button displays a secondary collection view - allowing the user to swap the album for an alternative one. Selecting cells (album objects) and tapping the trash button will remove those albums from the results array. The user can then tap the Spotify/Apple Music button to add the albums to their library. 
 
-RentSpace is availabe to download from the [App Store.](https://apps.apple.com/gb/app/rentspace/id1500549065#?platform=iphone)
+Spotify will add the albums to a user’s library immediately, Apple Music needs to be refreshed for the new albums to appear. To force the update:
+
+Mac: File menu -> Library -> Update Cloud Library.
+                
+iPhone: add a new track or album / amend a playlist manually in the Music app and your albums added from MediaSwitch will appear.
+
 
 ## Support
 [RentSpace Website](https://wilmslo.wixsite.com/rentspace)
