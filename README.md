@@ -10,8 +10,8 @@ After watching my Dad meticulously rip his entire CD collection onto his laptop 
 ~ CDs, cassettes or images of CD's or cassettes.
 
 Required SDK's:
-  pod 'Alamofire'
-  pod 'Firebase/Core'
+  pod 'Alamofire' 
+  pod 'Firebase/Core' 
   pod 'Firebase/Database'
   pod 'Firebase/MLVision'
   pod 'Firebase/MLVisionTextModel'
@@ -37,7 +37,7 @@ iPhone: add a new track or album / amend a playlist manually in the Music app an
 
 
 ## Support
-[RentSpace Website](https://wilmslo.wixsite.com/rentspace)
+[MediaSwitch Website](https://wilmslo.wixsite.com/mediaswitch)
 
 Watch demo video on [YouTube](https://www.youtube.com/watch?v=44AcKI1WNXg&feature=youtu.be)
 
