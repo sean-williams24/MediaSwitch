@@ -6,21 +6,23 @@ After watching my Dad meticulously rip his entire CD collection onto his laptop 
 
 ## Pre-requisites
 
-~ Paid Apple Music or Spotify subscription.
-~ CDs, cassettes or images of CD's or cassettes.
+~ Paid Apple Music or Spotify subscription.     
+~ CDs, cassettes or images of CD's or cassettes.        
 
 Required SDK's:
-  pod 'Alamofire' 
-  pod 'Firebase/Core' 
-  pod 'Firebase/Database'
-  pod 'Firebase/MLVision'
-  pod 'Firebase/MLVisionTextModel'
-  pod 'FSPagerView'
-  pod 'Kingfisher', '~> 5.0'
-  pod 'NVActivityIndicatorView'
-  pod 'SwiftyJSON'
-  pod 'SwiftJWT'
-  pod 'QCropper'
+
+  pod 'Alamofire'     
+  pod 'Firebase/Core'     
+  pod 'Firebase/Database'     
+  pod 'Firebase/MLVision'       
+  pod 'Firebase/MLVisionTextModel'      
+  pod 'FSPagerView'     
+  pod 'Kingfisher', '~> 5.0'      
+  pod 'NVActivityIndicatorView'     
+  pod 'SwiftyJSON'      
+  pod 'SwiftJWT'    
+  pod 'QCropper'    
+  
 
 ## Getting Started
 Clone or download the project and run the xcworkspace file. Install the podfiles listed above. 
