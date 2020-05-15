@@ -327,13 +327,13 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         showBlurredFXView(true)
 //        checkAppleMusicCapabilities()
         
-//        self.viewingAppleMusic = true
-//        self.obtainDeveloperToken()
-//        Auth.Apple.storefront = "gb"
+        self.viewingAppleMusic = true
+        self.obtainDeveloperToken()
+        Auth.Apple.storefront = "gb"
         
-//        DispatchQueue.main.async {
-//            self.performSegue(withIdentifier: "showImageReader", sender: self)
-//        }
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "showImageReader", sender: self)
+        }
         
         SKCloudServiceController.requestAuthorization { (status) in
             switch status {
