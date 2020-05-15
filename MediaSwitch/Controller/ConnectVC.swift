@@ -106,6 +106,8 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         activityView.tintColor = .white
         activityView.startAnimating()
         blurredEffect.contentView.addSubview(activityView)
+        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
