@@ -30,6 +30,7 @@
 		CEB98F63243C64530028FED3 /* ImageReaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB98F62243C64530028FED3 /* ImageReaderVC.swift */; };
 		CEB98F65243C6B5D0028FED3 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB98F64243C6B5D0028FED3 /* SpotifyiOS.framework */; };
 		CEC13F372477E55E003DBBC1 /* AppleMusicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC13F362477E55E003DBBC1 /* AppleMusicTests.swift */; };
+		CEC13F392477F156003DBBC1 /* ExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC13F382477F156003DBBC1 /* ExtensionsTests.swift */; };
 		CEC567C1243C80CA009C8CB2 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC567C0243C80CA009C8CB2 /* Auth.swift */; };
 		CEC567C5243C90F1009C8CB2 /* SpotifyAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */; };
 		CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */; };
@@ -75,6 +76,7 @@
 		CEB98F64243C6B5D0028FED3 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		CEB98F66243C6C3A0028FED3 /* MediaSwitch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MediaSwitch-Bridging-Header.h"; sourceTree = "<group>"; };
 		CEC13F362477E55E003DBBC1 /* AppleMusicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicTests.swift; sourceTree = "<group>"; };
+		CEC13F382477F156003DBBC1 /* ExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsTests.swift; sourceTree = "<group>"; };
 		CEC567C0243C80CA009C8CB2 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAlbum.swift; sourceTree = "<group>"; };
 		CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerExtension.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			children = (
 				CE5FA3F42476990800CBBDB0 /* MediaSwitchTests.swift */,
 				CEC13F362477E55E003DBBC1 /* AppleMusicTests.swift */,
+				CEC13F382477F156003DBBC1 /* ExtensionsTests.swift */,
 				CE5FA3F62476990800CBBDB0 /* Info.plist */,
 			);
 			path = MediaSwitchTests;
@@ -367,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEC13F372477E55E003DBBC1 /* AppleMusicTests.swift in Sources */,
+				CEC13F392477F156003DBBC1 /* ExtensionsTests.swift in Sources */,
 				CE5FA3F52476990800CBBDB0 /* MediaSwitchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

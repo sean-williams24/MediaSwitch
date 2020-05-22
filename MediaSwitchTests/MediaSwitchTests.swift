@@ -38,10 +38,6 @@ class MediaSwitchTests: XCTestCase {
 //        XCTAssertNotNil(albumResultsVC.view)
     }
     
-    func testAlbumSearchClient() {
-    
-        
-    }
     
     func testAppleButtonColours() {
         let connectVC = ConnectVC()
