@@ -315,6 +315,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    
     fileprivate func animateDropDownView() {
         if infoViewHeightConstraint.constant == newInfoViewMinHeight {
             self.infoViewHeightConstraint.constant = newInfoViewMaxHeight

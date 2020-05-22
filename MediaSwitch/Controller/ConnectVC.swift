@@ -13,7 +13,7 @@ import Network
 import StoreKit
 import SwiftyJSON
 import UIKit
-import SwiftJWT
+//import SwiftJWT
 
 class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewControllerDelegate {
     
@@ -292,6 +292,13 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
             let dict = snapshot.value as? NSDictionary
             Auth.Apple.developerToken = dict?["developerToken"] as? String ?? ""
             print("Got developer token")
+            
+            //>>>>>>> CHANGE BACK
+//            Auth.Apple.userToken = "AnUcdk874fvhmWjx/Qmj6F4MOpKEmo/ccHD/W6uxSFiROA5WQBVSB8OAKQqDf+gKEfoCBRjYG6GJzvuvdeKmAycLV6ylT1wjFGvA6S1htphHZ+un3l7o+qKKydP2KDt30VduX1TzJfi2Qu8CnT9LWesAWRy3Je/r3mzRRvzNFdRoGMlydofgBKSBPtSruAq9k8ll6TyWpaFodbXlb+zh+klJX9ye/OMBrKnRcCIJACQanTpyQA=="
+//            DispatchQueue.main.async {
+//                self.performSegue(withIdentifier: "showImageReader", sender: self)
+//            }
+            
             
             self.requestAppleUserToken()
         }

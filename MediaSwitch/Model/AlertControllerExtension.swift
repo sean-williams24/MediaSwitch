@@ -18,7 +18,7 @@ extension UIAlertController {
     }
     
     //Set title font and title color
-    func setTitlet(font: UIFont?, color: UIColor?) {
+    func setTitle(font: UIFont?, color: UIColor?) {
         guard let title = self.title else { return }
         let attributeString = NSMutableAttributedString(string: title)//1
         if let titleFont = font {

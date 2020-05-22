@@ -47,24 +47,24 @@ struct AppleMusicAlbum: Codable {
 struct Attributes: Codable {
     let artistName: String
     let artwork: Artwork
-    let copyright: String
-    let genreNames: [String]
-    let isComplete, isMasteredForItunes, isSingle: Bool
+//    let copyright: String
+//    let genreNames: [String]
+//    let isComplete, isMasteredForItunes, isSingle: Bool
     let name: String
-    let playParams: PlayParams
-    let releaseDate: String
-    let trackCount: Int
-    let url: String
-    let editorialNotes: EditorialNotes?
+//    let playParams: PlayParams
+//    let releaseDate: String
+//    let trackCount: Int
+//    let url: String
+//    let editorialNotes: EditorialNotes?
 }
 
 // MARK: - Artwork
 struct Artwork: Codable {
-    let bgColor: String
-    let height: Int
-    let textColor1, textColor2, textColor3, textColor4: String
+//    let bgColor: String
+//    let height: Int
+//    let textColor1, textColor2, textColor3, textColor4: String
     let url: String
-    let width: Int
+//    let width: Int
 }
 
 // MARK: - EditorialNotes
