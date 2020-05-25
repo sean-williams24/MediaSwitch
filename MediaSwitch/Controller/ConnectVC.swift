@@ -337,7 +337,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         self.viewingAppleMusic = true
         self.obtainDeveloperToken()
         Auth.Apple.storefront = "gb"
-        
+
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "showImageReader", sender: self)
         }

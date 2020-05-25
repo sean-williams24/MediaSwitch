@@ -31,6 +31,7 @@
 		CEB98F65243C6B5D0028FED3 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB98F64243C6B5D0028FED3 /* SpotifyiOS.framework */; };
 		CEC13F372477E55E003DBBC1 /* AppleMusicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC13F362477E55E003DBBC1 /* AppleMusicTests.swift */; };
 		CEC13F392477F156003DBBC1 /* ExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC13F382477F156003DBBC1 /* ExtensionsTests.swift */; };
+		CEC13F5F247A8278003DBBC1 /* MediaSwitchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC13F5E247A8278003DBBC1 /* MediaSwitchUITests.swift */; };
 		CEC567C1243C80CA009C8CB2 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC567C0243C80CA009C8CB2 /* Auth.swift */; };
 		CEC567C5243C90F1009C8CB2 /* SpotifyAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */; };
 		CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */; };
@@ -40,6 +41,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		CE5FA3F72476990800CBBDB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CEB98F3F243B95630028FED3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEB98F46243B95630028FED3;
+			remoteInfo = MediaSwitch;
+		};
+		CEC13F61247A8278003DBBC1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CEB98F3F243B95630028FED3 /* Project object */;
 			proxyType = 1;
@@ -77,6 +85,9 @@
 		CEB98F66243C6C3A0028FED3 /* MediaSwitch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MediaSwitch-Bridging-Header.h"; sourceTree = "<group>"; };
 		CEC13F362477E55E003DBBC1 /* AppleMusicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusicTests.swift; sourceTree = "<group>"; };
 		CEC13F382477F156003DBBC1 /* ExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsTests.swift; sourceTree = "<group>"; };
+		CEC13F5C247A8278003DBBC1 /* MediaSwitchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MediaSwitchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEC13F5E247A8278003DBBC1 /* MediaSwitchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSwitchUITests.swift; sourceTree = "<group>"; };
+		CEC13F60247A8278003DBBC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEC567C0243C80CA009C8CB2 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAlbum.swift; sourceTree = "<group>"; };
 		CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerExtension.swift; sourceTree = "<group>"; };
@@ -101,6 +112,13 @@
 			files = (
 				CEB98F65243C6B5D0028FED3 /* SpotifyiOS.framework in Frameworks */,
 				C950BA6AD6C6ECB7D3F92822 /* Pods_MediaSwitch.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEC13F59247A8278003DBBC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +150,7 @@
 			children = (
 				CEB98F49243B95630028FED3 /* MediaSwitch */,
 				CE5FA3F32476990800CBBDB0 /* MediaSwitchTests */,
+				CEC13F5D247A8278003DBBC1 /* MediaSwitchUITests */,
 				CEB98F48243B95630028FED3 /* Products */,
 				C4052E3B5702B54D42F955EA /* Pods */,
 				DDD1451BF362803F69ECD789 /* Frameworks */,
@@ -143,6 +162,7 @@
 			children = (
 				CEB98F47243B95630028FED3 /* MediaSwitch.app */,
 				CE5FA3F22476990800CBBDB0 /* MediaSwitchTests.xctest */,
+				CEC13F5C247A8278003DBBC1 /* MediaSwitchUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,6 +184,15 @@
 				CEB98F66243C6C3A0028FED3 /* MediaSwitch-Bridging-Header.h */,
 			);
 			path = MediaSwitch;
+			sourceTree = "<group>";
+		};
+		CEC13F5D247A8278003DBBC1 /* MediaSwitchUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CEC13F5E247A8278003DBBC1 /* MediaSwitchUITests.swift */,
+				CEC13F60247A8278003DBBC1 /* Info.plist */,
+			);
+			path = MediaSwitchUITests;
 			sourceTree = "<group>";
 		};
 		CEC567C2243C80D3009C8CB2 /* Model */ = {
@@ -246,6 +275,24 @@
 			productReference = CEB98F47243B95630028FED3 /* MediaSwitch.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CEC13F5B247A8278003DBBC1 /* MediaSwitchUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEC13F63247A8278003DBBC1 /* Build configuration list for PBXNativeTarget "MediaSwitchUITests" */;
+			buildPhases = (
+				CEC13F58247A8278003DBBC1 /* Sources */,
+				CEC13F59247A8278003DBBC1 /* Frameworks */,
+				CEC13F5A247A8278003DBBC1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CEC13F62247A8278003DBBC1 /* PBXTargetDependency */,
+			);
+			name = MediaSwitchUITests;
+			productName = MediaSwitchUITests;
+			productReference = CEC13F5C247A8278003DBBC1 /* MediaSwitchUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -262,6 +309,10 @@
 					};
 					CEB98F46243B95630028FED3 = {
 						CreatedOnToolsVersion = 11.3.1;
+					};
+					CEC13F5B247A8278003DBBC1 = {
+						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = CEB98F46243B95630028FED3;
 					};
 				};
 			};
@@ -280,6 +331,7 @@
 			targets = (
 				CEB98F46243B95630028FED3 /* MediaSwitch */,
 				CE5FA3F12476990800CBBDB0 /* MediaSwitchTests */,
+				CEC13F5B247A8278003DBBC1 /* MediaSwitchUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -300,6 +352,13 @@
 				CE821BC62465548D001843D2 /* GoogleService-Info.plist in Resources */,
 				CEB98F54243B95650028FED3 /* Assets.xcassets in Resources */,
 				CEB98F52243B95630028FED3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEC13F5A247A8278003DBBC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +461,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CEC13F58247A8278003DBBC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEC13F5F247A8278003DBBC1 /* MediaSwitchUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -409,6 +476,11 @@
 			isa = PBXTargetDependency;
 			target = CEB98F46243B95630028FED3 /* MediaSwitch */;
 			targetProxy = CE5FA3F72476990800CBBDB0 /* PBXContainerItemProxy */;
+		};
+		CEC13F62247A8278003DBBC1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEB98F46243B95630028FED3 /* MediaSwitch */;
+			targetProxy = CEC13F61247A8278003DBBC1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -650,6 +722,54 @@
 			};
 			name = Release;
 		};
+		CEC13F64247A8278003DBBC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DN4729AK8V;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Pods/Firebase/CoreOnly/Sources\"",
+				);
+				INFOPLIST_FILE = MediaSwitchUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.seanwilliams.MediaSwitchUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MediaSwitch;
+			};
+			name = Debug;
+		};
+		CEC13F65247A8278003DBBC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DN4729AK8V;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Pods/Firebase/CoreOnly/Sources\"",
+				);
+				INFOPLIST_FILE = MediaSwitchUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.seanwilliams.MediaSwitchUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MediaSwitch;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -676,6 +796,15 @@
 			buildConfigurations = (
 				CEB98F5C243B95650028FED3 /* Debug */,
 				CEB98F5D243B95650028FED3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEC13F63247A8278003DBBC1 /* Build configuration list for PBXNativeTarget "MediaSwitchUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEC13F64247A8278003DBBC1 /* Debug */,
+				CEC13F65247A8278003DBBC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

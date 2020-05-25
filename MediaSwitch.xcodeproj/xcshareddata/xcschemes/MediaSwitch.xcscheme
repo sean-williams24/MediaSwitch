@@ -39,6 +39,16 @@
                ReferencedContainer = "container:MediaSwitch.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CEC13F5B247A8278003DBBC1"
+               BuildableName = "MediaSwitchUITests.xctest"
+               BlueprintName = "MediaSwitchUITests"
+               ReferencedContainer = "container:MediaSwitch.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
