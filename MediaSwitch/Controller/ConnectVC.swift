@@ -38,9 +38,20 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         return configuration
     }()
     
+//    lazy var sessionManager: SPTSessionManager = {
+//        let manager = SPTSessionManager(configuration: configuration, delegate: self)
+//        return manager
+//    }()
+    
     lazy var sessionManager: SPTSessionManager = {
-        let manager = SPTSessionManager(configuration: configuration, delegate: self)
-        return manager
+      if let tokenSwapURL = URL(string: "https://mediaswitch.herokuapp.com/api/token"),
+         let tokenRefreshURL = URL(string: "https://mediaswitch.herokuapp.com/api/refresh_token") {
+        self.configuration.tokenSwapURL = tokenSwapURL
+        self.configuration.tokenRefreshURL = tokenRefreshURL
+        self.configuration.playURI = nil
+      }
+      let manager = SPTSessionManager(configuration: self.configuration, delegate: self)
+      return manager
     }()
     
     lazy var appRemote: SPTAppRemote = {
@@ -384,7 +395,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         ref.child("tokens").observeSingleEvent(of: .value) { snapshot in
             let tokens = snapshot.value as? NSDictionary
             Auth.spotifyClientID = tokens?["spotifyClientID"] as? String ?? ""
-            Auth.spotifyClientSecret = tokens?["spotifyClientSecret"] as? String ?? ""
+//            Auth.spotifyClientSecret = tokens?["spotifyClientSecret"] as? String ?? ""
             
             if #available(iOS 11, *) {
                 // Use to take advantage of SFAuthenticationSession
