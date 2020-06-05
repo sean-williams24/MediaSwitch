@@ -10,9 +10,7 @@ import Firebase
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate {
-
-    var window: UIWindow?
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -20,12 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
         return true
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        print("App Delegate called")
-        SpotifyConnectVC?.sessionManager.application(app, open: url, options: options)
-        
-      return true
-    }
 
     // MARK: UISceneSession Lifecycle
 
@@ -38,21 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
 
     }
     
-    func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
-      print("success", session)
-    }
-    func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
-      print("fail", error)
-    }
-    func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
-      print("renewed", session)
-    }
-    
-    var SpotifyConnectVC: ConnectVC? {
-        get {
-            let spotifyViewController = self.window?.rootViewController?.children[0]
-            return spotifyViewController as? ConnectVC
-        }
-    }
+
 }
 

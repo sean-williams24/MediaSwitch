@@ -35,25 +35,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url else {
             return
         }
-        print("scene openURLContexts called")
-        
 
         let parameters = appRemote.authorizationParameters(from: url);
-        print(parameters)
+        
         if let code = parameters?["code"] {
             UserDefaults.standard.set(code, forKey: "SpotifyAuthCode")
-            
-            
-            
-//            AF.request(.POST, "https://shielded-headland-89202.herokuapp.com/api/token", ["code": "[code]"])
             
             AF.request("https://mediaswitch.herokuapp.com/api/token", method: .post, parameters: ["code": code], encoding: URLEncoding.default).response { (response) in
                 
                  if let data = response.data {
                         do {
-                            let readableJSON = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String: AnyObject]
-                            print(readableJSON)
-                            
+                            let readableJSON = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String: AnyObject]                            
                             let accessToken = readableJSON["access_token"] as! String
                             self.accessToken = accessToken
                             self.SpotifyConnectVC?.connectionEstablished()
@@ -64,39 +56,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         self.SpotifyConnectVC?.showAlert(title: "Connection Failed", message: "Network connection was lost during Spotify authorisation, please try again.")
                     }
             }
-            
-            
-//            let baseURL = "https://accounts.spotify.com/api/token"
-//
-//            AF.request(baseURL, method: .post, parameters: ["grant_type": "authorization_code", "code": code, "redirect_uri": redirectUri, "client_id": Auth.spotifyClientID, "client_secret": Auth.spotifyClientSecret], encoding: URLEncoding.default, headers: nil).response { (response) in
-//
-//                switch response.result {
-//                case .success:
-//                    print("Got data")
-//
-//                case .failure(let error):
-//                    print(error.localizedDescription as Any)
-//                }
-//
-//                print(Auth.spotifyClientID)
-//                print(Auth.spotifyClientSecret)
-//
-//                if let data = response.data {
-//                    do {
-//                        let readableJSON = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String: AnyObject]
-//                        print(readableJSON)
-//
-////                        let accessToken = readableJSON["access_token"] as! String
-////                        self.accessToken = accessToken
-//                        self.SpotifyConnectVC?.connectionEstablished()
-//                    } catch {
-//                        print(error)
-//                    }
-//                } else {
-//                    self.SpotifyConnectVC?.showAlert(title: "Connection Failed", message: "Network connection was lost during Spotify authorisation, please try again.")
-//                }
-//
-//            }
         }
     }
     

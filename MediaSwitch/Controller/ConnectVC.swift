@@ -429,6 +429,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
                 if response.response?.statusCode == 200 {
                     self.viewingAppleMusic = false
                      self.performSegue(withIdentifier: "showImageReader", sender: self)
+                    
                 } else {
                     print("Token Has Expired or invalid")
                     // Connect to Spotify to authorise
