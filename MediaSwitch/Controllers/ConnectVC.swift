@@ -11,9 +11,7 @@ import Firebase
 import NVActivityIndicatorView
 import Network
 import StoreKit
-import SwiftyJSON
 import UIKit
-//import SwiftJWT
 
 class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewControllerDelegate {
     
@@ -38,19 +36,13 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         return configuration
     }()
     
-//    lazy var sessionManager: SPTSessionManager = {
-//        let manager = SPTSessionManager(configuration: configuration, delegate: self)
-//        return manager
-//    }()
-    
     lazy var sessionManager: SPTSessionManager = {
       if let tokenSwapURL = URL(string: "https://mediaswitch.herokuapp.com/api/token"),
          let tokenRefreshURL = URL(string: "https://mediaswitch.herokuapp.com/api/refresh_token") {
         self.configuration.tokenSwapURL = tokenSwapURL
         self.configuration.tokenRefreshURL = tokenRefreshURL
-        self.configuration.playURI = nil
       }
-      let manager = SPTSessionManager(configuration: self.configuration, delegate: self)
+      let manager = SPTSessionManager(configuration: configuration, delegate: self)
       return manager
     }()
     
@@ -76,17 +68,8 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(connectToSpotifyTapped))
-        spotifyButtonImageView.isUserInteractionEnabled = true
-        spotifyButtonImageView.addGestureRecognizer(tapGesture)
         
-        colourSets = createColorSets()
-
-        connectLabel.layer.borderColor = UIColor.label.cgColor
-        connectLabel.layer.borderWidth = 1
-        connectLabel.layer.cornerRadius = 25
-        
+        // Monitor network connection
         let monitor = NWPathMonitor()
         monitor.pathUpdateHandler = { path in
             if path.status == .satisfied {
@@ -100,6 +83,17 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         
         let queue = DispatchQueue(label: "Monitor")
         monitor.start(queue: queue)
+
+        // Setup UI elements
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(connectToSpotifyTapped))
+        spotifyButtonImageView.isUserInteractionEnabled = true
+        spotifyButtonImageView.addGestureRecognizer(tapGesture)
+        
+        colourSets = createColorSets()
+
+        connectLabel.layer.borderColor = UIColor.label.cgColor
+        connectLabel.layer.borderWidth = 1
+        connectLabel.layer.cornerRadius = 25
         
         let dismissTap = UITapGestureRecognizer(target: self, action: #selector(showBlurredFXView))
         blurredEffect.addGestureRecognizer(dismissTap)
@@ -117,8 +111,6 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         activityView.tintColor = .white
         activityView.startAnimating()
         blurredEffect.contentView.addSubview(activityView)
-        
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -134,7 +126,6 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         upArrow.blink(duration: 1, delay: 3, alpha: 0.1)
         animateColours()
         colourTimer = Timer.scheduledTimer(timeInterval: 4.5, target: self, selector: #selector(animateColours), userInfo: nil, repeats: true)
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -154,7 +145,6 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         gradientLayer.colors = colourSets[currentColourSet]
         appleMusicButton.layer.addSublayer(gradientLayer)
         appleMusicButton.bringSubviewToFront(appleMusicButton.titleLabel!)
-
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -167,7 +157,6 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         connectLabel.layer.borderColor = UIColor.label.cgColor
-
     }
     
     
@@ -195,7 +184,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         }
     }
     
-    @objc fileprivate func showBlurredFXView(_ showBlur: Bool) {
+    @objc func showBlurredFXView(_ showBlur: Bool) {
         activityView.center = connectLabel.center
 
         if showBlur {
@@ -345,13 +334,13 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         showBlurredFXView(true)
 //        checkAppleMusicCapabilities()
         
-        self.viewingAppleMusic = true
-        self.obtainDeveloperToken()
-        Auth.Apple.storefront = "gb"
-
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "showImageReader", sender: self)
-        }
+//        self.viewingAppleMusic = true
+//        self.obtainDeveloperToken()
+//        Auth.Apple.storefront = "gb"
+//
+//        DispatchQueue.main.async {
+//            self.performSegue(withIdentifier: "showImageReader", sender: self)
+//        }
         
         SKCloudServiceController.requestAuthorization { (status) in
             switch status {
@@ -399,10 +388,10 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
             
             if #available(iOS 11, *) {
                 // Use to take advantage of SFAuthenticationSession
-                self.sessionManager.initiateSession(with: scope, options: .clientOnly)
+                self.sessionManager.initiateSession(with: scope, options: .default)
             } else {
                 // Use on iOS versions < 11 to use SFSafariViewController
-                self.sessionManager.initiateSession(with: scope, options: .clientOnly, presenting: self)
+                self.sessionManager.initiateSession(with: scope, options: .default, presenting: self)
             }
         }
 
@@ -429,7 +418,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
                 if response.response?.statusCode == 200 {
                     self.viewingAppleMusic = false
                      self.performSegue(withIdentifier: "showImageReader", sender: self)
-                    
+
                 } else {
                     print("Token Has Expired or invalid")
                     // Connect to Spotify to authorise

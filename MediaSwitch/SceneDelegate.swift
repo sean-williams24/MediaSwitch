@@ -35,7 +35,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url else {
             return
         }
-
+        
+        SpotifyConnectVC?.showBlurredFXView(true)
         let parameters = appRemote.authorizationParameters(from: url);
         
         if let code = parameters?["code"] {
@@ -46,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                  if let data = response.data {
                         do {
                             let readableJSON = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [String: AnyObject]                            
-                            let accessToken = readableJSON["access_token"] as! String
+                            let accessToken = readableJSON["access_token"] as? String ?? ""
                             self.accessToken = accessToken
                             self.SpotifyConnectVC?.connectionEstablished()
                         } catch {

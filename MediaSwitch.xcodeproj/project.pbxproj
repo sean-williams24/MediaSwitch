@@ -172,11 +172,11 @@
 			children = (
 				CEB98F4A243B95630028FED3 /* AppDelegate.swift */,
 				CEB98F4C243B95630028FED3 /* SceneDelegate.swift */,
-				CEC567C2243C80D3009C8CB2 /* Model */,
-				CEC567C3243C811B009C8CB2 /* Controller */,
+				CEC567C2243C80D3009C8CB2 /* Models */,
+				CEEE0B74248E556C00320223 /* Views */,
+				CEC567C3243C811B009C8CB2 /* Controllers */,
+				CEEE0B73248E550F00320223 /* Networking */,
 				CEB98F50243B95630028FED3 /* Main.storyboard */,
-				CE6896E3243E2BE000B37A90 /* AlbumCVCell.swift */,
-				CE5794AB2445D2F900793C15 /* PagerViewCell.swift */,
 				CEB98F53243B95650028FED3 /* Assets.xcassets */,
 				CEB98F55243B95650028FED3 /* LaunchScreen.storyboard */,
 				CEB98F58243B95650028FED3 /* Info.plist */,
@@ -195,7 +195,7 @@
 			path = MediaSwitchUITests;
 			sourceTree = "<group>";
 		};
-		CEC567C2243C80D3009C8CB2 /* Model */ = {
+		CEC567C2243C80D3009C8CB2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */,
@@ -205,13 +205,12 @@
 				CEC567C0243C80CA009C8CB2 /* Auth.swift */,
 				CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */,
 				CEFC3B3124546F5B00F74F48 /* AppleMusic.swift */,
-				CE6896DF243E042500B37A90 /* AlbumSearchClient.swift */,
 				CE04332724644F1B00323B3C /* Legal.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		CEC567C3243C811B009C8CB2 /* Controller */ = {
+		CEC567C3243C811B009C8CB2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				CEB98F4E243B95630028FED3 /* ConnectVC.swift */,
@@ -222,7 +221,24 @@
 				CE0433232464385800323B3C /* SettingsTableVC.swift */,
 				CE04332524643AD600323B3C /* SettingsDetailVC.swift */,
 			);
-			path = Controller;
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CEEE0B73248E550F00320223 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				CE6896DF243E042500B37A90 /* AlbumSearchClient.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		CEEE0B74248E556C00320223 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE5794AB2445D2F900793C15 /* PagerViewCell.swift */,
+				CE6896E3243E2BE000B37A90 /* AlbumCVCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		DDD1451BF362803F69ECD789 /* Frameworks */ = {

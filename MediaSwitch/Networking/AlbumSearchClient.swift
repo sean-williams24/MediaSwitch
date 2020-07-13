@@ -26,39 +26,33 @@ class AlbumSearchClient {
                 
                 switch response.result {
                 case .success:
-                    
                     let decoder = JSONDecoder()
                     if let data = response.data {
-                            let appleMusic = try? decoder.decode(AppleMusic.self, from: data)
+                        let appleMusic = try? decoder.decode(AppleMusic.self, from: data)
                         
-                            if var appleMusicAlbumGroup = appleMusic?.results.albums.data {
-                                if !appleMusicAlbumGroup.isEmpty {
-                                    print(appleMusicAlbumGroup.first?.attributes.name as Any)
-                                    
-                                    for album in appleMusicAlbumGroup {
-                                        if albumIDs.contains(album.id) {
-                                            // if album already exists in previous group remove album from new group
-                                            appleMusicAlbumGroup.removeAll(where: {$0.id == album.id})
-                                        } else {
-                                            albumIDs.append(album.id)
-                                        }
-                                    }
-
-                                    if !appleMusicAlbumGroup.isEmpty {
-                                        appleMusicAlbums.append(appleMusicAlbumGroup)
+                        if var appleMusicAlbumGroup = appleMusic?.results.albums.data {
+                            if !appleMusicAlbumGroup.isEmpty {
+                                for album in appleMusicAlbumGroup {
+                                    if albumIDs.contains(album.id) {
+                                        // if album already exists in previous group remove album from new group
+                                        appleMusicAlbumGroup.removeAll(where: {$0.id == album.id})
+                                    } else {
+                                        albumIDs.append(album.id)
                                     }
                                 }
+                                
+                                if !appleMusicAlbumGroup.isEmpty {
+                                    appleMusicAlbums.append(appleMusicAlbumGroup)
+                                }
                             }
+                        }
                     }
-                    
                 case .failure(let error):
-                    print(error.localizedDescription as Any)
                     searchCompletion([], error)
                 }
                 
                 i += 1
                 if i == albumTitles.count {
-                    print("Search complete")
                     searchCompletion(appleMusicAlbums, nil)
                 }
             }
@@ -74,7 +68,7 @@ class AlbumSearchClient {
         let searchURL = "https://api.spotify.com/v1/search?"
         var albumIDs: [String] = []
         var i = 0
- 
+        
         for CD in albumTitles {
             AF.request(searchURL, method: .get, parameters: ["q": CD, "type":"album"], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "+accessToken]).responseJSON { response in
                 
@@ -82,6 +76,7 @@ class AlbumSearchClient {
                 case .success:
                     let decoder = JSONDecoder()
                     let spotify = try? decoder.decode(Spotify.self, from: response.data!)
+                    
                     if var albumResults = spotify?.albums.items {
                         if !albumResults.isEmpty {
                             
