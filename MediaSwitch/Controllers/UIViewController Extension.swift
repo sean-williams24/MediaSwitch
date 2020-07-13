@@ -1,11 +1,11 @@
-////
-////  UIViewController + Extension.swift
-////  MediaSwitch
-////
-////  Created by Sean Williams on 28/04/2020.
-////  Copyright © 2020 Sean Williams. All rights reserved.
-////
 //
+//  UIViewController + Extension.swift
+//  MediaSwitch
+//
+//  Created by Sean Williams on 28/04/2020.
+//  Copyright © 2020 Sean Williams. All rights reserved.
+//
+
 import Foundation
 
 extension UIViewController {
@@ -34,11 +34,9 @@ extension UIViewController {
             let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)            
             ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
                 completion()
-                print("OK tapped")
             }))
             
             self.present(ac, animated: true)
         }
     }
-    
 }
