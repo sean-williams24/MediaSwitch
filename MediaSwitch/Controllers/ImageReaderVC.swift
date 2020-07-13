@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 import UIKit
 import QCropper
 
-class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class ImageReaderVC: UIViewController, UINavigationControllerDelegate {
     
     
     // MARK: - Outlets
@@ -41,12 +41,14 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     var viewingAppleMusic: Bool!
     var spotifyAlbums: [[SpotifyAlbum]] = []
     var appleMusicAlbums: [[AppleMusicAlbum]] = []
-
+    
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup UI
         navigationController?.navigationBar.isHidden = false
         
         stackButton.isHidden = true
@@ -66,7 +68,6 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         blurredEffectView.isHidden = true
         
         let buttonTint = viewingAppleMusic ? UIColor.systemPink : Style.Colours.spotifyGreen
-        
         cameraButton.tintColor = buttonTint
         imageLibraryButton.tintColor = buttonTint
         stackButton.tintColor = buttonTint
@@ -83,7 +84,7 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         infoVibrancyContentView.layer.cornerRadius = 5
         infoEffectsView.effect = nil       
         imageView.contentMode = .scaleAspectFill
-
+        
         UIView.animate(withDuration: 3) {
             self.infoEffectsView.effect = UIBlurEffect(style: .systemUltraThinMaterialDark)
         }
@@ -94,27 +95,21 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         } else {
             infoEffectsView.widthAnchor.constraint(equalToConstant: view.frame.width - 20).isActive = true
         }
-
-//        blurredEffectView.isHidden = false
-//        blurredEffectView.effect = blurEffect
+        
         if parentStackView.frame.width > view.frame.width {
             buttonStack.spacing = 5
             labelsStackView.spacing = 5
             parentStackView.widthAnchor.constraint(equalToConstant: view.frame.width - 10).isActive = true
             buttonStack.heightAnchor.constraint(equalToConstant: (view.frame.width - 10) / 2).isActive = true
-            
         }
-        
-//        extractAlbumsButton.isEnabled = true
-//        infoEffectsView.isHidden = true
-
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         showLoadingActivity(false)
     }
-
+    
+    
     // MARK: - Private Methods
     
     @objc func dismissBlurView() {
@@ -127,154 +122,30 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
     }
     
     fileprivate func showLoadingActivity(_ loading: Bool) {
-        print("Show loading: \(loading)")
         if loading {
             blurredEffectView.isUserInteractionEnabled = false
+            blurredEffectView.isHidden = false
 
             UIView.animate(withDuration: 0.5, animations: {
-//                self.coverButtonView.alpha = 0
-//                self.albumStackView.alpha = 0
-//                self.labelsStackView.alpha = 0
+                self.blurredEffectView.effect = self.blurEffect
+                self.buttonStack.alpha = 1
             }) { _ in
-//                self.coverButtonView.isHidden = true
-//                self.albumStackView.isHidden = true
-//                self.labelsStackView.isHidden = true
                 self.activityView.alpha = 0
                 self.activityView.isHidden = false
                 self.activityView.startAnimating()
                 UIView.animate(withDuration: 1.1, animations: {
                     self.activityView.alpha = 1
-                }) { _ in
-                    
-                }
+                })
             }
         } else {
             UIView.animate(withDuration: 0.3, animations: {
-//                self.coverButtonView.alpha = 1
-//                self.albumStackView.alpha = 1
-//                self.labelsStackView.alpha = 1
                 self.blurredEffectView.effect = nil
                 self.activityView.alpha = 0
-
             }) { _ in
                 self.blurredEffectView.isHidden = true
                 self.blurredEffectView.isUserInteractionEnabled = true
-//                self.coverButtonView.isHidden = false
-//                self.albumStackView.isHidden = false
-//                self.labelsStackView.isHidden = false
                 self.activityView.isHidden = true
             }
-
-        }
-    }
-    
-    @IBAction func albumCoverExtraction() {
-        showLoadingActivity(true)
-        albumTitles.removeAll()
-        
-        processor.process(in: imageView) { (text, result) in
-            guard let result = result else {
-                self.showAlert(title: "No Text Found In Image", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
-                    self.showLoadingActivity(false)
-                }
-                return
-            }
-            
-            for block in result.blocks {
-                var albumName = block.text.withoutSpecialCharacters
-                
-                if albumName.contains("\n") {
-                    var blockArray = albumName.components(separatedBy: "\n")
-                    blockArray.removeDuplicates()
-                    albumName = blockArray.joined(separator: " ")
-                }
-                
-                if !albumName.isNumeric {
-                    self.albumTitles.append(albumName)
-                }
-            }
-
-            if self.viewingAppleMusic {
-                AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleAppleMusicSearchResponse(appleMusicAlbumResults:error:))
-
-              } else {
-                  AlbumSearchClient.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleSpotifySearchResponse(spotifyAlbumResults:error:))
-              }
-        }
-    }
-    
-    
-    @IBAction func albumStackExtraction() {
-        showLoadingActivity(true)
-        albumTitles.removeAll()
-        
-        var tempAlbumArray: [String] = []
-        var previousYPosition: CGFloat = 0
-        
-        processor.process(in: imageView) { (text, result) in
-            guard let result = result else {
-                self.showAlert(title: "No Text Found In Image", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
-                    self.showLoadingActivity(false)
-                }
-                return
-            }
-            
-            for block in result.blocks {
-                var albumName = block.text.withoutSpecialCharacters
-                
-                if albumName.contains("\n") {
-                    var blockArray = albumName.components(separatedBy: "\n")
-                    blockArray.removeDuplicates()
-                    albumName = blockArray.joined(separator: " ")
-                }
-                
-                // Ensure string is not purely numeric
-                if !albumName.isNumeric {
-                    if let topLeftPoint = block.cornerPoints?.first as? CGPoint {
-                        if previousYPosition == 0 {
-                            // First result
-                            previousYPosition = topLeftPoint.y
-                            tempAlbumArray.append(albumName)
-                            
-                        } else {
-                            // Second result and onward >>>
-                            if topLeftPoint.y - previousYPosition < 50 {
-                                // On the same disc
-                                previousYPosition = topLeftPoint.y
-                                
-                                for tempAlbum in tempAlbumArray {
-                                    let combinedStrings = tempAlbum + " " + albumName
-                                    tempAlbumArray.insert(combinedStrings, at: 0)
-                                }
-                                tempAlbumArray.append(albumName)
-                                
-                            } else {
-                                // New disc
-                                // Add temp albums to global array (previous disc)
-                                self.albumTitles += tempAlbumArray
-                                
-                                // clear temp array
-                                tempAlbumArray.removeAll()
-                                
-                                // add first result on next disc to temp array and set Y position
-                                tempAlbumArray.append(albumName)
-                                previousYPosition = topLeftPoint.y
-                            }
-                        }
-                    }
-                }
-            }
-            self.albumTitles += tempAlbumArray
-
-            if self.viewingAppleMusic {
-                
-                AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleAppleMusicSearchResponse(appleMusicAlbumResults:error:))
-                
-            } else {
-                
-                AlbumSearchClient.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleSpotifySearchResponse(spotifyAlbumResults:error:))
-            }
-
         }
     }
     
@@ -318,13 +189,13 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         }
     }
     
+    
     // MARK: - Navigation
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "showAlbums" {
             let vc = segue.destination as! AlbumResultsVC
+            
             if viewingAppleMusic {
                 vc.appleAlbumResults = appleMusicAlbums
                 vc.viewingAppleMusic = true
@@ -333,36 +204,123 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
                 vc.viewingAppleMusic = false
             }
         }
-
-        
     }
     
-    // MARK: - Image Picker Delegate
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[.originalImage] as? UIImage else { return }
-
-        let cropper = CropperViewController(originalImage: image)
-        cropper.delegate = self
-
-        picker.dismiss(animated: true) {
-            self.present(cropper, animated:  true)
-        }
-        
-        infoEffectsView.isHidden = true
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = image
-        extractAlbumsButton.isEnabled = true
-    }
     
     // MARK: - Action Methods
+    
+    @IBAction func albumCoverExtraction() {
+        showLoadingActivity(true)
+        albumTitles.removeAll()
+        
+        processor.process(in: imageView) { (text, result) in
+            guard let result = result else {
+                self.showAlert(title: "No Text Found In Image", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
+                    self.showLoadingActivity(false)
+                }
+                return
+            }
+            
+            for block in result.blocks {
+                var albumName = block.text.withoutSpecialCharacters
+                
+                if albumName.contains("\n") {
+                    var blockArray = albumName.components(separatedBy: "\n")
+                    blockArray.removeDuplicates()
+                    albumName = blockArray.joined(separator: " ")
+                }
+                
+                if !albumName.isNumeric {
+                    self.albumTitles.append(albumName)
+                }
+            }
+            
+            if self.viewingAppleMusic {
+                AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleAppleMusicSearchResponse(appleMusicAlbumResults:error:))
+                
+            } else {
+                AlbumSearchClient.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleSpotifySearchResponse(spotifyAlbumResults:error:))
+            }
+        }
+    }
+    
+    
+    @IBAction func albumStackExtraction() {
+        showLoadingActivity(true)
+        albumTitles.removeAll()
+        
+        var tempAlbumArray: [String] = []
+        var previousYPosition: CGFloat = 0
+        
+        processor.process(in: imageView) { (text, result) in
+            guard let result = result else {
+                self.showAlert(title: "No Text Found In Image", message: "Please make sure the image is clear and the albums are aligned horizontally straight.") {
+                    self.showLoadingActivity(false)
+                }
+                return
+            }
+            
+            for block in result.blocks {
+                var albumName = block.text.withoutSpecialCharacters
+                
+                if albumName.contains("\n") {
+                    var blockArray = albumName.components(separatedBy: "\n")
+                    blockArray.removeDuplicates()
+                    albumName = blockArray.joined(separator: " ")
+                }
+                
+                // Ensure string is not purely numeric
+                if !albumName.isNumeric {
+                    if let topLeftPoint = block.cornerPoints?.first as? CGPoint {
+                        if previousYPosition == 0 {
+                            // First result
+                            previousYPosition = topLeftPoint.y
+                            tempAlbumArray.append(albumName)
+                            
+                        } else {
+                            // Second result and onward >>>
+                            if topLeftPoint.y - previousYPosition < 50 {
+                                // Text is on the same disc
+                                previousYPosition = topLeftPoint.y
+                                
+                                for tempAlbum in tempAlbumArray {
+                                    let combinedStrings = tempAlbum + " " + albumName
+                                    tempAlbumArray.insert(combinedStrings, at: 0)
+                                }
+                                tempAlbumArray.append(albumName)
+                                
+                            } else {
+                                // New disc
+                                // Add temp albums to global array (previous disc)
+                                self.albumTitles += tempAlbumArray
+                                
+                                // clear temp array
+                                tempAlbumArray.removeAll()
+                                
+                                // add first result on next disc to temp array and set Y position
+                                tempAlbumArray.append(albumName)
+                                previousYPosition = topLeftPoint.y
+                            }
+                        }
+                    }
+                }
+            }
+            
+            self.albumTitles += tempAlbumArray
+            
+            if self.viewingAppleMusic {
+                AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleAppleMusicSearchResponse(appleMusicAlbumResults:error:))
+            } else {
+                AlbumSearchClient.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleSpotifySearchResponse(spotifyAlbumResults:error:))
+            }
+        }
+    }
     
     @IBAction func imageLibraryButtonTapped(_ sender: Any) {
         let vc = UIImagePickerController()
         vc.sourceType = .photoLibrary
         vc.delegate = self
         vc.allowsEditing = false
-        
         present(vc, animated: true)
     }
     
@@ -378,19 +336,10 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
         vc.allowsEditing = false
         vc.showsCameraControls = true
         vc.cameraCaptureMode = .photo
-        
         present(vc, animated: true)
     }
     
-    
     @IBAction func extractAlbumsTapped(_ sender: Any) {
-        blurredEffectView.isHidden = false
-        
-        UIView.animate(withDuration: 0.4) {
-            self.blurredEffectView.effect = self.blurEffect
-            self.buttonStack.alpha = 1
-        }
-
         albumCoverExtraction()
     }
     
@@ -398,18 +347,37 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate, UIImagePi
 }
 
 
-    // MARK: - Extensions
+// MARK: - Extensions
+
+extension ImageReaderVC: UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.originalImage] as? UIImage else { return }
+        
+        let cropper = CropperViewController(originalImage: image)
+        cropper.delegate = self
+        
+        picker.dismiss(animated: true) {
+            self.present(cropper, animated:  true)
+        }
+        
+        infoEffectsView.isHidden = true
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = image
+        extractAlbumsButton.isEnabled = true
+    }
+}
 
 extension ImageReaderVC: CropperViewControllerDelegate {
     
-        func cropperDidConfirm(_ cropper: CropperViewController, state: CropperState?) {
-            cropper.dismiss(animated: true, completion: nil)
-
-            if let state = state,
-                let image = cropper.originalImage.cropped(withCropperState: state) {
-                imageView.image = image
-            }
+    func cropperDidConfirm(_ cropper: CropperViewController, state: CropperState?) {
+        cropper.dismiss(animated: true, completion: nil)
+        
+        if let state = state,
+            let image = cropper.originalImage.cropped(withCropperState: state) {
+            imageView.image = image
         }
+    }
 }
 
 extension String {
@@ -418,7 +386,7 @@ extension String {
         
         let legitCharacters: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ", "-"]
         return Set(self).isSubset(of: legitCharacters)
-
+        
     }
     
     var withoutSpecialCharacters: String {
