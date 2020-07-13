@@ -29,7 +29,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
     // MARK: - Properties
     
     let redirectUri = URL(string:"media-switch://spotify-login-callback")!
-                
+    
     lazy var configuration: SPTConfiguration = {
         let configuration = SPTConfiguration(clientID: Auth.spotifyClientID, redirectURL: redirectUri)
         configuration.playURI = nil
@@ -37,13 +37,13 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
     }()
     
     lazy var sessionManager: SPTSessionManager = {
-      if let tokenSwapURL = URL(string: "https://mediaswitch.herokuapp.com/api/token"),
-         let tokenRefreshURL = URL(string: "https://mediaswitch.herokuapp.com/api/refresh_token") {
-        self.configuration.tokenSwapURL = tokenSwapURL
-        self.configuration.tokenRefreshURL = tokenRefreshURL
-      }
-      let manager = SPTSessionManager(configuration: configuration, delegate: self)
-      return manager
+        if let tokenSwapURL = URL(string: "https://mediaswitch.herokuapp.com/api/token"),
+            let tokenRefreshURL = URL(string: "https://mediaswitch.herokuapp.com/api/refresh_token") {
+            self.configuration.tokenSwapURL = tokenSwapURL
+            self.configuration.tokenRefreshURL = tokenRefreshURL
+        }
+        let manager = SPTSessionManager(configuration: configuration, delegate: self)
+        return manager
     }()
     
     lazy var appRemote: SPTAppRemote = {
@@ -58,10 +58,10 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
     var colourTimer = Timer()
     var viewingAppleMusic = false
     var ref: DatabaseReference!
-    var connected = false
+    var connectedToNetwork = false
     var blurredEffect = UIVisualEffectView()
     var activityView = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-
+    
     
     // MARK: - Life Cycle
     
@@ -73,9 +73,9 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         let monitor = NWPathMonitor()
         monitor.pathUpdateHandler = { path in
             if path.status == .satisfied {
-                self.connected = true
+                self.connectedToNetwork = true
             } else {
-                self.connected = false
+                self.connectedToNetwork = false
                 self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.")
                 return
             }
@@ -83,14 +83,14 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         
         let queue = DispatchQueue(label: "Monitor")
         monitor.start(queue: queue)
-
+        
         // Setup UI elements
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(connectToSpotifyTapped))
         spotifyButtonImageView.isUserInteractionEnabled = true
         spotifyButtonImageView.addGestureRecognizer(tapGesture)
         
         colourSets = createColorSets()
-
+        
         connectLabel.layer.borderColor = UIColor.label.cgColor
         connectLabel.layer.borderWidth = 1
         connectLabel.layer.cornerRadius = 25
@@ -116,7 +116,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
- 
+        
         let i = Int.random(in: 1...2)
         backgroundImageView.image = UIImage(named: "CDBG\(i)")
         
@@ -137,7 +137,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         }
         
         appleMusicButton.widthAnchor.constraint(equalToConstant: spotifyImageWidth).isActive = true
-
+        
         gradientLayer.frame = CGRect(x: 0, y: 0, width: spotifyImageWidth, height: appleMusicButton.frame.height)
         gradientLayer.cornerRadius = 25
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
@@ -161,7 +161,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
     
     
     // MARK: - Private Methods
- 
+    
     @objc func animateColours() {
         if currentColourSet < colourSets.count - 1 {
             currentColourSet += 1
@@ -186,11 +186,11 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
     
     @objc func showBlurredFXView(_ showBlur: Bool) {
         activityView.center = connectLabel.center
-
+        
         if showBlur {
             blurredEffect.isHidden = false
             self.activityView.startAnimating()
-
+            
             UIView.animate(withDuration: 0.4) {
                 self.connectLabel.alpha = 0
                 let blurFX = UIBlurEffect(style: .systemThickMaterialDark)
@@ -200,7 +200,7 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
             UIView.animate(withDuration: 0.2, animations: {
                 self.blurredEffect.effect = nil
                 self.connectLabel.alpha = 1
-
+                
             }) { _ in
                 self.blurredEffect.isHidden = true
             }
@@ -212,7 +212,10 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         performSegue(withIdentifier: "showImageReader", sender: self)
     }
     
-    fileprivate func showAppleMusicSubscriptionController() {
+    
+    // Apple Music
+    
+    func showAppleMusicSubscriptionController() {
         let controller = SKCloudServiceController()
         controller.requestCapabilities { (capabilities: SKCloudServiceCapability, error: Error?) in
             guard error == nil else { return }
@@ -228,7 +231,12 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
                     setupController.delegate = self
                     
                     setupController.load(options: options) { [weak self] (result: Bool, error: Error?) in
-                        guard error == nil else { return }
+                        guard error == nil else {
+                            self?.showAlert(title: "Music App Not Found", message: "It appears the Apple Music app was deleted from your device. It can be reinstalled from the App Store.", completion: {
+                                self?.showBlurredFXView(false)
+                            })
+                            return
+                        }
                         
                         if result {
                             self?.showBlurredFXView(false)
@@ -240,30 +248,28 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         }
     }
     
-    fileprivate func requestAppleUserToken() {
+    func requestAppleUserToken() {
         let controller = SKCloudServiceController()
         controller.requestUserToken(forDeveloperToken: Auth.Apple.developerToken) { [weak self] (userToken, error) in
             guard error == nil else {
                 print(error?.localizedDescription as Any)
                 
+                // No user token found - offer Apple Music subscription
                 DispatchQueue.main.async {
                     let ac = UIAlertController(title: "Apple Music Subscription Required", message: "Please subscribe to Apple Music if you wish to use MediaSwitch to add albums to your library.", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "No Thanks", style: .default, handler: { _ in
                         self?.showBlurredFXView(false)
-
                     }))
                     ac.addAction(UIAlertAction(title: "Subscribe", style: .default, handler: { _ in
                         self?.showAppleMusicSubscriptionController()
                     }))
                     self?.present(ac, animated: true)
                 }
-                
                 return
             }
+            
             if let userToken = userToken {
                 Auth.Apple.userToken = userToken
-                print("USER TOKEN: " + userToken as Any)
-                
                 DispatchQueue.main.async {
                     self?.performSegue(withIdentifier: "showImageReader", sender: self)
                 }
@@ -279,123 +285,21 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
             } else {
                 if let code = code {
                     Auth.Apple.storefront = code
-                    print("Got store code: \(code)")
-                } else {
-                    print("Did not get store code")
                 }
             }
         }
     }
     
-    func obtainDeveloperToken() {
+    func getDeveloperToken() {
         ref.child("tokens").observeSingleEvent(of: .value) { (snapshot) in
             let dict = snapshot.value as? NSDictionary
             Auth.Apple.developerToken = dict?["developerToken"] as? String ?? ""
-            print("Got developer token")
-            
-            //>>>>>>> CHANGE BACK
-//            Auth.Apple.userToken = "AnUcdk874fvhmWjx/Qmj6F4MOpKEmo/ccHD/W6uxSFiROA5WQBVSB8OAKQqDf+gKEfoCBRjYG6GJzvuvdeKmAycLV6ylT1wjFGvA6S1htphHZ+un3l7o+qKKydP2KDt30VduX1TzJfi2Qu8CnT9LWesAWRy3Je/r3mzRRvzNFdRoGMlydofgBKSBPtSruAq9k8ll6TyWpaFodbXlb+zh+klJX9ye/OMBrKnRcCIJACQanTpyQA=="
-//            DispatchQueue.main.async {
-//                self.performSegue(withIdentifier: "showImageReader", sender: self)
-//            }
-            
-            
             self.requestAppleUserToken()
         }
     }
     
-    func checkAppleMusicCapabilities() {
-        let serviceController = SKCloudServiceController()
-        serviceController.requestCapabilities { (capability:SKCloudServiceCapability, err: Error?) in
-            print(err as Any)
-            
-            if capability.contains(.musicCatalogSubscriptionEligible) {
-                print("user does not have subscription")
-                DispatchQueue.main.async {
-                    self.activityView.stopAnimating()
-                }
-                self.showAlert(title: "Apple Music Subscription Required", message: "Please subscribe to Apple Music if you wish to use MediaSwitch to add albums to your library.") {
-                    self.showBlurredFXView(false)
-                }
-            }
-        }
-    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showImageReader" {
-            let vc = segue.destination as! ImageReaderVC
-            vc.viewingAppleMusic = viewingAppleMusic
-        }
-    }
-    
-    // MARK: - Action Methods
-    
-    @IBAction func appleMusicButtonTapped(_ sender: Any) {
-        showBlurredFXView(true)
-//        checkAppleMusicCapabilities()
-        
-//        self.viewingAppleMusic = true
-//        self.obtainDeveloperToken()
-//        Auth.Apple.storefront = "gb"
-//
-//        DispatchQueue.main.async {
-//            self.performSegue(withIdentifier: "showImageReader", sender: self)
-//        }
-        
-        SKCloudServiceController.requestAuthorization { (status) in
-            switch status {
-            case .denied, .restricted:
-                print("Apple Music Denied")
-                self.showAlert(title: "Apple Music Access Denied", message: "MediaSwitch needs permission to access your Apple Music library to add albums. \n\nPlease go to your device's settings, scroll down to MediaSwitch then allow access to Media & Apple Music.") {
-                    self.showBlurredFXView(false)
-                    return
-                }
-                
-            case .authorized:
-                print("Apple Music Authorized")
-                
-                if self.connected {
-//                    let serviceController = SKCloudServiceCapability()
-//                    if serviceController.contains(.addToCloudMusicLibrary) {
-//                        self.showAlert(title: "Limited Access", message: "MediaSwitch has detected your Apple Music subscription but not permissions allowing us to add music to your library. Please check your settings with Apple Music.")
-//                    }
-                    
-                    self.viewingAppleMusic = true
-                    self.obtainDeveloperToken()
-                    self.requestAppleStorefront()
-                    
-
-                } else {
-                    print("No Connectionn")
-                    self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.")
-                    return
-                }
-                
-            default:
-                break
-            }
-        }
-    }
-    
-    
-    fileprivate func initiateSpotifyConnectionSession() {
-        let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
-        
-        ref.child("tokens").observeSingleEvent(of: .value) { snapshot in
-            let tokens = snapshot.value as? NSDictionary
-            Auth.spotifyClientID = tokens?["spotifyClientID"] as? String ?? ""
-//            Auth.spotifyClientSecret = tokens?["spotifyClientSecret"] as? String ?? ""
-            
-            if #available(iOS 11, *) {
-                // Use to take advantage of SFAuthenticationSession
-                self.sessionManager.initiateSession(with: scope, options: .default)
-            } else {
-                // Use on iOS versions < 11 to use SFSafariViewController
-                self.sessionManager.initiateSession(with: scope, options: .default, presenting: self)
-            }
-        }
-
-    }
+    // Spotify
     
     @objc func connectToSpotifyTapped() {
         
@@ -411,23 +315,82 @@ class ConnectVC: UIViewController, CAAnimationDelegate, SKCloudServiceSetupViewC
         let userURL = "https://api.spotify.com/v1/me"
         
         AF.request(userURL, method: .get, parameters: [:], encoding: URLEncoding.default, headers: ["Authorization": "Bearer "  + accessToken]).responseJSON { (response) in
-            print(response)
             switch response.result {
             case .success:
                 
                 if response.response?.statusCode == 200 {
                     self.viewingAppleMusic = false
-                     self.performSegue(withIdentifier: "showImageReader", sender: self)
-
+                    self.performSegue(withIdentifier: "showImageReader", sender: self)
+                    
                 } else {
                     print("Token Has Expired or invalid")
                     // Connect to Spotify to authorise
                     self.initiateSpotifyConnectionSession()
                 }
-
-            case .failure(let error):
-                print(error.localizedDescription as Any)
+                
+            case .failure:
                 self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.")
+            }
+        }
+    }
+    
+    fileprivate func initiateSpotifyConnectionSession() {
+        let scope: SPTScope = [.appRemoteControl, .playlistReadPrivate, .userLibraryModify, .userReadEmail]
+        
+        ref.child("tokens").observeSingleEvent(of: .value) { snapshot in
+            let tokens = snapshot.value as? NSDictionary
+            Auth.spotifyClientID = tokens?["spotifyClientID"] as? String ?? ""
+            
+            if #available(iOS 11, *) {
+                // Use to take advantage of SFAuthenticationSession
+                self.sessionManager.initiateSession(with: scope, options: .default)
+            } else {
+                // Use on iOS versions < 11 to use SFSafariViewController
+                self.sessionManager.initiateSession(with: scope, options: .default, presenting: self)
+            }
+        }
+        
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showImageReader" {
+            let vc = segue.destination as! ImageReaderVC
+            vc.viewingAppleMusic = viewingAppleMusic
+        }
+    }
+    
+    // MARK: - Action Methods
+    
+    @IBAction func appleMusicButtonTapped(_ sender: Any) {
+        showBlurredFXView(true)
+        
+        SKCloudServiceController.requestAuthorization { (status) in
+            switch status {
+            case .denied, .restricted:
+                print("Apple Music Denied")
+                
+                self.showAlert(title: "Apple Music Access Denied", message: "MediaSwitch needs permission to access your Apple Music library to add albums. \n\nPlease go to your device's settings, scroll down to MediaSwitch then allow access to Media & Apple Music.") {
+                    self.showBlurredFXView(false)
+                    return
+                }
+                
+            case .authorized:
+                print("Apple Music Authorized")
+                
+                if self.connectedToNetwork {
+                    self.viewingAppleMusic = true
+                    self.getDeveloperToken()
+                    self.requestAppleStorefront()
+                } else {
+                    print("No Connectionn")
+                    self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.")
+                    return
+                }
+                
+            default:
+                break
             }
         }
     }
@@ -449,7 +412,6 @@ extension ConnectVC: SPTSessionManagerDelegate {
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         print("sessionManager did initiate")
         appRemote.connectionParameters.accessToken = session.accessToken
-        print(session.accessToken)
         appRemote.connect()
     }
 }
@@ -462,19 +424,15 @@ extension ConnectVC: SPTAppRemoteDelegate {
     func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
         self.appRemote = appRemote
         print("appremoteDidEstablishConnection")
-        //        playerViewController.appRemoteConnected()
     }
     
     func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
         print("didFailConnectionAttemptWithError")
-        //        playerViewController.appRemoteDisconnect()
     }
     
     func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
         print("didDisconnectWithError")
-        //        playerViewController.appRemoteDisconnect()
     }
-    
 }
 
 
