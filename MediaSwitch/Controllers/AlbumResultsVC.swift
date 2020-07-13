@@ -1,5 +1,5 @@
 //
-//  SpotifyAlbumResultsCVC.swift
+//  AlbumResultsVC.swift
 //  MediaSwitch
 //
 //  Created by Sean Williams on 08/04/2020.
@@ -75,12 +75,15 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
  
+        // Setup UI
+        deleting = false
         collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.allowsMultipleSelection = true
+
+        let dismissSwipe = UIPanGestureRecognizer(target: self, action: #selector(handleAltAlbumsViewSwipe))
+        alternativeAlbumsView.addGestureRecognizer(dismissSwipe)
         alternativeAlbumsView.backgroundColor = .clear
         alternativeAlbumsViewHeightConstraint.constant = 0
-        infoViewHeightConstraint.constant = 0
-        collectionView.allowsMultipleSelection = true
-        infoView.layer.borderWidth = 0.8
         
         pagerView.transformer = FSPagerViewTransformer(type: .linear)
         let width = albumsViewHeight - 60
@@ -89,9 +92,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         pagerView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         pagerView.interitemSpacing = 60
         
-        let dismissSwipe = UIPanGestureRecognizer(target: self, action: #selector(handleAltAlbumsViewSwipe))
-        alternativeAlbumsView.addGestureRecognizer(dismissSwipe)
-        
+        // Blurred Effect loading UI
         let dismissTap = UITapGestureRecognizer(target: self, action: #selector(dismissAltAlbumsView))
         blurredEffect.addGestureRecognizer(dismissTap)
         blurredEffect.effect = nil
@@ -103,16 +104,19 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         blurredEffect.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         blurredEffect.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         blurredEffect.isHidden = true
-        
-        deleting = false
-        addAlbumsButton.alpha = 0
+        activityView.center = view.center
+        activityView.type = .ballPulse
+        activityView.tintColor = .white
+        blurredEffect.contentView.addSubview(activityView)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addAlbumsButtonTapped))
         addAlbumsButton.addGestureRecognizer(tapGesture)
-        
+        addAlbumsButton.alpha = 0
+
         var musicService = ""
         
         if viewingAppleMusic {
+            // Setup UI for Apple Music
             spotifyButton.isHidden = true
             infoButton.layer.cornerRadius = 12
             deleteButton.layer.cornerRadius = 12
@@ -147,6 +151,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             }
                         
         } else {
+            // Setup UI for Spotify
             addAlbumsButton.backgroundColor = Style.Colours.spotifyGreen
             addAlbumsButton.layer.cornerRadius = 30
             appleButton.isHidden = true
@@ -155,6 +160,9 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             musicService = "Spotify"
         }
         
+        // Info View
+        infoViewHeightConstraint.constant = 0
+        infoView.layer.borderWidth = 0.8
         let attributedInfoText = NSMutableAttributedString(string: """
             • Tap + button to choose from alternative options
             • Tap albums to delete
@@ -167,14 +175,8 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         attributedInfoText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: 60))
         infoLabel.attributedText = attributedInfoText
         
-        
-        activityView.center = view.center
-        activityView.type = .ballPulse
-        activityView.tintColor = .white
-        blurredEffect.contentView.addSubview(activityView)
-        
+        // iPad adjustments
         itemsPerRow = UIDevice.current.userInterfaceIdiom == .pad ? 3 : 2
-        
         if UIDevice.current.userInterfaceIdiom == .pad {
             let constant = view.frame.width / 5
             topButtonsStackview.translatesAutoresizingMaskIntoConstraints = false
@@ -182,7 +184,6 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             topButtonsStackview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constant).isActive = true
         }
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -192,7 +193,6 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if viewingAppleMusic {
@@ -200,22 +200,18 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         if viewingAppleMusic {
             if traitCollection.userInterfaceStyle == .dark {
                 appleButton.image = UIImage(named: "Apple_Music_Icon")
                 addAlbumsStackView.backgroundColor = .white
-                
             } else {
                 appleButton.image = UIImage(named: "Apple_Music_Icon_blk")
                 addAlbumsStackView.backgroundColor = .black
-                
             }
         }
     }
-    
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -248,7 +244,6 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     fileprivate func showBlurredFXView(_ showBlur: Bool) {
-        
         if showBlur {
             blurredEffect.isHidden = false
             view.bringSubviewToFront(alternativeAlbumsView)
@@ -274,9 +269,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         showBlurredFXView(false)
     }
     
-    
     @objc func handleAltAlbumsViewSwipe(_ gesture: UIPanGestureRecognizer) {
-        
         let swipeDistancePoint = gesture.translation(in: view)
         
         guard let albumsView = gesture.view else { return }
@@ -315,7 +308,6 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    
     fileprivate func animateDropDownView() {
         if infoViewHeightConstraint.constant == newInfoViewMinHeight {
             self.infoViewHeightConstraint.constant = newInfoViewMaxHeight
@@ -328,7 +320,6 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    
     @objc fileprivate func openCloseDropDownView() {
         if infoViewHeightConstraint.constant == newInfoViewMinHeight {
             infoLabel.isHidden = true
@@ -339,6 +330,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             animateDropDownView()
         } else if infoViewHeightConstraint.constant != newInfoViewMinHeight && infoLabel.isHidden == false {
             self.infoViewHeightConstraint.constant = newInfoViewMinHeight
+            
             UIView.animate(withDuration: 0.4, animations: {
                 self.view.layoutIfNeeded()
             }) { _ in
@@ -361,10 +353,10 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     fileprivate func addAlbumsToSpotifyLibrary() {
         let accessToken = UserDefaults.standard.string(forKey: "access-token-key") ?? "NO_ACCESS_TOKEN"
-        
-        var index = 0
         let totalAlbums = spotifyAlbumResults.count
-        for albumCollection in self.spotifyAlbumResults {
+        var index = 0
+        
+        for albumCollection in spotifyAlbumResults {
             if let album = albumCollection.first {
                 let addAlbumsURL = "https://api.spotify.com/v1/me/albums?ids=\(album.id)"
                 
@@ -374,19 +366,15 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                     case .success:
                         if let statusCode = response.response?.statusCode {
                             if statusCode == 200 {
-                                print("\(album.name) Added to spotify")
                                 self.numberOfAlbumsAdded += 1
-                                index += 1
-                                
                             } else {
-                                print("\(album.name) failed to add")
                                 if let artist = album.artists.first {
                                     self.failedAlbums.append("\(artist.name) - \(album.name)")
                                 } else {
                                     self.failedAlbums.append(album.name)
                                 }
-                                index += 1
                             }
+                            index += 1
                         }
                         
                     case .failure:
@@ -397,14 +385,12 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                     }
                     
                     if index == totalAlbums {
-                        print("Completion")
                         self.performSegue(withIdentifier: "addAlbumsCompletion", sender: self)
                     }
                 }
             }
         }
     }
-    
     
     func addAlbumsToAppleMusicLibrary() {
         let userToken = Auth.Apple.userToken
@@ -419,15 +405,12 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                     switch response.result {
                     case .success:
                         if response.response?.statusCode == 202 {
-                                print("\(album.attributes.name) added to Apple Music library")
                                 self.numberOfAlbumsAdded += 1
-                                index += 1
                             } else {
-                                print("\(album.attributes.name) failed to add")
                                 self.failedAlbums.append("\(album.attributes.artistName) - \(album.attributes.name)")
-                                
-                                index += 1
                             }
+                        index += 1
+                        
                     case .failure:
                         self.blurredEffect.isUserInteractionEnabled = true
                         self.showAlert(title: "Connection Failed", message: "Your Internet connnection appears to be offline. Please connect and try again.") {
@@ -436,7 +419,6 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                     }
                     
                     if index == self.appleAlbumResults.count {
-                        print("Completion")
                         self.performSegue(withIdentifier: "addAlbumsCompletion", sender: self)
                     }
                 }
@@ -473,13 +455,13 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         pagerView.reloadData()
         
         alternativeAlbumsViewHeightConstraint.constant = alternativeAlbumsViewHeightConstraint.constant == albumsViewHeight ? 0 : albumsViewHeight
+        
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }) { _ in
             self.originalPoint = self.alternativeAlbumsView.center
         }
     }
-    
     
     @IBAction func infoButtonTapped(_ sender: Any) {
         if infoViewHeightConstraint.constant == newInfoViewMinHeight {
@@ -488,6 +470,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             animateDropDownView()
         } else if infoViewHeightConstraint.constant != newInfoViewMinHeight && infoLabel.isHidden == true {
             self.infoViewHeightConstraint.constant = newInfoViewMinHeight
+            
             UIView.animate(withDuration: 0.4, animations: {
                 self.view.layoutIfNeeded()
             }) { _ in
@@ -495,7 +478,6 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                     self.logoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
                     self.addAlbumsButton.alpha = 0
                 }) { _ in
-                    
                 }
                 self.infoLabel.isHidden = false
                 self.animateDropDownView()
@@ -505,14 +487,11 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    
     @IBAction func spotifyButtonTapped(_ sender: Any) {
         openCloseDropDownView()
     }
     
-    
     @IBAction func deleteButtonTapped(_ sender: Any) {
-        
         for indexPath in selectedAlbums.sorted().reversed() {
             if viewingAppleMusic {
                 appleAlbumResults.remove(at: indexPath.item)
@@ -531,6 +510,9 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    
+    // MARK: - Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as! AlbumsAddedVC
         vc.failedAlbums = self.failedAlbums
@@ -541,9 +523,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     // MARK: - UICollectionViewDataSource + Delegate
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return viewingAppleMusic ? appleAlbumResults.count : spotifyAlbumResults.count
     }
     
@@ -561,12 +541,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                 albumArtworkURLString = String(url.dropLast(14))
                 albumArtworkURLString.append("400x400bb.jpeg")
                 
-                if appleMusicAlbumGroup.count == 1 {
-                    cell.alternativesButtonView.isHidden = true
-                } else {
-                    cell.alternativesButtonView.isHidden = false
-                }
-                
+                cell.alternativesButtonView.isHidden = appleMusicAlbumGroup.count == 1
                 cell.albumTitleTextLabel.text = firstAlbum.name
                 cell.artistTextLabel.text = firstAlbum.artistName
             }
@@ -576,13 +551,8 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             if !spotifyAlbumGroup.isEmpty {
                 let firstAlbum = spotifyAlbumGroup[0]
                 albumArtworkURLString = firstAlbum.images[0].url
-                
-                if spotifyAlbumGroup.count == 1 {
-                    cell.alternativesButtonView.isHidden = true
-                } else {
-                    cell.alternativesButtonView.isHidden = false
-                }
-                
+                            
+                cell.alternativesButtonView.isHidden = spotifyAlbumGroup.count == 1
                 cell.albumTitleTextLabel.text = firstAlbum.name
                 cell.artistTextLabel.text = firstAlbum.artists[0].name
             }
@@ -590,7 +560,7 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         cell.alternativesButton.tag = indexPath.item
         
-        // Download and cahce album cover image
+        // Download and cache album cover image
         let imageURL = URL(string: albumArtworkURLString)
         cell.imageView.kf.setImage(with: imageURL)
         
@@ -598,25 +568,13 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             |> RoundCornerImageProcessor(cornerRadius: 3)
         
         cell.imageView.kf.indicatorType = .activity
-        cell.imageView.kf.setImage(
-            with: imageURL,
-            placeholder: UIImage(named: "placeholderImage"),
+        cell.imageView.kf.setImage(with: imageURL, placeholder: UIImage(named: "placeholderImage"),
             options: [
                 .processor(processor),
                 .scaleFactor(UIScreen.main.scale),
                 .transition(.flipFromLeft(1)),
                 .cacheOriginalImage
             ])
-        {
-            result in
-            switch result {
-            case .success:
-//                print("Task done for: \(value.source.url?.absoluteString ?? "")")
-                print("")
-            case .failure(let error):
-                print("Job failed: \(error.localizedDescription)")
-            }
-        }
         
         return cell
     }
@@ -629,18 +587,15 @@ class AlbumResultsVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectedAlbums.removeAll(where: {$0 == indexPath})
         deleting = !selectedAlbums.isEmpty
-        
     }
     
     
     // MARK: - UICollectionViewFlowDelegate
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
-        
         return CGSize(width: widthPerItem, height: widthPerItem + 47)
     }
     
@@ -661,8 +616,7 @@ extension AlbumResultsVC: FSPagerViewDelegate, FSPagerViewDataSource {
     func numberOfItems(in pagerView: FSPagerView) -> Int {
         return viewingAppleMusic ? appleAlbumGroup.count : spotifyAlbumGroup.count
     }
-    
-    
+     
     func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index) as! PagerViewCell
         
@@ -681,32 +635,14 @@ extension AlbumResultsVC: FSPagerViewDelegate, FSPagerViewDataSource {
         
         // Download and cache album cover image
         let imageURL = URL(string: albumCoverString)
-//        cell.imageView?.kf.setImage(with: imageURL)
         cell.imageView?.contentMode = .scaleAspectFit
         cell.imageView?.layer.cornerRadius = 3
-        
-//        let processor = DownsamplingImageProcessor(size: (cell.imageView?.bounds.size)!)
-//             |> RoundCornerImageProcessor(cornerRadius: 3)
-        
-        cell.imageView?.kf.setImage(
-            with: imageURL,
-            placeholder: UIImage(named: "placeholderImage"),
+        cell.imageView?.kf.setImage(with: imageURL, placeholder: UIImage(named: "placeholderImage"),
             options: [
-//                .processor(processor),
                 .scaleFactor(UIScreen.main.scale),
                 .transition(.fade(0.5)),
                 .cacheOriginalImage
             ])
-        {
-            result in
-            switch result {
-            case .success:
-//                print("Task done for: \(value.source.url?.absoluteString ?? "")")
-                print("")
-            case .failure(let error):
-                print("Job failed: \(error.localizedDescription)")
-            }
-        }
         
         return cell
     }
@@ -720,7 +656,6 @@ extension AlbumResultsVC: FSPagerViewDelegate, FSPagerViewDataSource {
     }
     
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
-        
         alternativeAlbumsViewHeightConstraint.constant = 0
         UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
@@ -734,7 +669,6 @@ extension AlbumResultsVC: FSPagerViewDelegate, FSPagerViewDataSource {
                 if album.id == chosenAlbum.id {
                     appleAlbumGroup.remove(at: i)
                     appleAlbumGroup.insert(chosenAlbum, at: 0)
-                    
                     appleAlbumResults.remove(at: albumResultsIndex)
                     appleAlbumResults.insert(appleAlbumGroup, at: albumResultsIndex)
                     collectionView.reloadItems(at: [IndexPath(item: albumResultsIndex, section: 0)])
@@ -746,7 +680,6 @@ extension AlbumResultsVC: FSPagerViewDelegate, FSPagerViewDataSource {
                 if album.id == chosenAlbum.id {
                     spotifyAlbumGroup.remove(at: i)
                     spotifyAlbumGroup.insert(chosenAlbum, at: 0)
-                    
                     spotifyAlbumResults.remove(at: albumResultsIndex)
                     spotifyAlbumResults.insert(spotifyAlbumGroup, at: albumResultsIndex)
                     collectionView.reloadItems(at: [IndexPath(item: albumResultsIndex, section: 0)])
@@ -762,27 +695,12 @@ extension AlbumResultsVC: FSPagerViewDelegate, FSPagerViewDataSource {
 extension AlbumResultsVC: UIScrollViewDelegate {
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if infoViewHeightConstraint.constant != newInfoViewMinHeight {
-            infoViewHeightConstraint.constant = newInfoViewMinHeight
-        }
+        infoViewHeightConstraint.constant = newInfoViewMinHeight
         
         UIView.animate(withDuration: 0.4, animations: {
             self.logoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
             self.addAlbumsButton.alpha = 0
             self.view.layoutIfNeeded()  
-        })
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if infoViewHeightConstraint.constant != newInfoViewMinHeight {
-            infoViewHeightConstraint.constant = newInfoViewMinHeight
-        }
-        
-        UIView.animate(withDuration: 0.4, animations: {
-            self.logoImageView.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
-            self.addAlbumsButton.alpha = 0
-            self.view.layoutIfNeeded()
-            
         })
     }
 }
