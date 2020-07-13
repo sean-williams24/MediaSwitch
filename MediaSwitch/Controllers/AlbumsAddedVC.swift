@@ -1,5 +1,5 @@
 //
-//  AddToSpotifyVC.swift
+//  AlbumsAddedVC.swift
 //  MediaSwitch
 //
 //  Created by Sean Williams on 17/04/2020.
@@ -10,22 +10,29 @@ import UIKit
 
 class AlbumsAddedVC: UIViewController {
 
+    // MARK: - Outlets
+    
     @IBOutlet weak var resultsTextView: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var animationView: UIView!
     
+    
+    // MARK: - Properties
+
     var failedAlbums: [String] = []
     var numberOfAlbumsAdded: Int!
     var viewingAppleMusic: Bool!
     var circle = UIView()
     var tickImage = UIImageView()
     
+    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let circleBorderColour = viewingAppleMusic ? .systemPink : Style.Colours.spotifyGreen
-        let tickTint1 = viewingAppleMusic ? .systemPurple : Style.Colours.spotifyGreen
 
         circle = UIView()
         circle.layer.borderWidth = 15
@@ -39,19 +46,15 @@ class AlbumsAddedVC: UIViewController {
         animationView.addSubview(circle)
         circle.centerXAnchor.constraint(equalTo: imageView!.centerXAnchor).isActive = true
         circle.centerYAnchor.constraint(equalTo: imageView!.centerYAnchor).isActive = true
-
-        let tick = UIImage(named: "tick")
-        let cross = UIImage(named: "cross")
         
-        imageView.image = numberOfAlbumsAdded == 0 ? cross : tick
-        imageView.tintColor = tickTint1
+        imageView.image = numberOfAlbumsAdded == 0 ? UIImage(named: "cross") : UIImage(named: "tick")
+        imageView.tintColor = viewingAppleMusic ? .systemPurple : Style.Colours.spotifyGreen
         animationView.bringSubviewToFront(imageView)
         
         let albums = numberOfAlbumsAdded == 1 ? "album" : "albums"
         var resultsText = ""
         
         if viewingAppleMusic {
-            
             headerLabel.text = "\(numberOfAlbumsAdded!) \(albums) added to your Apple Music library"
             
             if numberOfAlbumsAdded > 0 {
@@ -79,7 +82,6 @@ class AlbumsAddedVC: UIViewController {
             }
         }
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
