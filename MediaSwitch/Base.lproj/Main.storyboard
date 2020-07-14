@@ -542,46 +542,6 @@ Crop out irrelevant text if possible</string>
             <point key="canvasLocation" x="1860.8695652173915" y="137.94642857142856"/>
         </scene>
         <!--Album Search Client-->
-        <scene sceneID="fot-pd-RoF">
-            <objects>
-                <tableViewController storyboardIdentifier="AlbumTitles" id="Mee-wS-Mul" customClass="AlbumSearchClient" customModule="MediaSwitch" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8gJ-jF-gAa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AlbumCell" textLabel="Iwa-KC-ogq" style="IBUITableViewCellStyleDefault" id="ELn-kV-YzQ">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ELn-kV-YzQ" id="wO6-Ba-gvh">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" id="Iwa-KC-ogq">
-                                            <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Mee-wS-Mul" id="FLx-8p-cQG"/>
-                            <outlet property="delegate" destination="Mee-wS-Mul" id="Q2l-f3-tdh"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="8Nr-gg-HGw">
-                        <barButtonItem key="backBarButtonItem" title="-" id="uMP-3y-2dk"/>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YOa-mH-uVg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2799" y="-214"/>
-        </scene>
-        <!--Album Search Client-->
         <scene sceneID="4CQ-Mx-9i0">
             <objects>
                 <viewController id="9xL-Os-02h" customClass="AlbumSearchClient" customModule="MediaSwitch" customModuleProvider="target" sceneMemberID="viewController">

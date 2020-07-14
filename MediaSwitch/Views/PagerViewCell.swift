@@ -12,10 +12,8 @@ import FSPagerView
 
 class PagerViewCell: FSPagerViewCell {
     
-    
     var albumTitleLabel: UILabel?
 
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -31,7 +29,6 @@ class PagerViewCell: FSPagerViewCell {
         self.addSubview(albumTitleLabel!)
     }
 
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

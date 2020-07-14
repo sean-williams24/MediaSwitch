@@ -34,7 +34,6 @@
 		CEC13F5F247A8278003DBBC1 /* MediaSwitchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC13F5E247A8278003DBBC1 /* MediaSwitchUITests.swift */; };
 		CEC567C1243C80CA009C8CB2 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC567C0243C80CA009C8CB2 /* Auth.swift */; };
 		CEC567C5243C90F1009C8CB2 /* SpotifyAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */; };
-		CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */; };
 		CEDA2F02244DAA8B0013CCB8 /* AlbumsAddedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDA2F01244DAA8B0013CCB8 /* AlbumsAddedVC.swift */; };
 		CEFC3B3224546F5B00F74F48 /* AppleMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFC3B3124546F5B00F74F48 /* AppleMusic.swift */; };
 /* End PBXBuildFile section */
@@ -90,7 +89,6 @@
 		CEC13F60247A8278003DBBC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEC567C0243C80CA009C8CB2 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAlbum.swift; sourceTree = "<group>"; };
-		CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerExtension.swift; sourceTree = "<group>"; };
 		CEDA2F01244DAA8B0013CCB8 /* AlbumsAddedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumsAddedVC.swift; sourceTree = "<group>"; };
 		CEFC3B3124546F5B00F74F48 /* AppleMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMusic.swift; sourceTree = "<group>"; };
 		E2437479E8E037D6C57D9054 /* Pods-MediaSwitch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MediaSwitch.release.xcconfig"; path = "Target Support Files/Pods-MediaSwitch/Pods-MediaSwitch.release.xcconfig"; sourceTree = "<group>"; };
@@ -200,7 +198,6 @@
 			children = (
 				CEB98F60243C63AB0028FED3 /* ScaledElementProcessor.swift */,
 				CE5794AD2448846700793C15 /* RoundButton.swift */,
-				CEDA2EFD2449F6230013CCB8 /* AlertControllerExtension.swift */,
 				CE3D57792451BA6C003E1061 /* Style.swift */,
 				CEC567C0243C80CA009C8CB2 /* Auth.swift */,
 				CEC567C4243C90F1009C8CB2 /* SpotifyAlbum.swift */,
@@ -462,7 +459,6 @@
 				CE0433242464385800323B3C /* SettingsTableVC.swift in Sources */,
 				CE6896E2243E276D00B37A90 /* AlbumResultsVC.swift in Sources */,
 				CEB98F61243C63AB0028FED3 /* ScaledElementProcessor.swift in Sources */,
-				CEDA2EFE2449F6230013CCB8 /* AlertControllerExtension.swift in Sources */,
 				CEB98F4B243B95630028FED3 /* AppDelegate.swift in Sources */,
 				CEC567C5243C90F1009C8CB2 /* SpotifyAlbum.swift in Sources */,
 				CE4E4310245877BB00E10BAB /* UIViewController Extension.swift in Sources */,

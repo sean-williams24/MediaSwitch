@@ -12,6 +12,8 @@ import UIKit
 @available(iOS 13.0, *)
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
+    // MARK: - Properties
+    
     var window: UIWindow?
     
     static private let kAccessTokenKey = "access-token-key"
@@ -31,10 +33,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return appRemote
     }()
     
-    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        guard let url = URLContexts.first?.url else {
-            return
+    var SpotifyConnectVC: ConnectVC? {
+        get {
+            let spotifyViewController = self.window?.rootViewController?.children[0]
+            return spotifyViewController as? ConnectVC
         }
+    }
+    
+    
+    // MARK: - Scene Delegate Methods
+
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else { return }
         
         SpotifyConnectVC?.showBlurredFXView(true)
         let parameters = appRemote.authorizationParameters(from: url);
@@ -57,20 +67,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         self.SpotifyConnectVC?.showAlert(title: "Connection Failed", message: "Network connection was lost during Spotify authorisation, please try again.")
                     }
             }
-        }
-    }
-    
-    
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
-        guard let _ = (scene as? UIWindowScene) else { return }
-    }
-    
-    
-    var SpotifyConnectVC: ConnectVC? {
-        get {
-            let spotifyViewController = self.window?.rootViewController?.children[0]
-            return spotifyViewController as? ConnectVC
         }
     }
 }

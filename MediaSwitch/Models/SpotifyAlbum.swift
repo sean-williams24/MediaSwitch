@@ -16,10 +16,8 @@ struct Spotify: Codable {
 
 // MARK: - Spotify Albums
 struct SpotifyAlbums: Codable {
-    let next: JSONNull?
     let total, limit: Int
     let href: String
-    let previous: JSONNull?
     let offset: Int
     let items: [SpotifyAlbum]
 }
@@ -74,35 +72,4 @@ struct ExternalUrls: Codable {
 struct Image: Codable {
     let width, height: Int
     let url: String
-}
-
-// MARK: - Encode/decode helpers
-
-class JSONNull: Codable, Hashable {
-
-    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
-        return true
-    }
-
-//    public var hashValue: Int {
-//        return 0
-//    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(0)
-    }
-    
-    public init() {}
-
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if !container.decodeNil() {
-            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encodeNil()
-    }
 }

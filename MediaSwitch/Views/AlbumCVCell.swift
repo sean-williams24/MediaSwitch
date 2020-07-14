@@ -10,11 +10,21 @@ import UIKit
 
 class AlbumCVCell: UICollectionViewCell {
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var albumTitleTextLabel: UILabel!
     @IBOutlet weak var artistTextLabel: UILabel!
     @IBOutlet weak var alternativesButtonView: UIView!
     @IBOutlet weak var alternativesButton: UIButton!
+    
+    
+    // MARK: - Properties
+
+    var blurredEffectView = UIVisualEffectView()
+
+    
+    // MARK: - Overrides
     
     override var isSelected: Bool {
         didSet {
@@ -25,29 +35,27 @@ class AlbumCVCell: UICollectionViewCell {
                 let blurEffect = UIBlurEffect(style: .systemChromeMaterialDark)
                 self.blurredEffectView.effect = self.isSelected ? blurEffect : nil
             }
-
+            
         }
     }
-    var blurredEffectView = UIVisualEffectView()
-
     
-  override func awakeFromNib() {
-      super.awakeFromNib()
-    
-    imageView.layer.cornerRadius = 3
-    alternativesButtonView.layer.borderWidth = 1
-    alternativesButtonView.layer.cornerRadius = 3
-    alternativesButtonView.layer.borderColor = UIColor.init(white: 0.7, alpha: 0.5).cgColor
-    alternativesButtonView.backgroundColor = UIColor.init(white: 0.3, alpha: 0.5)
-    alternativesButton.tintColor = .white
-    
-    imageView.layer.borderColor = UIColor.darkGray.cgColor
-    isSelected = false
-    
-    blurredEffectView.effect = nil
-    blurredEffectView.frame = imageView.bounds
-    imageView.addSubview(blurredEffectView)
-    blurredEffectView.alpha = 0.8
-    
-  }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        imageView.layer.cornerRadius = 3
+        alternativesButtonView.layer.borderWidth = 1
+        alternativesButtonView.layer.cornerRadius = 3
+        alternativesButtonView.layer.borderColor = UIColor.init(white: 0.7, alpha: 0.5).cgColor
+        alternativesButtonView.backgroundColor = UIColor.init(white: 0.3, alpha: 0.5)
+        alternativesButton.tintColor = .white
+        
+        imageView.layer.borderColor = UIColor.darkGray.cgColor
+        isSelected = false
+        
+        blurredEffectView.effect = nil
+        blurredEffectView.frame = imageView.bounds
+        imageView.addSubview(blurredEffectView)
+        blurredEffectView.alpha = 0.8
+        
+    }
 }

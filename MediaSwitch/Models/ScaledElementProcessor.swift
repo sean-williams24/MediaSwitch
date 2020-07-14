@@ -15,12 +15,11 @@ class ScaledElementProcessor {
     // MARK: - Properties
     
     let vision = Vision.vision()
-    var textRecognizer: VisionTextRecognizer!
+    var textRecognizer: VisionTextRecognizer
     
     init() {
-        textRecognizer = vision.onDeviceTextRecognizer()
+        textRecognizer = vision.cloudTextRecognizer()
     }
-    
     
     
     // MARK: - Private Methods
