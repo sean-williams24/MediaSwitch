@@ -32,9 +32,11 @@ class AlbumSearchClient {
                         
                         if var appleMusicAlbumGroup = appleMusic?.results.albums.data {
                             if !appleMusicAlbumGroup.isEmpty {
+                                
+                                // Check to see if album has already been found
                                 for album in appleMusicAlbumGroup {
                                     if albumIDs.contains(album.id) {
-                                        // if album already exists in previous group remove album from new group
+                                        // If album already exists in previous results, remove album from new album group
                                         appleMusicAlbumGroup.removeAll(where: {$0.id == album.id})
                                     } else {
                                         albumIDs.append(album.id)

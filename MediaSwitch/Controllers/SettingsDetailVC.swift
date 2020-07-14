@@ -13,7 +13,10 @@ class SettingsDetailVC: UIViewController {
     @IBOutlet weak var textView: UITextView!
     
     var selectedSettingsOption = ""
+    
 
+    //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,5 +37,4 @@ class SettingsDetailVC: UIViewController {
             textView.text = LegalContent.PrivacyPolicy.rawValue
         }
     }
-
 }

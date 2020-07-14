@@ -32,7 +32,6 @@ class SettingsTableVC: UITableViewController {
         let vc = storyboard?.instantiateViewController(identifier: "SettingsDetailVC") as! SettingsDetailVC
         vc.selectedSettingsOption = selectedOption
         show(vc, sender: self)
-        
     }
 }
 

@@ -237,7 +237,6 @@ class ImageReaderVC: UIViewController, UINavigationControllerDelegate {
             
             if self.viewingAppleMusic {
                 AlbumSearchClient.appleMusicAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleAppleMusicSearchResponse(appleMusicAlbumResults:error:))
-                
             } else {
                 AlbumSearchClient.spotifyAlbumSearch(with: self.albumTitles.removingDuplicates(), searchCompletion: self.handleSpotifySearchResponse(spotifyAlbumResults:error:))
             }
