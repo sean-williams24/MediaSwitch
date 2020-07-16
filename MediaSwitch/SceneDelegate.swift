@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url else { return }
         
         SpotifyConnectVC?.showBlurredFXView(true)
-        let parameters = appRemote.authorizationParameters(from: url);
+        let parameters = appRemote.authorizationParameters(from: url)
         
         if let code = parameters?["code"] {
             UserDefaults.standard.set(code, forKey: "SpotifyAuthCode")
